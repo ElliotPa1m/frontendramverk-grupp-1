@@ -14,19 +14,21 @@ import apiClient from './axiosConfig';
  *
  * @param {Object} [filters] - Optional filter parameters
  * @param {string} [filters.search] - Search query string
- * @param {string} [filters.cuisine] - Cuisine type (e.g. 'italian', 'asian')
- * @param {string} [filters.dietary_tags] - Dietary tags (e.g. 'vegan', 'gluten-free') Currently only accepts a single value
- * @param {string} [filters.meal_type] - Meal type (e.g. 'breakfast', 'dinner')
+ * @param {string} [filters.cuisine] - Cuisine type (e.g. 'italian', 'japanese')
+ * @param {string} [filters.dietary_tags] - Dietary tags (e.g. 'vegan', 'gluten_free') *Currently only accepts a single value
+ * @param {string} [filters.meal_type] - Meal type (e.g. 'breakfast', 'main')
+ * @param {number} [page=1] - Page number for pagination (Needed since our free-api-tier only allows 10 recipes per request)
  * @returns {Promise<Object>} Recipe list and metadata
  * @example
- * getAllRecipes({ cuisine: 'italian', meal_type: 'starter' });
+ * getAllRecipes({ cuisine: 'italian', meal_type: 'starter' }, 2);
  */
-export const getAllRecipes = async (filters = {}) => {
+export const getAllRecipes = async (filters = {}, page = 1) => {
   try {
     const response = await apiClient.get('/recipes', {
       params: {
         lang: 'en',
         per_page: 10,
+        page,
         ...filters,
       },
     });
