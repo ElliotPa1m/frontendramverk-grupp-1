@@ -10,7 +10,7 @@ import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
 const FavouritesContext = createContext();
 
-const FavouritesProvider = ({ children }) => {
+export const FavouritesProvider = ({ children }) => {
   // Initialises 'favourites' state from local storage if existing, otherwise starts as [].
   const [favourites, setFavourites] = useState(() => {
     const stored = localStorage.getItem('favourites');
