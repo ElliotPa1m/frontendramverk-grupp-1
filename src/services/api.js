@@ -1,12 +1,13 @@
 import apiClient from './axiosConfig';
 
-
 /*----------------------------------------------/ 
 /                                               /
 /       API for GET recipes using Axios         /     
 /                                               /
 /----------------------------------------------*/
 
+// NEW: In-memory cache container!
+const recipeCache = {};
 
 /**
  * Fetches recipes from the API with optional filtering. Full list of possible params here: https://recipeapi.io/docs/resources/recipes/
@@ -56,3 +57,25 @@ export const getRecipeById = async id => {
     });
   }
 };
+
+/**
+ * NEW: Cached version of search fetcher!
+ * Checks memory before calling the API.
+ */
+export const getCachedRecipe = async (query, page = 1) => {
+  // Create a unique key combining query and page
+  const cacheKey = `${query}-page-${page}`;
+
+  // Do we already have this exact search and page in memory?
+  if (recipeCache[cacheKey]) {
+    console.log(`Serving "${query}" (page ${page}) from cache 🧑‍🍳`);
+    return recipeCache[cacheKey];
+  }
+
+  // If not, fetch it from the API like we normally would
+  const data = await getAllRecipes({ search: query }, page);
+
+  // Now we save it to the cache object for next time!
+  recipeCache[cacheKey] = data;
+  return data;
+}
