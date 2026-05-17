@@ -13,13 +13,13 @@ const FavouritesContext = createContext();
 export const FavouritesProvider = ({ children }) => {
   // Initialises 'favourites' state from local storage if existing, otherwise starts as [].
   const [favourites, setFavourites] = useState(() => {
-    const stored = localStorage.getItem('favourites');
+    const stored = localStorage.getItem('favouriteRecipes');
     return stored ? JSON.parse(stored) : [];
   });
 
   // syncs changes to favourties with local storage
   useEffect(() => {
-    localStorage.setItem('favourites', JSON.stringify(favourites));
+    localStorage.setItem('favouriteRecipes', JSON.stringify(favourites));
   }, [favourites]);
 
   const addFavourite = recipe => {
@@ -56,4 +56,5 @@ export const FavouritesProvider = ({ children }) => {
 
 // TEMP COMMENT - if i understand "hooks" correctly this should give us a custom hook that allows us to just import 'useFavorites' instead of both 'useContext' and 'FavouritesContext'.
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useFavourites = () => useContext(FavouritesContext);
