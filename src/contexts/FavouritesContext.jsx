@@ -1,10 +1,12 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
 /*----------------------------------------------/ 
 /                                               /
-/           FavouritesContext - DRAFT           /     
+/           FavouritesContext (draft)           /     
 /                                               /
 /----------------------------------------------*/
+
+//*This implementation assumes we follow the data flow diagram draft.
 
 const FavouritesContext = createContext();
 
@@ -28,9 +30,14 @@ const FavouritesProvider = ({ children }) => {
     setFavourites(prev => prev.filter(recipe => recipe.id !== id));
   };
 
-  //TEMP COMMENT -  this solution for "looking up favourites to render those recipe cards differently" is probably fine for our scope but I'm looking into a more "best practice solution"
+  // useMemo maps and caches a set of recipe IDs for faster 'isFavourite'-look up. the set is only recalculated when [favourites] change.
+  const favouriteIds = useMemo(
+    () => new Set(favourites.map(recipe => recipe.id)),
+    [favourites],
+  );
+
   const isFavourite = id => {
-    return favourites.some(recipe => recipe.id === id);
+    return favouriteIds.has(id);
   };
 
   const value = {
@@ -40,15 +47,13 @@ const FavouritesProvider = ({ children }) => {
     isFavourite,
   };
 
-  return <FavouritesContext.Provider value={value}>
-    {children}
-  </FavouritesContext.Provider>
- 
+  return (
+    <FavouritesContext.Provider value={value}>
+      {children}
+    </FavouritesContext.Provider>
+  );
 };
 
 // TEMP COMMENT - if i understand "hooks" correctly this should give us a custom hook that allows us to just import 'useFavorites' instead of both 'useContext' and 'FavouritesContext'.
 
 export const useFavourites = () => useContext(FavouritesContext);
-
-
-
