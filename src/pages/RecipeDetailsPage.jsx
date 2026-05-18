@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import RecipeHeader from "../components/RecipeDetailsComponents/RecipeHeader";
 import RecipeMeta from "../components/RecipeDetailsComponents/RecipeMeta";
-import NutritionInfo from "../components/RecipeDetailsComponents/NutritionInfo";
 import IngredientList from "../components/RecipeDetailsComponents/IngredientList";
 import InstructionList from "../components/RecipeDetailsComponents/InstructionList";
 import Image from "../components/Image";
@@ -39,29 +38,33 @@ function RecipeDetailsPage() {
     if (error) return <p>Error: {error}</p>
     if (!recipe) return null;
 
+// this builds an array from TheMealDB's ingredient list that is listed separately
+    const ingredients = Array.from({length: 20}, (_, i) => ({
+        name: recipe[`strIngredient${i + 1}`],
+        measure: recipe[`strMeasure${i + 1}`],
+    })).filter((ing) => ing.name && ing.name.trim() !== "");
+
+// this splits the instructions string into an array of steps by newline
+    const instructions = recipe.strInstructions
+        .split("\n")
+        .filter((step) => step.trim() !== "");
+
     return(
         <div>
             <RecipeHeader
-                name={recipe.name}
-                description={recipe.description}
-                cuisine={recipe.cuisine}
-                mealType={recipe.meal_type}
-                dietaryTags={recipe.dietary_tags}
+                name={recipe.strMeal}
+                cuisine={recipe.strArea}
+                category={recipe.strCategory}
             />
-            <Image />
-            <FavoriteButton recipeId={recipe.id} />
+            <Image src={recipe.strMealThumb}/>
+            <FavoriteButton recipeId={recipe.idMeal} />
             <RecipeMeta
-                prepTime={recipe.prep_time}
-                cookTime={recipe.cook_time}
-                servings={recipe.servings}
-                difficulty={recipe.difficulty}
+                category={recipe.strCategory}
+                area={recipe.strArea}
+                tags={recipe.strTags}
             />
-            <NutritionInfo
-                calories={recipe.calories_per_serving}
-                protein={recipe.protein}
-            />
-            <IngredientList ingredients={recipe.ingredients} />
-            <InstructionList instructions={recipe.instructions} />
+            <IngredientList ingredients={ingredients} />
+            <InstructionList instructions={instructions} />
         </div>
     );
 }
