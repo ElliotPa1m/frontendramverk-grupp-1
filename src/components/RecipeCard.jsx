@@ -21,7 +21,9 @@ export const RecipeCard = ({ recipe, rating }) => {
       </div>
       <RecipeCardInfoSection
         recipeName={recipe.strMeal}
-        info={recipe.strCountry}
+        country={recipe.strCountry}
+        tags={recipe.strTags}
+        cat={recipe.strCategory}
         rating={rating}
       />
     </div>
