@@ -21,12 +21,12 @@ export const getUserRecipeById = id => {
   return getUserRecipes().find(recipe => recipe.id == id);
 };
 
-// TEMP COMMENT - needs a reliable way to generate Ids för new user created recipes.
+
 export const saveUserRecipe = recipe => {
   const storedRecipes = getUserRecipes();
   const newRecipe = {
     ...recipe,
-    id: 'need id-generation',
+    id: crypto.randomUUID(), // generates a cryptographically secure random number, built in/supported by all moders browsers and node.js
   };
 
   localStorage.setItem(
