@@ -8,8 +8,8 @@ export const RecipeCardInfoSection = ({ recipeName, info, rating }) => {
       <h2 className="barlow-condensed-regular text-xl">{recipeName}</h2>
       <div className="flex justify-between">
         <Rating rating={rating} />
-        <span className="barlow-condensed-light text-sm">
-          read more <Icon icon={"arrowRight"} />
+        <span className="barlow-condensed-light text-xs">
+          READ MORE <Icon icon={"arrowRight"} />
         </span>
       </div>
     </div>
