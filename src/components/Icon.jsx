@@ -1,15 +1,14 @@
 export const Icon = ({ icon }) => {
   let iconToShow = (i) => {
     switch (i) {
-      case "toSave":
-        return `toSave`;
-      case "saved":
-        return `saved`;
+      case "favorite":
+        return <i class="fa-solid fa-heart"></i>;
+      case "notFavorite":
+        return <i class="fa-regular fa-heart"></i>;
       case "time":
-        return `clock`;
+        return <i class="fa-regular fa-clock"></i>;
       default:
-        console.log("default");
-        break;
+        return <i class="fa-regular fa-circle"></i>;
     }
   };
   return <>{iconToShow(icon)}</>;
