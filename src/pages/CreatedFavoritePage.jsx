@@ -1,6 +1,9 @@
 import { RecipeCardList } from "../components/RecipeCardList";
+import { useFavorites } from "../contexts/FavouritesContext";
 
 export const CreatedFavoritePage = () => {
+  const favContext = useFavorites();
+
   const mockRecipes = [
     {
       strMeal: "Arroz con gambas y calamar",
@@ -25,7 +28,11 @@ export const CreatedFavoritePage = () => {
       <RecipeCardList arr={mockRecipes} />
       <hr className="my-4" />
       <h2 className="text-lg">Favorites</h2>
-      <RecipeCardList arr={mockRecipes} />
+      {favContext.favourites.length !== 0 ? (
+        <RecipeCardList arr={favContext.favourites} />
+      ) : (
+        <p>You dont have any favorites yet</p>
+      )}
     </div>
   );
 };
