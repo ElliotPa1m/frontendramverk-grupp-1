@@ -4,8 +4,8 @@ import Layout from './components/Layout';
 // import RecipeDetailsPage from './pages/RecipeDetailsPage';
 
 function App() {
-  const [userRecipes, setUserRecipes] = useState([]);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  // const [userRecipes, setUserRecipes] = useState([]);
+  // const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   return (
     <BrowserRouter>
