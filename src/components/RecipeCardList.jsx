@@ -4,7 +4,7 @@ export const RecipeCardList = ({ arr }) => {
   // eslint-disable-next-line react-hooks/purity
   const createRating = () => (Math.random() * 5).toFixed(1);
   return (
-    <div className="mt-4 flex flex-wrap gap-4 justify-center">
+    <div className="mt-4 flex flex-wrap gap-4">
       {arr.map((r) => {
         return (
           <div key={r.idMeal}>
