@@ -5,11 +5,9 @@ import RecipeMeta from "../components/RecipeDetailsComponents/RecipeMeta";
 import NutritionInfo from "../components/RecipeDetailsComponents/NutritionInfo";
 import IngredientList from "../components/RecipeDetailsComponents/IngredientList";
 import InstructionList from "../components/RecipeDetailsComponents/InstructionList";
-import Image from "../components/Image"
-import FavoriteButton from "../components/FavoriteButton"
-
-const API_KEY = import.meta.env.VITE_API_KEY;
-const API_URL = "https://recipeapi.io/api/v1/recipes"
+import Image from "../components/Image";
+import FavoriteButton from "../components/FavoriteButton";
+import { getRecipeById } from "../services/api";
 
 function RecipeDetailsPage() {
     const {id} = useParams();
@@ -19,38 +17,22 @@ function RecipeDetailsPage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const controller = new AbortController();
-
         async function fetchRecipe() {
             try {
                 setLoading(true);
                 setError(null);
                 
-                const response = await fetch(`${API_URL}/${id}`, {
-                    signal: controller.signal,
-                    headers: {
-                        Authorization: `Bearer ${API_KEY}`,
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error("Recipe not found");
-                }
-
-                const json = await response.json();
-                setRecipe(json.data);
+                const data = await getRecipeById(id);
+                setRecipe(data);
             } catch (err) {
-                if (err.name !== "AbortError") {
                     setError(err.message);
-                }
-            } finally {
+                } finally {
                 setLoading(false);
             }
         }
 
         fetchRecipe();
 
-        return () => controller.abort();
     }, [id]);
 
     if (loading) return <p>Loading...</p>
@@ -66,8 +48,8 @@ function RecipeDetailsPage() {
                 mealType={recipe.meal_type}
                 dietaryTags={recipe.dietary_tags}
             />
-            <Image/>
-            <FavoriteButton/>
+            <Image />
+            <FavoriteButton recipeId={recipe.id} />
             <RecipeMeta
                 prepTime={recipe.prep_time}
                 cookTime={recipe.cook_time}
