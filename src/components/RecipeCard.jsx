@@ -9,7 +9,7 @@ export const RecipeCard = ({ recipe, rating }) => {
       <div className="relative">
         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
         <div className="absolute top-2 right-3">
-          <FavoriteButton />
+          <FavoriteButton id={recipe.idMeal} recipe={recipe} />
         </div>
 
         {/* <div className="absolute bottom-2 left-3">
