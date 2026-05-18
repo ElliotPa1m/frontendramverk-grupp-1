@@ -7,6 +7,12 @@ export const Icon = ({ icon }) => {
         return <i className="fa-regular fa-heart"></i>;
       case "time":
         return <i className="fa-regular fa-clock"></i>;
+      case "filledStar":
+        return <i className="fa-solid fa-star"></i>;
+      case "halfStar":
+        return <i className="fa-solid fa-star-half-stroke"></i>;
+      case "emptyStar":
+        return <i className="fa-regular fa-star"></i>;
       default:
         return <i className="fa-regular fa-circle"></i>;
     }
