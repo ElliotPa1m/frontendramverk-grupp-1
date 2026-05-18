@@ -1,15 +1,21 @@
-import { useState } from "react";
 import { Icon } from "./Icon";
+import { useFavorites } from "../contexts/FavouritesContext";
 
-export const FavoriteButton = () => {
-  const [favorite, setFavorite] = useState(false);
+export const FavoriteButton = ({ id, recipe }) => {
+  const favContext = useFavorites();
+  const isFav = favContext.isFavourite(id);
+
   return (
     <>
       <button
         className="hover:cursor-pointer rounded-xl bg-white/80 px-2"
-        onClick={() => setFavorite(!favorite)}
+        onClick={() =>
+          isFav
+            ? favContext.removeFavourite(id)
+            : favContext.addFavourite(recipe)
+        }
       >
-        <Icon icon={favorite ? "favorite" : "notFavorite"} />
+        <Icon icon={isFav ? "favorite" : "notFavorite"} />
       </button>
     </>
   );
