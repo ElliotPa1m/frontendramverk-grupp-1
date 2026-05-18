@@ -1,7 +1,12 @@
-export const IconWithInfo = () => {
+import { Icon } from "./Icon";
+
+export const IconWithInfo = ({ icon, timeToCook }) => {
   return (
     <>
-      <p>icon info</p>
+      <div className="rounded-xl bg-white/80 px-2">
+        <Icon icon={icon} />
+        {timeToCook.replace("PT", "")}
+      </div>
     </>
   );
 };
