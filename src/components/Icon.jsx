@@ -13,6 +13,8 @@ export const Icon = ({ icon }) => {
         return <i className="fa-solid fa-star-half-stroke"></i>;
       case "emptyStar":
         return <i className="fa-regular fa-star"></i>;
+      case "arrowRight":
+        return <i className="fa-solid fa-arrow-right"></i>;
       default:
         return <i className="fa-regular fa-circle"></i>;
     }
