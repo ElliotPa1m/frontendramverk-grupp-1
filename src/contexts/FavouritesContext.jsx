@@ -6,9 +6,31 @@ import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 /                                               /
 /----------------------------------------------*/
 
-//*This implementation assumes we follow the data flow diagram draft.
+
+/*
+
+to use this context in a component:
+
+import { useFavorites } from '../contexts/FavouritesContext';
+
+function RecipeCard({ recipe }) {
+  const { addFavourite, removeFavourite, isFavourite } = useFavorites();
+
+*/
+
 
 const FavouritesContext = createContext();
+
+// Keeps this hook grouped with its context instead of moving it to a separate file; ignoring the lint-warning and  using a one-line-lint-disable will not affect production behavior.
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useFavorites = () => {
+  const context = useContext(FavouritesContext);
+  if (!context) {
+    throw new Error('useFavorites must be used within a FavouritesProvider');
+  }
+  return context;
+};
 
 export const FavouritesProvider = ({ children }) => {
   // Initialises 'favourites' state from local storage if existing, otherwise starts as [].
@@ -53,8 +75,3 @@ export const FavouritesProvider = ({ children }) => {
     </FavouritesContext.Provider>
   );
 };
-
-// TEMP COMMENT - if i understand "hooks" correctly this should give us a custom hook that allows us to just import 'useFavorites' instead of both 'useContext' and 'FavouritesContext'.
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useFavourites = () => useContext(FavouritesContext);
