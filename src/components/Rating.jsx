@@ -15,13 +15,13 @@ export const Rating = ({ rating }) => {
 
   return (
     <>
-      <div className="flex items-center gap-1">
-        <div className="flex items-center text-xs">
+      <div className="flex items-center gap-1 text-xs">
+        <div className="flex items-center">
           {stars.map((star, index) => (
             <Icon key={index} icon={star} />
           ))}
         </div>
-        <span className="text-xs">({rating})</span>
+        <span className="barlow-condensed-light">({rating})</span>
       </div>
     </>
   );
