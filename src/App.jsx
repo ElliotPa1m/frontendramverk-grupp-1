@@ -4,8 +4,8 @@ import Layout from "./components/Layout";
 import { CreatedFavoritePage } from "./pages/CreatedFavoritePage";
 import { AllCreatedRecipePage } from "./pages/AllCreatedRecipePage";
 import { AllFavoriteRecipePage } from "./pages/AllFavoriteRecipePage";
-// import RecipeDetailsPage from './pages/RecipeDetailsPage';
 import RecipeDetailsPage from './pages/RecipeDetailsPage';
+import CreateRecipePage from "./pages/CreateRecipePage";
 
 function App() {
   // const [userRecipes, setUserRecipes] = useState([]);
@@ -22,7 +22,7 @@ function App() {
           <Route path="my-recipes" element={<CreatedFavoritePage />} />
           <Route path="created" element={<AllCreatedRecipePage />} />
           <Route path="favorites" element={<AllFavoriteRecipePage />} />
-          {/* <Route path='create' element={} /> */}
+          <Route path='create' element={<CreateRecipePage />} />
           <Route path='recipe/:id' element={<RecipeDetailsPage />} />
         </Route>
       </Routes>
