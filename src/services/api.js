@@ -6,36 +6,41 @@ import apiClient from './axiosConfig';
 /                                               /
 /----------------------------------------------*/
 
-// NEW: In-memory cache container!
+// In-memory cache container!
 const recipeCache = {};
 
 /**
- * Fetches recipes from the API with optional filtering. Full list of possible params here: https://recipeapi.io/docs/resources/recipes/
- * Suggested params below:
+ * Fetches recipes from the API 'https://www.themealdb.com/api.php'.
+ *  LIMITATION: Uses different enpoints for each filter so it can only use one filter at a time.
  *
- * @param {Object} [filters] - Optional filter parameters
- * @param {string} [filters.search] - Search query string
- * @param {string} [filters.cuisine] - Cuisine type (e.g. 'italian', 'japanese')
- * @param {string} [filters.dietary_tags] - Dietary tags (e.g. 'vegan', 'gluten_free') *Currently only accepts a single value
- * @param {string} [filters.meal_type] - Meal type (e.g. 'breakfast', 'main')
- * @param {number} [page=1] - Page number for pagination (Needed since our free-api-tier only allows 10 recipes per request)
- * @returns {Promise<Object>} Recipe list and metadata
- * @example
- * getAllRecipes({ cuisine: 'italian', meal_type: 'starter' }, 2);
+ * @param {{ type: string, value: string }} filter
+ * @param {'name'|'category'|'area'|'ingredient'} filter.type
+ * @param {string} filter.value
+ * @returns {Promise<Object[]>} Array of recipe objects (empty if no matches)
+ *
  */
-export const getAllRecipes = async (filters = {}, page = 1) => {
+export const getAllRecipes = async ({ filter, value }) => {
+  // filter decides endpoint and query param for getAllRecipes
+  const endpoints = {
+    name: 'search.php?s=',
+    category: 'filter.php?c=',
+    area: 'filter.php?a=',
+    ingredient: 'filter.php?i=',
+  };
+
+  // set up the chosen filter type/endpoint.
+  const activeFilter = endpoints[filter];
+  if (!activeFilter) {
+    throw new Error(`Unknown filter type: ${filter}`);
+  }
+
   try {
-    const response = await apiClient.get('/recipes', {
-      params: {
-        lang: 'en',
-        per_page: 10,
-        page,
-        ...filters,
-      },
-    });
-    return response.data;
+    const response = await apiClient.get(
+      activeFilter + encodeURIComponent(value),
+    );
+    return response.data.meals || []; // Because API returns null instead of [] when no matches
   } catch (error) {
-    throw new Error('Failed to fetch recipes ' + error.message, {
+    throw new Error('Failed to fetch recipes: ' + error.message, {
       cause: error,
     });
   }
@@ -49,7 +54,7 @@ export const getAllRecipes = async (filters = {}, page = 1) => {
  */
 export const getRecipeById = async id => {
   try {
-    const response = await apiClient.get(`/recipes/${id}`);
+    const response = await apiClient.get(`/lookup.php?i=${id}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch recipe ' + id + ': ' + error.message, {
@@ -59,23 +64,18 @@ export const getRecipeById = async id => {
 };
 
 /**
- * NEW: Cached version of search fetcher!
+ * Reworked cached version of search fetcher to accomodate the new API. Scrapped the pagination.
  * Checks memory before calling the API.
  */
-export const getCachedRecipe = async (query, page = 1) => {
-  // Create a unique key combining query and page
-  const cacheKey = `${query}-page-${page}`;
+export const getCachedRecipes = async ({ filter, value }) => {
+  const cacheKey = `${filter}-${value}`;
 
-  // Do we already have this exact search and page in memory?
   if (recipeCache[cacheKey]) {
-    console.log(`Serving "${query}" (page ${page}) from cache 🧑‍🍳`);
+    console.log(`Serving "${value}" (${filter}) from cache 🧑‍🍳`);
     return recipeCache[cacheKey];
   }
 
-  // If not, fetch it from the API like we normally would
-  const data = await getAllRecipes({ search: query }, page);
-
-  // Now we save it to the cache object for next time!
+  const data = await getAllRecipes({ filter, value });
   recipeCache[cacheKey] = data;
   return data;
-}
+};
