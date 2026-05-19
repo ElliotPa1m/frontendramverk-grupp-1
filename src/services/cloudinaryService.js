@@ -37,6 +37,6 @@ export const uploadImage = async (file) => {
   } catch (err) {
     // Log the actual network error for debugging, then throw a clean error for the UI
     console.error('Cloudinary Service Error:', err);
-    throw new Error('Image upload failed. Please check your connection and try again.', { cause: error });
+    throw new Error('Image upload failed. Please check your connection and try again.', { cause: err });
   }
 };
