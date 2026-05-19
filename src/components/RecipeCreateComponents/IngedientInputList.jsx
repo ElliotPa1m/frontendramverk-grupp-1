@@ -31,6 +31,20 @@ const IngedientInputList = ({ control, register, errors }) => { // Props from `u
               )}
             </div>
 
+            {/* Ingredient Name Input */}
+            <div>
+              <input
+                {...register(`ingredients.${index}.name`)}
+                placeholder="Ingredient (e.g. Flour)"
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {errors?.ingredients?.[index]?.name && (
+                <p>
+                  {errors.ingredients[index].name.message}
+                </p>
+              )}
+            </div>
+
           </div>
         ))}
       </div>
