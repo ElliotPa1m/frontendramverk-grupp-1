@@ -1,13 +1,12 @@
 // I already created this in another branch PR so there's gonna be a tiny merge conflict; thankfulyl that other file is completely empty haha
-
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
-// Context & Services
-// import { useFavorites } from '../contexts/FavouritesContext';
+// Services
+import { saveUserRecipe } from '../services/userRecipeService';
 import { uploadImage } from '../services/cloudinaryService';
 
 // Extracted UI Components
@@ -45,9 +44,32 @@ const CreateRecipePage = () => {
   });
 
   // Form Submission Handler
-  const onSubmit = () => {
-    // To be coded
-  }
+  const onSubmit = async (formData) => {
+    setIsUploading(true);
+    try {
+      const cdnUrl = await uploadImage(formData.imageFile);
+
+      const newRecipe = {
+        // No crypto.randomUUID() since saveUserRecipe from the service handles that!
+        title: formData.title,
+        instructions: formData.instructions,
+        ingredients: formData.ingredients,
+        imageUrl: cdnUrl,
+        createdAt: new Date().toISOString(),
+      };
+
+      // Save to localStorage using service module
+      saveUserRecipe(newRecipe);
+
+      // Navigate to Own/Favorites Page (which will mount and read the new data, no global context needed)
+      navigate('/saved');
+    } catch (err) {
+      console.error(err);
+      alert(err.message || 'Failed to save recipe.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   return (
     // Once again; divs, headers and error paragraphs are to be styled with Tailwind with cohesive classNames
