@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { uploadImage } from '../services/cloudinaryService';
 
 // Extracted UI Components
+import TextInput from '../components/RecipeCreateComponents/TextInput';
 import TextArea from '../components/RecipeCreateComponents/TextArea';
 import IngredientInputList from '../components/RecipeCreateComponents/IngredientInputList';
 import ImageUpload from '../components/RecipeCreateComponents/ImageUpload';
@@ -55,6 +56,14 @@ const CreateRecipePage = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Title Field */}
+        <TextInput
+          label="Recipe Title"
+          placeholder="e.g., Nana's Famous Lasagna"
+          register={register('title')}
+          error={errors.title?.message}
+        />
+
+        
       </form>
     </div>
   )
