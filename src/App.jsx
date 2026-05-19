@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import { CreatedFavoritePage } from "./pages/CreatedFavoritePage";
-// import RecipeDetailsPage from './pages/RecipeDetailsPage';
+import RecipeDetailsPage from './pages/RecipeDetailsPage';
 
 function App() {
   // const [userRecipes, setUserRecipes] = useState([]);
@@ -18,7 +18,7 @@ function App() {
           {/* <Route path='search' element={} /> */}
           <Route path="saved" element={<CreatedFavoritePage />} />
           {/* <Route path='create' element={} /> */}
-          {/* <Route path='recipe/:id' element={<RecipeDetailsPage />} /> */}
+          <Route path='recipe/:id' element={<RecipeDetailsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
