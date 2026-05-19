@@ -79,9 +79,37 @@ const CreateRecipePage = () => {
           rows={6}
           helperText='Please press "Enter" to put each step on a new line.'
         />
+
+        {/* Image Upload */}
+        <div>
+          {/* The Controller is the translator between the "dumb" ImageUpload component and the "smart" Form Brain (React Hook Form) */}
+          <Controller
+            name='imageFile'
+            control={control}
+            render={({ field }) => ( // "Render whatever UI you want right here, and I'll give you the tools to update the form state." The `field` object contains standard form functions like onChange, onBlur, and value.
+              <ImageUpload
+                onFileSelect={(file) => field.onChange(file)}
+                error={errors.imageFile?.message}
+              />
+            )}
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isUploading}
+          className={`w-full py-3 px-4 rounded-lg font-bold text-white transition-all ${isUploading
+            ? 'bg-blue-400 cursor-not-allowed'
+            : 'bg-blue-600 hover:bg-blue-700 active:transform active:scale-95'
+            }`}
+        >
+          {isUploading ? 'Uploading & Saving...' : 'Save Recipe'}
+        </button>
+
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateRecipePage
+export default CreateRecipePage;
