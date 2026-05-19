@@ -14,3 +14,15 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@theme {
+  --color-background: #a3cef1;
+  --color-pop: #3da9fc;
+  --color-button: #ef4565;
+  --color-text: #000000;
+}
+
+body {
+  background: #FFFF;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(163, 206, 241, 1) 100%);
+}

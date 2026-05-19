@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import { CreatedFavoritePage } from "./pages/CreatedFavoritePage";
 import { AllFavoriteRecipePage } from "./pages/AllFavoriteRecipePage";
 // import RecipeDetailsPage from './pages/RecipeDetailsPage';
+import RecipeDetailsPage from './pages/RecipeDetailsPage';
 
 function App() {
   // const [userRecipes, setUserRecipes] = useState([]);
@@ -20,7 +21,7 @@ function App() {
           <Route path="my-recipes" element={<CreatedFavoritePage />} />
           <Route path="favorites" element={<AllFavoriteRecipePage />} />
           {/* <Route path='create' element={} /> */}
-          {/* <Route path='recipe/:id' element={<RecipeDetailsPage />} /> */}
+          <Route path='recipe/:id' element={<RecipeDetailsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
