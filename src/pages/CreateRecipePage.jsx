@@ -42,9 +42,21 @@ const CreateRecipePage = () => {
       ingredients: [{ name: "", measure: "" }]
     }
   });
-  
+
+  // Form Submission Handler
+  const onSubmit = () => {
+    // To be coded
+  }
+
   return (
-    <div>CreateRecipePage</div>
+    // Once again; divs, headers and error paragraphs are to be styled with Tailwind with cohesive classNames
+    <div>
+      <h2>Create Custom Recipe</h2>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Title Field */}
+      </form>
+    </div>
   )
 }
 
