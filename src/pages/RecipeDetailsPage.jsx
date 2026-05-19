@@ -4,8 +4,8 @@ import RecipeHeader from "../components/RecipeDetailsComponents/RecipeHeader";
 import RecipeMeta from "../components/RecipeDetailsComponents/RecipeMeta";
 import IngredientList from "../components/RecipeDetailsComponents/IngredientList";
 import InstructionList from "../components/RecipeDetailsComponents/InstructionList";
-import Image from "../components/Image";
-import FavoriteButton from "../components/FavoriteButton";
+import { Image } from "../components/Image";
+import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
 
 function RecipeDetailsPage() {
@@ -62,7 +62,7 @@ function RecipeDetailsPage() {
                 cuisine={recipe.strArea}
                 category={recipe.strCategory}
             />
-            <Image src={recipe.strMealThumb}/>
+            <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
             <FavoriteButton recipeId={recipe.idMeal} />
             <RecipeMeta
                 category={recipe.strCategory}
