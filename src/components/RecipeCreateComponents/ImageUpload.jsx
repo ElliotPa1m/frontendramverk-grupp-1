@@ -2,7 +2,6 @@
 // and show an instant preview using URL.createObjectURL so that the user knows it worked. Instant feedback for good UX
 
 import { useState, useEffect } from 'react';
-import { preview } from 'vite';
 
 const ImageUpload = ({ onFileSelect, error }) => {
   const [previewURL, setPreviewURL] = useState(null);
