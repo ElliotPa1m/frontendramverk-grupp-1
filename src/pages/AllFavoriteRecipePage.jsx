@@ -10,7 +10,9 @@ export const AllFavoriteRecipePage = () => {
       {favContext.favourites.length !== 0 ? (
         <RecipeCardList arr={favContext.favourites} />
       ) : (
-        <p>You dont have any favorites yet</p>
+        <p className="barlow-condensed-light text-text">
+          You dont have any favorites yet
+        </p>
       )}
     </div>
   );

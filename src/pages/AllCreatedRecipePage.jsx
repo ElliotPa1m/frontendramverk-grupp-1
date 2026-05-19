@@ -11,7 +11,9 @@ export const AllCreatedRecipePage = () => {
       {recipeArr.length !== 0 ? (
         <RecipeCardList arr={recipeArr} />
       ) : (
-        <p>You have not created any recipes yet</p>
+        <p className="barlow-condensed-light text-text">
+          You have not created any recipes yet
+        </p>
       )}
     </div>
   );

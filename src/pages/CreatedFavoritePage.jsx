@@ -24,7 +24,9 @@ export const CreatedFavoritePage = () => {
           </Link>
         </>
       ) : (
-        <p>You have not created any recipes yet</p>
+        <p className="barlow-condensed-light text-text">
+          You have not created any recipes yet
+        </p>
       )}
 
       <hr className="my-4" />
@@ -45,7 +47,9 @@ export const CreatedFavoritePage = () => {
           </Link>
         </>
       ) : (
-        <p>You dont have any favorites yet</p>
+        <p className="barlow-condensed-light text-text">
+          You dont have any favorites yet
+        </p>
       )}
     </div>
   );
