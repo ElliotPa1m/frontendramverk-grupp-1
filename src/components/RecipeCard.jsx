@@ -1,9 +1,11 @@
 import { Image } from "./Image";
 // import { IconWithInfo } from "./IconWithInfo";
+import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 
 export const RecipeCard = ({ recipe, rating }) => {
+  const created = true;
   return (
     <div
       className="border border-2 border-stone-500 rounded-md 
@@ -15,7 +17,14 @@ export const RecipeCard = ({ recipe, rating }) => {
       <div className="relative">
         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
         <div className="absolute top-2 right-3">
-          <FavoriteButton id={recipe.idMeal} recipe={recipe} />
+          {created ? (
+            <IconButton
+              icon={"edit"}
+              actionHandler={() => console.log("clicked")}
+            />
+          ) : (
+            <FavoriteButton id={recipe.idMeal} recipe={recipe} />
+          )}
         </div>
 
         {/* <div className="absolute bottom-2 left-3">
