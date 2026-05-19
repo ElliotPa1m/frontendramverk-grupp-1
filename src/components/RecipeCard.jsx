@@ -5,7 +5,13 @@ import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 
 export const RecipeCard = ({ recipe, rating }) => {
   return (
-    <div className="border border-2 border-stone-500 rounded-md overflow-hidden w-fit max-w-[300px] bg-amber-50 h-full flex flex-col">
+    <div
+      className="border border-2 border-stone-500 rounded-md 
+                    overflow-hidden bg-amber-50 
+                    w-full
+                    h-full 
+                    flex flex-col"
+    >
       <div className="relative">
         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
         <div className="absolute top-2 right-3">
@@ -21,7 +27,9 @@ export const RecipeCard = ({ recipe, rating }) => {
       </div>
       <RecipeCardInfoSection
         recipeName={recipe.strMeal}
-        info={recipe.strCountry}
+        country={recipe.strCountry}
+        tags={recipe.strTags}
+        cat={recipe.strCategory}
         rating={rating}
       />
     </div>
