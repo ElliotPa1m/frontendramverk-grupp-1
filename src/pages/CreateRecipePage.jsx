@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
 // Context & Services
-import { useFavorites } from '../contexts/FavouritesContext';
+// import { useFavorites } from '../contexts/FavouritesContext';
 import { uploadImage } from '../services/cloudinaryService';
 
 // Extracted UI Components
@@ -29,3 +29,23 @@ const recipeSchema = z.object({
   ).min(1, 'You need to add at least one ingredient!'),
   imageFile: z.any().refine((file) => file instanceof File, 'An image is required'),
 });
+
+const CreateRecipePage = () => {
+  const navigate = useNavigate();
+  const [isUploading, setIsUploading] = useState(false);
+
+  // React Hook Form initialization
+  const { register, handleSubmit, control, formState: { errors } } = useForm({
+    resolver: zodResolver(recipeSchema),
+    defaultValues: {
+      // Start the form with one empty ingredient row already showing
+      ingredients: [{ name: "", measure: "" }]
+    }
+  });
+  
+  return (
+    <div>CreateRecipePage</div>
+  )
+}
+
+export default CreateRecipePage
