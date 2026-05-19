@@ -63,7 +63,22 @@ const CreateRecipePage = () => {
           error={errors.title?.message}
         />
 
-        
+        {/* Dynamic Ingredients List */}
+        <IngredientInputList
+          control={control}
+          register={register}
+          errors={errors}
+        />
+
+        {/* Instructions */}
+        <TextArea
+          label="Instructions"
+          placeholder="Step 1: Boil the pasta...&#10;Step 2: Chop the onions..."
+          register={register('instructions')}
+          error={errors.instructions?.message}
+          rows={6}
+          helperText='Please press "Enter" to put each step on a new line.'
+        />
       </form>
     </div>
   )
