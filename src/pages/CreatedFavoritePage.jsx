@@ -51,7 +51,9 @@ export const CreatedFavoritePage = () => {
       <h2 className="barlow-condensed-regular text-2xl">Created recepies</h2>
       {mockRecipes.length !== 0 ? (
         <>
-          <RecipeCardList arr={mockRecipes} />
+          <RecipeCardList
+            arr={mockRecipes.slice(0, window.innerWidth < 768 ? 2 : 4)}
+          />
           <Link
             to="/created"
             className="barlow-condenced-light text-sm text-end block my-2"
