@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RecipeCardList } from "../components/RecipeCardList";
 import { useFavorites } from "../contexts/FavouritesContext";
 
@@ -46,13 +47,38 @@ export const CreatedFavoritePage = () => {
     },
   ];
   return (
-    <div className="mx-4 mt-4">
+    <div className="mx-4 my-4">
       <h2 className="barlow-condensed-regular text-2xl">Created recepies</h2>
-      <RecipeCardList arr={mockRecipes} />
+      {mockRecipes.length !== 0 ? (
+        <>
+          <RecipeCardList arr={mockRecipes} />
+          <Link
+            to="/created"
+            className="barlow-condenced-light text-sm text-end block my-2"
+          >
+            See all
+          </Link>
+        </>
+      ) : (
+        <p>You have not created any recipes yet</p>
+      )}
       <hr className="my-4" />
       <h2 className="barlow-condensed-regular text-2xl">Favorites</h2>
       {favContext.favourites.length !== 0 ? (
-        <RecipeCardList arr={favContext.favourites} />
+        <>
+          <RecipeCardList
+            arr={favContext.favourites.slice(
+              0,
+              window.innerWidth < 768 ? 2 : 4,
+            )}
+          />
+          <Link
+            to="/favorites"
+            className="barlow-condenced-light text-sm text-end block my-2"
+          >
+            See all
+          </Link>
+        </>
       ) : (
         <p>You dont have any favorites yet</p>
       )}
