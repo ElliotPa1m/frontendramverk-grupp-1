@@ -21,7 +21,6 @@ export const getUserRecipeById = id => {
   return getUserRecipes().find(recipe => recipe.id == id);
 };
 
-
 export const saveUserRecipe = recipe => {
   const storedRecipes = getUserRecipes();
   const newRecipe = {
@@ -38,10 +37,10 @@ export const saveUserRecipe = recipe => {
 export const updateUserRecipe = updatedRecipe => {
   const storedRecipes = getUserRecipes();
   const updatedRecipes = storedRecipes.map(recipe =>
-    recipe.id == updatedRecipe.id ? updatedRecipe : recipe,
+    recipe.id === updatedRecipe.id ? updatedRecipe : recipe,
   );
 
-  (localStorage.setItem(STORAGE_KEY), JSON.stringify(updatedRecipes));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
 };
 
 export const deleteUserRecipe = id => {
