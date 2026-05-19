@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { Icon } from "./Icon";
 import { Rating } from "./Rating";
 
 export const RecipeCardInfoSection = ({
+  id,
   recipeName,
   country,
   cat,
@@ -19,9 +21,14 @@ export const RecipeCardInfoSection = ({
       <h2 className="barlow-condensed-regular text-xl">{recipeName}</h2>
       <div className="mt-auto flex justify-between">
         <Rating rating={rating} />
-        <span className="barlow-condensed-light text-xs">
-          READ MORE <Icon icon={"arrowRight"} />
-        </span>
+        <Link
+          to={`/recipe/:${id}`}
+          className="barlow-condenced-light text-sm text-end block my-2"
+        >
+          <span className="barlow-condensed-light text-xs">
+            READ MORE <Icon icon={"arrowRight"} />
+          </span>
+        </Link>
       </div>
     </div>
   );

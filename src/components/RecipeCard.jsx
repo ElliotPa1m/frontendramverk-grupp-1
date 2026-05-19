@@ -35,6 +35,7 @@ export const RecipeCard = ({ recipe, rating }) => {
         </div> */}
       </div>
       <RecipeCardInfoSection
+        id={recipe.idMeal}
         recipeName={recipe.strMeal}
         country={recipe.strCountry}
         tags={recipe.strTags}
