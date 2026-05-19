@@ -18,8 +18,8 @@ DevOps / ESLint / CI/CD
 Vercel
 
 ## Group Members
-Together: Components / Assets / Utils / Home / Nav / Header / Footer / Logo
-Elliot: Specific Recipe Page
-Carolina: Favorites / Own Recipes
-Steven: Create Recipe
-Robert: All Recipes with Search
+Together: Home / Nav / Header / Footer / Logo
+Elliot: Specific Recipe Page and the Components/Assets/Utils (which ever is needed) for it
+Carolina: Favorites / Own Recipes and the Components/Assets/Utils (which ever is needed) for it
+Steven: Create Recipe and the Components/Assets/Utils (which ever is needed) for it
+Robert: All Recipes with Search and the Components/Assets/Utils (which ever is needed) for it
