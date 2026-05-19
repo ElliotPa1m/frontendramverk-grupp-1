@@ -45,11 +45,36 @@ const IngedientInputList = ({ control, register, errors }) => { // Props from `u
               )}
             </div>
 
+            {/* Remove Row Button (Only show if there is more than 1 ingredient) */}
+            {fields.length > 1 && (
+              <button
+                type="button"
+                onClick={() => remove(index)}
+                className="p-2 text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                title="Remove ingredient"
+              >
+                ✕
+              </button>
+            )}
           </div>
         ))}
       </div>
-    </div>
-  )
-}
 
-export default IngedientInputList
+      {/* Global error (e.g., if Zod blocks submission because 0 ingredients exist) */}
+      {errors?.ingredients?.root && (
+        <p>{errors.ingredients.root.message}</p>
+      )}
+
+      {/* Add Row Button */}
+      <button
+        type="button"
+        onClick={() => append({ name: "", measure: "" })}
+        className="mt-3 px-4 py-2 text-sm font-semibold text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors w-full border border-blue-200"
+      >
+        + Add Another Ingredient
+      </button>
+    </div>
+  );
+};
+
+export default IngedientInputList;
