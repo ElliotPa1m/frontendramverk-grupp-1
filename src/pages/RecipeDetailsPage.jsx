@@ -4,8 +4,8 @@ import RecipeHeader from "../components/RecipeDetailsComponents/RecipeHeader";
 import RecipeMeta from "../components/RecipeDetailsComponents/RecipeMeta";
 import IngredientList from "../components/RecipeDetailsComponents/IngredientList";
 import InstructionList from "../components/RecipeDetailsComponents/InstructionList";
-import Image from "../components/Image";
-import FavoriteButton from "../components/FavoriteButton";
+import { Image } from "../components/Image";
+import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
 
 function RecipeDetailsPage() {
@@ -38,14 +38,20 @@ function RecipeDetailsPage() {
     if (error) return <p>Error: {error}</p>
     if (!recipe) return null;
 
-// this builds an array from TheMealDB's ingredient list that is listed separately
-    const ingredients = Array.from({length: 20}, (_, i) => ({
-        name: recipe[`strIngredient${i + 1}`],
-        measure: recipe[`strMeasure${i + 1}`],
+    // Adapter for ingredients: Check if it's a custom recipe (already an array), otherwise run the already-in-place API mapping
+    const ingredients = recipe.ingredients
+        ? recipe.ingredients
+        : // Here in the else clause, we run the previous code
+            // this builds an array from TheMealDB's ingredient list that is listed separately
+            Array.from({length: 20}, (_, i) => ({
+            name: recipe[`strIngredient${i + 1}`],
+            measure: recipe[`strMeasure${i + 1}`],
     })).filter((ing) => ing.name && ing.name.trim() !== "");
 
-// this splits the instructions string into an array of steps by newline
-    const instructions = recipe.strInstructions
+    // Adapter for instructions: Grab the custom string OR the API string, then split it exactly like before
+    const instructionString = recipe.instructions || recipe.strInstructions || "";
+    // this splits the instructions string into an array of steps by newline
+    const instructions = instructionString
         .split("\n")
         .filter((step) => step.trim() !== "");
 
@@ -56,7 +62,7 @@ function RecipeDetailsPage() {
                 cuisine={recipe.strArea}
                 category={recipe.strCategory}
             />
-            <Image src={recipe.strMealThumb}/>
+            <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
             <FavoriteButton recipeId={recipe.idMeal} />
             <RecipeMeta
                 category={recipe.strCategory}
