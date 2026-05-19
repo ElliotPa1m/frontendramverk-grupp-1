@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // this displays ingredients with a servings multiplier to scale amounts per serving
-function ingredientList({ingredients}) {
+function IngredientList({ingredients}) {
     const [multiplier, setMultiplier] = useState(1);
 
     function handleIncrease() {
@@ -49,4 +49,4 @@ function ingredientList({ingredients}) {
     );
 }
 
-export default ingredientList;
+export default IngredientList;
