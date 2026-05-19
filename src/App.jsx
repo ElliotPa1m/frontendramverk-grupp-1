@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import { CreatedFavoritePage } from "./pages/CreatedFavoritePage";
+import { AllCreatedRecipePage } from "./pages/AllCreatedRecipePage";
 import { AllFavoriteRecipePage } from "./pages/AllFavoriteRecipePage";
 // import RecipeDetailsPage from './pages/RecipeDetailsPage';
 import RecipeDetailsPage from './pages/RecipeDetailsPage';
@@ -19,6 +20,7 @@ function App() {
           {/* <Route index element={} /> */}
           {/* <Route path='search' element={} /> */}
           <Route path="my-recipes" element={<CreatedFavoritePage />} />
+          <Route path="created" element={<AllCreatedRecipePage />} />
           <Route path="favorites" element={<AllFavoriteRecipePage />} />
           {/* <Route path='create' element={} /> */}
           <Route path='recipe/:id' element={<RecipeDetailsPage />} />
