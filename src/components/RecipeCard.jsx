@@ -8,8 +8,8 @@ export const RecipeCard = ({ recipe, rating }) => {
   const created = true;
   return (
     <div
-      className="border border-2 border-stone-500 rounded-md 
-                    overflow-hidden bg-amber-50 
+      className="border border-2 border-pop rounded-md 
+                    overflow-hidden bg-background
                     w-full
                     h-full 
                     flex flex-col"
