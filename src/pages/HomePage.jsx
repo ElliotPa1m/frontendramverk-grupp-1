@@ -1,5 +1,3 @@
-import React from 'react'
-import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
 import FeatureCard from '../components/FeatureCard';
 import { RecipeCardList } from '../components/RecipeCardList';
@@ -18,15 +16,28 @@ const HomePage = () => {
                 setError(null);
                 const data = await getRandomRecipes(3)
                 setRandomRecipes(data)
-            } catch(error){
+            } catch (error) {
                 console.log(error.message)
                 setError(error.message)
-            } finally{
+            } finally {
                 setLoading(false);
             }
         }
         fetchRandomRecipes();
     }, [])
+
+    if (loading) {
+        return <div className="loading-recipe">Loading recipes...</div>;
+    }
+
+    if (error) {
+        return (
+            <div className="error-loading-recipes">
+                <h2>Error loading recipes</h2>
+                <p>{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div>
