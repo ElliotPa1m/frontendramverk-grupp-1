@@ -69,7 +69,7 @@ function RecipeDetailsPage() {
                         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
                     </div>
                     <div className="w-fit">
-                        <FavoriteButton recipeId={recipe.idMeal} />
+                        <FavoriteButton id={recipe.idMeal} recipe={recipe} />
                     </div>
                     <RecipeMeta
                         category={recipe.strCategory}
