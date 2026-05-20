@@ -21,7 +21,7 @@ export const RecipeCardInfoSection = ({
       <div className="mt-auto flex justify-between">
         <Rating rating={rating} />
         <Link
-          to={`/recipe/:${id}`}
+          to={`/recipe/${id}`}
           className="barlow-condenced-light text-sm text-end block my-2"
         >
           <span className="barlow-condensed-light text-xs">
