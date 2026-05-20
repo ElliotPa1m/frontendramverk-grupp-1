@@ -1,7 +1,17 @@
 import { RecipeCardList } from "../components/RecipeCardList";
+import { getUserRecipes } from "../services/userRecipeService";
+import { mockRecipeArr } from "../utils/mockData";
 
 export const AllCreatedRecipePage = () => {
-  const recipeArr = [];
+  const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
+
+  const userRecipes = getUserRecipes();
+  const recipeArr =
+    devEnv === "dev"
+      ? userRecipes.length !== 0
+        ? userRecipes
+        : mockRecipeArr
+      : userRecipes;
 
   return (
     <div className="mx-4 my-4">
