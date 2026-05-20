@@ -56,23 +56,36 @@ function RecipeDetailsPage() {
         .filter((step) => step.trim() !== "");
 
     return (
-        <div>
+        <div className="max-w-5xl ml-8 px-6 py-8">
             <RecipeHeader
                 name={recipe.strMeal}
                 cuisine={recipe.strArea}
                 category={recipe.strCategory}
             />
-            <div className="w-64">
-            <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
+            <div className="flex gap-8">
+                {/* Left column - image, favorite, meta */}
+                <div className="flex flex-col">
+                    <div style={{ width: "256px" }} className="mt-4 mb-4">
+                        <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
+                    </div>
+                    <div className="w-fit">
+                        <FavoriteButton recipeId={recipe.idMeal} />
+                    </div>
+                    <RecipeMeta
+                        category={recipe.strCategory}
+                        area={recipe.strArea}
+                        tags={recipe.strTags}
+                    />
+                </div>
+                {/* Middle column - ingredients */}
+                <div className="flex flex-col mt-4">
+                    <IngredientList ingredients={ingredients} />
+                </div>
+                {/* Right column - instructions */}
+                <div className="flex flex-col flex-1 mt-4">
+                    <InstructionList instructions={instructions} />
+                </div>
             </div>
-            <FavoriteButton recipeId={recipe.idMeal} />
-            <RecipeMeta
-                category={recipe.strCategory}
-                area={recipe.strArea}
-                tags={recipe.strTags}
-            />
-            <IngredientList ingredients={ingredients} />
-            <InstructionList instructions={instructions} />
         </div>
     );
 }
