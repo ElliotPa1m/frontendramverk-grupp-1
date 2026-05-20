@@ -6,7 +6,7 @@ import IngredientList from "../components/RecipeDetailsComponents/IngredientList
 import InstructionList from "../components/RecipeDetailsComponents/InstructionList";
 import { Image } from "../components/Image";
 import { FavoriteButton } from "../components/FavoriteButton";
-import { getMealById } from "../services/api";
+import { getRecipeById } from "../services/api";
 
 function RecipeDetailsPage() {
     const {id} = useParams();
@@ -21,7 +21,7 @@ function RecipeDetailsPage() {
                 setLoading(true);
                 setError(null);
                 
-                const data = await getMealById(id);
+                const data = await getRecipeById(id);
                 setRecipe(data);
             } catch (err) {
                     setError(err.message);
