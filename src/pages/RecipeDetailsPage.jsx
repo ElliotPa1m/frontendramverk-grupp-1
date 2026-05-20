@@ -56,25 +56,33 @@ function RecipeDetailsPage() {
         .filter((step) => step.trim() !== "");
 
     return (
-        <div className="max-w-3xl ml-8 px-6 py-8">
-            <RecipeHeader
-                name={recipe.strMeal}
-                cuisine={recipe.strArea}
-                category={recipe.strCategory}
-            />
-            <div style={{width: "256px"}} className="mt-4 mb-4">
-            <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
+    <div className="max-w-5xl ml-8 px-6 py-8">
+        <RecipeHeader
+            name={recipe.strMeal}
+            cuisine={recipe.strArea}
+            category={recipe.strCategory}
+        />
+        <div className="flex gap-8">
+            {/* Left column */}
+            <div className="flex flex-col">
+                <div style={{width: "256px"}} className="mt-4 mb-4">
+                    <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
+                </div>
+                <FavoriteButton recipeId={recipe.idMeal} />
+                <RecipeMeta
+                    category={recipe.strCategory}
+                    area={recipe.strArea}
+                    tags={recipe.strTags}
+                />
             </div>
-            <FavoriteButton recipeId={recipe.idMeal} />
-            <RecipeMeta
-                category={recipe.strCategory}
-                area={recipe.strArea}
-                tags={recipe.strTags}
-            />
-            <IngredientList ingredients={ingredients} />
-            <InstructionList instructions={instructions} />
+            {/* Right column */}
+            <div className="flex flex-col flex-1">
+                <IngredientList ingredients={ingredients} />
+                <InstructionList instructions={instructions} />
+            </div>
         </div>
-    );
+    </div>
+);
 }
 
 export default RecipeDetailsPage;
