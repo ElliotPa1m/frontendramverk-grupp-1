@@ -56,13 +56,13 @@ function RecipeDetailsPage() {
         .filter((step) => step.trim() !== "");
 
     return (
-        <div className="max-w-3xl mx-auto px-6 py-8">
+        <div className="max-w-3xl ml-8 px-6 py-8">
             <RecipeHeader
                 name={recipe.strMeal}
                 cuisine={recipe.strArea}
                 category={recipe.strCategory}
             />
-            <div style={{width: "256px"}}>
+            <div style={{width: "256px"}} className="mt-4">
             <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
             </div>
             <FavoriteButton recipeId={recipe.idMeal} />
