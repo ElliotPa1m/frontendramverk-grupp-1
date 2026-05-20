@@ -25,7 +25,11 @@ export const CreatedFavoritePage = () => {
         </>
       ) : (
         <p className="barlow-condensed-light text-text">
-          You have not created any recipes yet
+          You have not created any recipes yet, create a recipe{" "}
+          <Link to="/create" className="barlow-condenced-light font-medium">
+            here
+          </Link>
+          .
         </p>
       )}
 
