@@ -22,6 +22,7 @@ function RecipeDetailsPage() {
                 setError(null);
 
                 const data = await getRecipeById(id);
+                console.log("API response:", data);
                 setRecipe(data.meals[0]);
             } catch (err) {
                 setError(err.message);
