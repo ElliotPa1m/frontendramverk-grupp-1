@@ -9,7 +9,7 @@ import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
 
 function RecipeDetailsPage() {
-    const {id} = useParams();
+    const { id } = useParams();
 
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -20,12 +20,12 @@ function RecipeDetailsPage() {
             try {
                 setLoading(true);
                 setError(null);
-                
+
                 const data = await getRecipeById(id);
-                setRecipe(data);
+                setRecipe(data.meals[0]);
             } catch (err) {
-                    setError(err.message);
-                } finally {
+                setError(err.message);
+            } finally {
                 setLoading(false);
             }
         }
@@ -42,11 +42,11 @@ function RecipeDetailsPage() {
     const ingredients = recipe.ingredients
         ? recipe.ingredients
         : // Here in the else clause, we run the previous code
-            // this builds an array from TheMealDB's ingredient list that is listed separately
-            Array.from({length: 20}, (_, i) => ({
+        // this builds an array from TheMealDB's ingredient list that is listed separately
+        Array.from({ length: 20 }, (_, i) => ({
             name: recipe[`strIngredient${i + 1}`],
             measure: recipe[`strMeasure${i + 1}`],
-    })).filter((ing) => ing.name && ing.name.trim() !== "");
+        })).filter((ing) => ing.name && ing.name.trim() !== "");
 
     // Adapter for instructions: Grab the custom string OR the API string, then split it exactly like before
     const instructionString = recipe.instructions || recipe.strInstructions || "";
@@ -55,7 +55,7 @@ function RecipeDetailsPage() {
         .split("\n")
         .filter((step) => step.trim() !== "");
 
-    return(
+    return (
         <div>
             <RecipeHeader
                 name={recipe.strMeal}
