@@ -6,36 +6,51 @@ import apiClient from './axiosConfig';
 /                                               /
 /----------------------------------------------*/
 
-// NEW: In-memory cache container!
-const recipeCache = {};
+// In-memory cache container - Now extended to hold both recipe results and filter options.
+const cache = {
+  categories: null,
+  areas: null,
+  recipes: {},
+};
+
+//used for getAllRecipes()
+const recipeEndpoints = {
+  name: 'search.php?s=',
+  category: 'filter.php?c=',
+  area: 'filter.php?a=',
+  ingredient: 'filter.php?i=',
+};
+
+//used for getList
+const listEndpoints = {
+  categories: 'list.php?c=list',
+  areas: 'list.php?a=list',
+};
 
 /**
- * Fetches recipes from the API with optional filtering. Full list of possible params here: https://recipeapi.io/docs/resources/recipes/
- * Suggested params below:
+ * Fetches recipes from the API 'https://www.themealdb.com/api.php'.
+ *  LIMITATION: Uses different enpoints for each filter so it can only use one filter at a time.
  *
- * @param {Object} [filters] - Optional filter parameters
- * @param {string} [filters.search] - Search query string
- * @param {string} [filters.cuisine] - Cuisine type (e.g. 'italian', 'japanese')
- * @param {string} [filters.dietary_tags] - Dietary tags (e.g. 'vegan', 'gluten_free') *Currently only accepts a single value
- * @param {string} [filters.meal_type] - Meal type (e.g. 'breakfast', 'main')
- * @param {number} [page=1] - Page number for pagination (Needed since our free-api-tier only allows 10 recipes per request)
- * @returns {Promise<Object>} Recipe list and metadata
- * @example
- * getAllRecipes({ cuisine: 'italian', meal_type: 'starter' }, 2);
+ * @param {{ type: string, value: string }} filter
+ * @param {'name'|'category'|'area'|'ingredient'} filter.type
+ * @param {string} filter.value
+ * @returns {Promise<Object[]>} Array of recipe objects (empty if no matches)
+ *
  */
-export const getAllRecipes = async (filters = {}, page = 1) => {
+const getAllRecipes = async ({ filter, value }) => {
+  // set up the chosen filter type/endpoint.
+  const activeFilter = recipeEndpoints[filter];
+  if (!activeFilter) {
+    throw new Error(`Unknown filter type: ${filter}`);
+  }
+
   try {
-    const response = await apiClient.get('/recipes', {
-      params: {
-        lang: 'en',
-        per_page: 10,
-        page,
-        ...filters,
-      },
-    });
-    return response.data;
+    const response = await apiClient.get(
+      activeFilter + encodeURIComponent(value),
+    );
+    return response.data.meals || []; // Because API returns null instead of [] when no matches
   } catch (error) {
-    throw new Error('Failed to fetch recipes ' + error.message, {
+    throw new Error('Failed to fetch recipes: ' + error.message, {
       cause: error,
     });
   }
@@ -49,7 +64,7 @@ export const getAllRecipes = async (filters = {}, page = 1) => {
  */
 export const getRecipeById = async id => {
   try {
-    const response = await apiClient.get(`/recipes/${id}`);
+    const response = await apiClient.get(`/lookup.php?i=${id}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch recipe ' + id + ': ' + error.message, {
@@ -58,24 +73,76 @@ export const getRecipeById = async id => {
   }
 };
 
+//TEMP COMMENT: WE might have to adjust the rate-limiter for this function. also uncertain if the API will allow 10 consecutive calls, We shall see...
+
 /**
- * NEW: Cached version of search fetcher!
+ * Fetches a number of random recipes.
+ * Each call to the random endpoint returns one recipe, so we fire _count_ requests in parallel.
+ *
+ * @param {number} [count=10] - How many random recipes to fetch, default 10
+ * @returns {Promise<Object[]>} Array of recipe objects
+ */
+export const getRandomRecipes = async (count = 10) => {
+  try {
+    // from makes /gives our array _count_ number of indexes and for each index it requests a random recipe from the api.
+    const requests = Array.from({ length: count }, () =>
+      apiClient.get('random.php'),
+    );
+
+    // Promise all makes sure the requests are fired in paralell, meaning we can recieve 10 recipes almost as fast as 1.
+    const responses = await Promise.all(requests);
+
+    //since each random recipe response comes wrapped in a meals array (see here: https://www.themealdb.com/api/json/v1/1/random.php) we have to map out the recipe part.
+
+    return responses.map(response => response.data.meals[0]);
+  } catch (error) {
+    throw new Error('Failed to fetch random recipes: ' + error.message, {
+      cause: error,
+    });
+  }
+};
+
+/**
+ * Reworked cached version of search fetcher to accomodate the new API. Scrapped the pagination.
  * Checks memory before calling the API.
  */
-export const getCachedRecipe = async (query, page = 1) => {
-  // Create a unique key combining query and page
-  const cacheKey = `${query}-page-${page}`;
+export const getCachedRecipes = async ({ filter, value }) => {
+  const cacheKey = `${filter}-${value}`;
 
-  // Do we already have this exact search and page in memory?
-  if (recipeCache[cacheKey]) {
-    console.log(`Serving "${query}" (page ${page}) from cache 🧑‍🍳`);
-    return recipeCache[cacheKey];
+  if (cache.recipes[cacheKey]) {
+    console.log(`Serving "${value}" (${filter}) from cache 🧑‍🍳`);
+    return cache.recipes[cacheKey];
   }
 
-  // If not, fetch it from the API like we normally would
-  const data = await getAllRecipes({ search: query }, page);
-
-  // Now we save it to the cache object for next time!
-  recipeCache[cacheKey] = data;
+  const data = await getAllRecipes({ filter, value });
+  cache.recipes[cacheKey] = data;
   return data;
-}
+};
+
+/**
+ * Fetches list from the API 'https://www.themealdb.com/api.php' to populate the filter options with. Gets called by getCachedList  - only fires off once per list/page refresh
+ *
+ * @param {'categories'|'areas'} listType
+ * @returns {Promise<Object[]>} Array of recipe objects (empty if no matches)
+ *
+ */
+const getList = async listType => {
+  const endpoint = listEndpoints[listType];
+  if (!endpoint) throw new Error(`Unknown list type: ${listType}`);
+
+  try {
+    const response = await apiClient.get(endpoint);
+    return response.data.meals || [];
+  } catch (error) {
+    throw new Error(`Failed to fetch ${listType}: ` + error.message, {
+      cause: error,
+    });
+  }
+};
+
+// same logic as the getCachedRecipe function
+export const getCachedList = async listType => {
+  if (cache[listType]) return cache[listType];
+  cache[listType] = await getList(listType);
+  return cache[listType];
+};
