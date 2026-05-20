@@ -4,6 +4,7 @@ import { getUserRecipes } from "../services/userRecipeService";
 import { mockRecipeArr } from "../utils/mockData";
 import { LinkTextComp } from "../components/LinkTextComp";
 import { SeeAllLinkComp } from "../components/SeeAllLinkComp";
+import { StandardPComp } from "../components/StandardPComp";
 
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
@@ -48,9 +49,7 @@ export const CreatedFavoritePage = () => {
           <SeeAllLinkComp route={"/favorites"} />
         </>
       ) : (
-        <p className="barlow-condensed-light text-text">
-          You dont have any favorites yet
-        </p>
+        <StandardPComp text={"You dont have any favorites yet"} />
       )}
     </div>
   );

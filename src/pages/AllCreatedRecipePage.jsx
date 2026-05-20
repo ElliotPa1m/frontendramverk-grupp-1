@@ -1,6 +1,7 @@
 import { RecipeCardList } from "../components/RecipeCardList";
 import { getUserRecipes } from "../services/userRecipeService";
 import { mockRecipeArr } from "../utils/mockData";
+import { StandardPComp } from "../components/StandardPComp";
 
 export const AllCreatedRecipePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
@@ -21,9 +22,7 @@ export const AllCreatedRecipePage = () => {
       {recipeArr.length !== 0 ? (
         <RecipeCardList arr={recipeArr} />
       ) : (
-        <p className="barlow-condensed-light text-text">
-          You have not created any recipes yet
-        </p>
+        <StandardPComp text={"You have not created any recipes yet"} />
       )}
     </div>
   );

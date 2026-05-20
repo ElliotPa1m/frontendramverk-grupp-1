@@ -1,5 +1,6 @@
 import { RecipeCardList } from "../components/RecipeCardList";
 import { useFavorites } from "../contexts/FavouritesContext";
+import { StandardPComp } from "../components/StandardPComp";
 
 export const AllFavoriteRecipePage = () => {
   const favContext = useFavorites();
@@ -10,9 +11,7 @@ export const AllFavoriteRecipePage = () => {
       {favContext.favourites.length !== 0 ? (
         <RecipeCardList arr={favContext.favourites} />
       ) : (
-        <p className="barlow-condensed-light text-text">
-          You dont have any favorites yet
-        </p>
+        <StandardPComp text={"You dont have any favorites yet"} />
       )}
     </div>
   );
