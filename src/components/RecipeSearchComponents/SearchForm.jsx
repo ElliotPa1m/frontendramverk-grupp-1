@@ -49,7 +49,7 @@ const SearchForm = ({ onSearch }) => {
   const isDisabled = (filterType) =>
     search.filter !== null && search.filter !== filterType;
 
-  // for updating the search state (which are the params for getAllRecipes). Runs every time user types in the search field(name) or picks something from a filter dropdown. If a user deletes their search term/filter option, the filter in search useState becomes null, which enables all the filter form options again.
+  // for updating the search state (which are the params for getAllRecipes). Runs every time user types in the search field(name) or picks something from a filter dropdown. If a user deletes their search term/filter option, the filter in search-useState becomes null, which enables all the filter form options again.
 
   const handleChange = (filterType, newValue) => {
     setSearch({
@@ -58,7 +58,36 @@ const SearchForm = ({ onSearch }) => {
     });
   };
 
-  return <div>SearchForm</div>;
+  return ( <form action="">
+   <select
+        value={search.filter === 'category' ? search.value : ''}
+        disabled={isDisabled('category')}
+        onChange={e => handleChange('category', e.target.value)}
+      >
+        <option value="">Category</option>
+        {filterOptions.categories.map(c => (
+          <option key={c.strCategory} value={c.strCategory}>
+            {c.strCategory}
+          </option>
+        ))}
+      </select>
+
+      <select
+        value={search.filter === 'area' ? search.value : ''}
+        disabled={isDisabled('area')}
+        onChange={e => handleChange('area', e.target.value)}
+      >
+        <option value="">Area...</option>
+        {filterOptions.areas.map(a => (
+          <option key={a.strArea} value={a.strArea}>
+            {a.strArea}
+          </option>
+        ))}
+      </select>
+
+      </form>
+
+  );
 };
 
 export default SearchForm;
