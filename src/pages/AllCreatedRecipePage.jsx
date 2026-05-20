@@ -2,6 +2,7 @@ import { RecipeCardList } from "../components/RecipeCardList";
 import { getUserRecipes } from "../services/userRecipeService";
 import { mockRecipeArr } from "../utils/mockData";
 import { StandardPComp } from "../components/StandardPComp";
+import { HeadingComp } from "../components/HeadingComp";
 
 export const AllCreatedRecipePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
@@ -16,9 +17,7 @@ export const AllCreatedRecipePage = () => {
 
   return (
     <div className="mx-4 my-4">
-      <h2 className="barlow-condensed-regular text-2xl text-text">
-        My Created Recipes
-      </h2>
+      <HeadingComp text={"My Created Recipes"} size={"h2"} />
       {recipeArr.length !== 0 ? (
         <RecipeCardList arr={recipeArr} />
       ) : (

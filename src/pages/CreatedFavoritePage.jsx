@@ -5,6 +5,7 @@ import { mockRecipeArr } from "../utils/mockData";
 import { LinkTextComp } from "../components/LinkTextComp";
 import { SeeAllLinkComp } from "../components/SeeAllLinkComp";
 import { StandardPComp } from "../components/StandardPComp";
+import { HeadingComp } from "../components/HeadingComp";
 
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
@@ -21,8 +22,7 @@ export const CreatedFavoritePage = () => {
 
   return (
     <div className="mx-4 my-4">
-      <h2 className="barlow-condensed-regular text-2xl">Created recepies</h2>
-
+      <HeadingComp text={"Created recepies"} size={"h2"} />
       {createdRecipes.length !== 0 ? (
         <>
           <RecipeCardList
@@ -36,9 +36,8 @@ export const CreatedFavoritePage = () => {
           <LinkTextComp route={"/create"} actionText={"here"} />.
         </p>
       )}
-
       <hr className="my-4" />
-      <h2 className="barlow-condensed-regular text-2xl">Favorites</h2>
+      <HeadingComp text={"Favorites"} size={"h2"} />
       {favArr.length !== 0 ? (
         <>
           <RecipeCardList
