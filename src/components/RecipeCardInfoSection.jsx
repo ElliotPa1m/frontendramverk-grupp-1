@@ -19,7 +19,7 @@ export const RecipeCardInfoSection = ({
       {tagArr && <h3 className="barlow-condensed-regular text-sm">{tagArr}</h3>}
       <h2 className="barlow-condensed-regular text-xl">{recipeName}</h2>
       <div className="mt-auto flex justify-between">
-        <Rating rating={rating} />
+        {rating && <Rating rating={rating} />}
         <Link
           to={`/recipe/${id}`}
           className="barlow-condenced-light text-sm text-end block my-2"
