@@ -4,14 +4,8 @@ import mainIngredients from '../../data/mainIngredients.json';
 
 //TEMP COMMENT:  Filter bar with a name search input and three dropdown filters. since only one filter can be used/active at a time the others will get disabled automatically.
 
-const SearchForm = () => {
-  const [filters, setFilters] = useState({
-    name: '',
-    category: '',
-    area: '',
-    mainIngredient: '',
-  });
-
+const SearchForm = ({ onSearch} ) => {
+  const [search, setSearch] = useState({ filter: null, value: '' });
   const [filterOptions, setFilterOptions] = useState({
     categories: [],
     areas: [],
@@ -20,7 +14,7 @@ const SearchForm = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetches and loads filter options on mount.
+  // Fetches and loads filter  drop-down options on mount.
   useEffect(() => {
     const fetchOptions = async () => {
       try {
@@ -44,7 +38,13 @@ const SearchForm = () => {
     fetchOptions();
   }, []);
 
-  //HandleSearch
+  //HandleSearch - meant for submit button
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!search.filter) return;
+    onSearch(search);
+  };
 
   return <div>SearchForm</div>;
 };
