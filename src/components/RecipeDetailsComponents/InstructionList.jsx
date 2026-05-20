@@ -26,7 +26,7 @@ function InstructionList({ instructions }) {
                         }`}
                         onClick={() => handleStepToggle(index)}>
                         <input type="checkbox" className="mt-1 accent-button cursor-pointer" checked={checkedSteps.includes(index)}
-                        onChange={() => handleStepToggle(index)}>
+                        onChange={() => {}}>
                         </input>
                         <span>{instruction}</span>
                     </li>
