@@ -6,6 +6,7 @@ import { AllCreatedRecipePage } from "./pages/AllCreatedRecipePage";
 import { AllFavoriteRecipePage } from "./pages/AllFavoriteRecipePage";
 import RecipeDetailsPage from './pages/RecipeDetailsPage';
 import CreateRecipePage from "./pages/CreateRecipePage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   // const [userRecipes, setUserRecipes] = useState([]);
@@ -17,7 +18,7 @@ function App() {
         {/* The Layout wrapper is a wrapper around all of our page routes */}
         <Route path="/" element={<Layout />}>
           {/* All of these are commented out until the pages are created and ready to be inserted as the element */}
-          {/* <Route index element={} /> */}
+          <Route index element={<HomePage />} />
           {/* <Route path='search' element={} /> */}
           <Route path="my-recipes" element={<CreatedFavoritePage />} />
           <Route path="created" element={<AllCreatedRecipePage />} />
