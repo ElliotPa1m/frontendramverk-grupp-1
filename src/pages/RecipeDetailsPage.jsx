@@ -68,7 +68,9 @@ function RecipeDetailsPage() {
                     <div style={{ width: "256px" }} className="mt-4 mb-4">
                         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
                     </div>
-                    <FavoriteButton recipeId={recipe.idMeal} />
+                    <div className="w-fit">
+                        <FavoriteButton recipeId={recipe.idMeal} />
+                    </div>
                     <RecipeMeta
                         category={recipe.strCategory}
                         area={recipe.strArea}
