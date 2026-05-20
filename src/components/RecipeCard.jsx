@@ -5,7 +5,7 @@ import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 
 export const RecipeCard = ({ recipe, rating }) => {
-  const created = true;
+  const created = false;
   return (
     <div
       className="border border-2 border-pop rounded-md 
@@ -20,7 +20,9 @@ export const RecipeCard = ({ recipe, rating }) => {
           {created ? (
             <IconButton
               icon={"edit"}
-              actionHandler={() => console.log("clicked")}
+              actionHandler={() =>
+                console.log("go to created recipe editing screen")
+              }
             />
           ) : (
             <FavoriteButton id={recipe.idMeal} recipe={recipe} />
