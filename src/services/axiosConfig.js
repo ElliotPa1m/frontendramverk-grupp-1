@@ -6,22 +6,25 @@ import rateLimit from 'axios-rate-limit';
 / and dynamic rate limiting to protect the API  /
 /----------------------------------------------*/
 
+const apiKey = import.meta.env.VITE_API_KEY;
+
 // Raw client
 const rawClient = axios.create({
-  baseURL: 'https://recipeapi.io/api/v1',
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
-    'Content-Type': 'application/json',
-  },
+  baseURL: `https://www.themealdb.com/api/json/v1/${apiKey}/`,
+
+  // HEADERS IS NO LONGER NEEDED, however,I comment it out instead of deleting it for now should something change.
+  //   headers: {
+  //     Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+  //     'Content-Type': 'application/json',
+  //   },
   timeout: 10000, // 10 seconds timeout (Let's stick to this! I'm thinking 0-3 seconds can show a normal spinner, 3-10 seconds can show a UX message like "Still fetching, our recipe server might be taking a quick nap..." and 10+ seconds shows the actual network error message!)
 });
 
 // Wrap it in the rate limiter! Current config: max 2 requests per 1 second
-const apiClient = rateLimit(rawClient, { 
-  maxRequests: 2, 
-  perMilliseconds: 1000 
+const apiClient = rateLimit(rawClient, {
+  maxRequests: 2,
+  perMilliseconds: 1000,
 });
-
 
 apiClient.interceptors.response.use(
   response => response, // just passes through a succesful response for now (2xx)
