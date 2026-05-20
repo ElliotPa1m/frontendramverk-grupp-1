@@ -9,7 +9,6 @@ import { StandardPComp } from "../components/StandardPComp";
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
 
-  console.log(mockRecipeArr);
   const favContext = useFavorites();
   const favArr = favContext.favourites;
   const userRecipes = getUserRecipes();
