@@ -22,7 +22,7 @@ export const RecipeCardInfoSection = ({
         {rating && <Rating rating={rating} />}
         <Link
           to={`/recipe/${id}`}
-          className="barlow-condenced-light text-sm text-end block my-2"
+          className="barlow-condenced-light text-sm text-end block my-2 ms-auto"
         >
           <span className="barlow-condensed-light text-xs">
             READ MORE <Icon icon={"arrowRight"} />
