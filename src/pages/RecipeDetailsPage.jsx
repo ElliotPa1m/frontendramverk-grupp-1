@@ -74,10 +74,10 @@ function RecipeDetailsPage() {
                     area={recipe.strArea}
                     tags={recipe.strTags}
                 />
+                <IngredientList ingredients={ingredients} />
             </div>
             {/* Right column */}
             <div className="flex flex-col flex-1">
-                <IngredientList ingredients={ingredients} />
                 <InstructionList instructions={instructions} />
             </div>
         </div>
