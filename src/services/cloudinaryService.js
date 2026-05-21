@@ -10,7 +10,7 @@ export const uploadImage = async (file) => {
   // Guard Clause: Fail early and loudly if the .env file is missing
   if (!cloudName || !uploadPreset) {
     console.error("Missing Cloudinary environment variables. Check your .env file.");
-    throw new Error("Configuration error: Cannot connect to image server.");
+    throw new Error("Configuration error: Cannot connect to image server."); // To be tackled in this PR
   }
 
   const formData = new FormData(); // Using FormData over JSON! JSON hates files haha so we use the browser API native FromData instead
