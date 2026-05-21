@@ -15,6 +15,8 @@ export const Icon = ({ icon }) => {
         return <i className="fa-regular fa-star"></i>;
       case "arrowRight":
         return <i className="fa-solid fa-arrow-right"></i>;
+      case "edit":
+        return <i className="fa-solid fa-pen"></i>;
       default:
         return <i className="fa-regular fa-circle"></i>;
     }
