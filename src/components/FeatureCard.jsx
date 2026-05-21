@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import { Icon } from "./Icon";
 
 const FeatureCard = ({ title, description, to, linkText }) => {
   return (
     <div
       className="flex flex-col items-center gap-2 
-    p-2 pb-4 sm:p-8 
-    h-fit
-    basis-w-[300px] grow max-w-[400px]
+    p-2 pb-4 md:p-6 lg:p-8
+    basis-h-fit grow max-h-full 
+    basis-w-[300px] grow max-w-full md:max-w-[30%] lg:max-w-[400px]
     bg-white shadow-md 
     rounded-lg
     text-center 
@@ -17,9 +18,9 @@ const FeatureCard = ({ title, description, to, linkText }) => {
       <p className="barlow-condensed-light text-text">{description}</p>
       <Link
         to={to}
-        className="barlow-condensed-light bg-button text-white px-6 py-2 rounded-full"
+        className="barlow-condensed-light bg-button text-white px-6 py-2 mt-auto rounded-full"
       >
-        {linkText} →
+        <span className="pe-2">{linkText}</span> <Icon icon={"arrowRight"} />
       </Link>
     </div>
   );

@@ -48,7 +48,12 @@ const HomePage = () => {
         <RecipeCardList arr={randomRecipes} />
       </div>
 
-      <div className="features flex flex-col sm:flex-row sm:flex-wrap gap-8 justify-center p-8">
+      <div
+        className="features 
+      flex flex-col md:flex-row md:flex-wrap md:justify-center gap-4 lg:gap-8 
+      h-full 
+      py-4 px-2 lg:p-8"
+      >
         <FeatureCard
           title="Search for a recipe"
           description="Searching for a recipe from TheMealDB database"
