@@ -5,8 +5,24 @@ const TagInput = ({ label, value = [], onChange, error, placeholder }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleKeyDown = (e) => {
-    // To be coded
-  }
+    // Target the Enter key
+    if (e.key === 'Enter') {
+      // Essential: Prevent the browser from submitting the entire form
+      e.preventDefault();
+
+      const newTag = inputValue.trim();
+
+      // Only add the tag if it's not empty AND not alreayd in our array
+      if (newTag && !value.includes(newTag)) {
+        onChange([...value, newTag]); // Send the updated array to React Hook Form
+        setInputValue(''); // Clear the text input for the next tag
+      }
+    }
+  };
+
+  const removeTag = (tagToRemove) => {
+    onChange(value.filter(tag => tag !== tagToRemove));
+  };
 
   return (
     <div>
