@@ -68,6 +68,9 @@ const CreateRecipePage = () => {
       const newRecipe = {
         // No crypto.randomUUID() since saveUserRecipe from the service handles that!
         title: formData.title,
+        category: formData.category,
+        area: formData.area,
+        tags: formData.tags,
         instructions: formData.instructions,
         ingredients: formData.ingredients,
         imageUrl: cdnUrl,
@@ -78,7 +81,7 @@ const CreateRecipePage = () => {
       saveUserRecipe(newRecipe);
 
       // Navigate to Own/Favorites Page (which will mount and read the new data, no global context needed)
-      navigate('/saved');
+      navigate('/my-recipes'); // Updated route
     } catch (err) {
       console.error(err);
       alert(err.message || 'Failed to save recipe.');
