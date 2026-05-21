@@ -62,10 +62,10 @@ function RecipeDetailsPage() {
                 cuisine={recipe.strArea}
                 category={recipe.strCategory}
             />
-            <div className="flex gap-8">
+            <div className="flex flex-col lg:flex-row gap-8">
                 {/* Left column - image, favorite, meta */}
                 <div className="flex flex-col">
-                    <div style={{ width: "256px" }} className="mt-4 mb-4">
+                    <div className="w-full md:w-64 mt-4 mb-4">
                         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
                     </div>
                     <div className="w-fit">
@@ -82,7 +82,7 @@ function RecipeDetailsPage() {
                     <IngredientList ingredients={ingredients} />
                 </div>
                 {/* Right column - instructions */}
-                <div className="flex flex-col flex-1 mt-4">
+                <div className="flex flex-col flex-1 mt-4 min-w-0">
                     <InstructionList instructions={instructions} />
                 </div>
             </div>
