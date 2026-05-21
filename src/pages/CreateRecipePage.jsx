@@ -17,6 +17,7 @@ import ImageUpload from '../components/RecipeCreateComponents/ImageUpload';
 
 
 // Zod Validation Schema
+// Will need to be iterated for the category, area and tags
 const recipeSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters long'),
   instructions: z.string().min(10, 'Please write out some instructions'),
