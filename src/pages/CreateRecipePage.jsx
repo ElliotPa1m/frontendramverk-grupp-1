@@ -4,12 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
-// Services
+// Services and Constants
 import { saveUserRecipe } from '../services/userRecipeService';
 import { uploadImage } from '../services/cloudinaryService';
+import { RECIPE_CATEGORIES, RECIPE_AREAS } from '../utils/constants';
 
 // Extracted UI Components
 import TextInput from '../components/RecipeCreateComponents/TextInput';
+import SelectInput from '../components/RecipeCreateComponents/SelectInput';
+import TagInput from '../components/RecipeCreateComponents/TagInput';
 import TextArea from '../components/RecipeCreateComponents/TextArea';
 import IngredientInputList from '../components/RecipeCreateComponents/IngredientInputList';
 import ImageUpload from '../components/RecipeCreateComponents/ImageUpload';
@@ -96,6 +99,44 @@ const CreateRecipePage = () => {
           placeholder="e.g., Nana's Famous Lasagna"
           register={register('title')}
           error={errors.title?.message}
+        />
+
+        {/* Row for Category and Area side-by-side */}
+        <div className="flex flex-col md:flex-row gap-4 mb-2">
+          <div className="flex-1">
+            <SelectInput 
+              label="Category"
+              placeholder="-- Select a Category --"
+              options={RECIPE_CATEGORIES}
+              register={register('category')}
+              error={errors.category?.message}
+            />
+          </div>
+          
+          <div className="flex-1">
+            <SelectInput 
+              label="Cuisine Area"
+              placeholder="-- Select an Area --"
+              options={RECIPE_AREAS}
+              register={register('area')}
+              error={errors.area?.message}
+            />
+          </div>
+        </div>
+
+        {/* The Dynamic Tags Component */}
+        <Controller
+          name="tags"
+          control={control}
+          render={({ field }) => (
+            <TagInput
+              label="Custom Tags (Optional)"
+              placeholder="e.g., MealPrep, Spicy, Quick"
+              value={field.value} // The current array of tags
+              onChange={(newTags) => field.onChange(newTags)} // Updates the Form Brain
+              error={errors.tags?.message}
+            />
+          )}
         />
 
         {/* Dynamic Ingredients List */}
