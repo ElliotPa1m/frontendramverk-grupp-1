@@ -3,7 +3,7 @@ import { RecipeCard } from "./RecipeCard";
 export const RecipeCardList = ({ arr }) => {
   return (
     <div
-      className="mt-4 mx-auto bg-blue-500
+      className="mt-4 mx-auto
                 flex flex-wrap gap-3 items-stretch justify-center
                 w-full max-w-[1250px]"
     >
