@@ -47,7 +47,7 @@ const SearchForm = ({ onSearch }) => {
 
   // Because the mealDB API only allows use of one filter a search this function will make sure that upon use of a filter input the other inputs gets disabled. This was the most 'elegant' solution I could come up with to suit or new (annoying) api.
   const isDisabled = (filterType) =>
-    search.filter !== null && search.filter !== filterType;
+    isLoading || search.filter !== null && search.filter !== filterType;
 
   // for updating the search state (which are the params for getAllRecipes). Runs every time user types in the search field(name) or picks something from a filter dropdown. If a user deletes their search term/filter option, the filter in search-useState becomes null, which enables all the filter form options again.
 
@@ -57,6 +57,8 @@ const SearchForm = ({ onSearch }) => {
       value: newValue,
     });
   };
+
+//TODO Error and loading UI-message
 
   return ( <form action={handleSubmit}>
    <input
@@ -106,7 +108,7 @@ const SearchForm = ({ onSearch }) => {
         ))}
       </select>
 
-      <button type="submit" >
+      <button type="submit" disabled={!search.filter}>
         Search
       </button>
       </form>
