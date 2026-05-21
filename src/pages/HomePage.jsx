@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import FeatureCard from "../components/FeatureCard";
-import { RecipeCardList } from "../components/RecipeCardList";
+import { ThumbnailList } from "../components/ThumbnailList";
 import { getRandomRecipes } from "../services/api";
+import { RecipeCardList } from "../components/RecipeCardList";
 
 const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
@@ -39,8 +40,13 @@ const HomePage = () => {
   }
 
   return (
-    <div>
-      <RecipeCardList arr={randomRecipes} />
+    <div className="mx-2">
+      <div className="block sm:hidden">
+        <ThumbnailList arr={randomRecipes} />
+      </div>
+      <div className="hidden sm:block">
+        <RecipeCardList arr={randomRecipes} />
+      </div>
 
       <div className="features flex flex-col sm:flex-row sm:flex-wrap gap-8 justify-center p-8">
         <FeatureCard
