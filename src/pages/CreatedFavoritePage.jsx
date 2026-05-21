@@ -1,11 +1,11 @@
 import { RecipeCardList } from "../components/RecipeCardList";
 import { useFavorites } from "../contexts/FavouritesContext";
 import { getUserRecipes } from "../services/userRecipeService";
-import { mockRecipeArr } from "../utils/mockData";
 import { LinkTextComp } from "../components/LinkTextComp";
 import { SeeAllLinkComp } from "../components/SeeAllLinkComp";
 import { StandardPComp } from "../components/StandardPComp";
 import { HeadingComp } from "../components/HeadingComp";
+import { createdMockRecipeArr } from "../utils/createdRecipeMockData";
 
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
@@ -17,7 +17,7 @@ export const CreatedFavoritePage = () => {
     devEnv === "dev"
       ? userRecipes.length !== 0
         ? userRecipes
-        : mockRecipeArr
+        : createdMockRecipeArr
       : userRecipes;
 
   return (
@@ -26,7 +26,10 @@ export const CreatedFavoritePage = () => {
       {createdRecipes.length !== 0 ? (
         <>
           <RecipeCardList
-            arr={createdRecipes.slice(0, window.innerWidth < 768 ? 2 : 4)}
+            arr={createdRecipes.slice(
+              0,
+              window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4,
+            )}
           />
           <SeeAllLinkComp route={"/created"} />
         </>
@@ -41,7 +44,10 @@ export const CreatedFavoritePage = () => {
       {favArr.length !== 0 ? (
         <>
           <RecipeCardList
-            arr={favArr.slice(0, window.innerWidth < 768 ? 2 : 4)}
+            arr={favArr.slice(
+              0,
+              window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4,
+            )}
           />
 
           <SeeAllLinkComp route={"/favorites"} />
