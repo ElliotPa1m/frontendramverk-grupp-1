@@ -27,7 +27,11 @@ const recipeSchema = z.object({
       measure: z.string().min(1, 'Amount is required'),
     })
   ).min(1, 'You need to add at least one ingredient!'),
-  imageFile: z.any().refine((file) => file instanceof File, 'An image is required'),
+
+  // We check if it's a file AND now also that the size is under 3MB (3 * 1024 * 1024 bytes)
+  imageFile: z.any()
+    .refine((file) => file instanceof File, 'An image is required.')
+    .refine((file) => file?.size <= 3145728, 'Image is too large! Maximum size is 3MB.')
 });
 
 const CreateRecipePage = () => {
