@@ -1,4 +1,3 @@
-// I already created this in another branch PR so there's gonna be a tiny merge conflict; thankfulyl that other file is completely empty haha
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +16,6 @@ import ImageUpload from '../components/RecipeCreateComponents/ImageUpload';
 
 
 // Zod Validation Schema
-// Will need to be iterated for the category, area and tags
 const recipeSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters long'),
   instructions: z.string().min(10, 'Please write out some instructions'),
@@ -28,6 +26,13 @@ const recipeSchema = z.object({
       measure: z.string().min(1, 'Amount is required'),
     })
   ).min(1, 'You need to add at least one ingredient!'),
+
+  // New additions: Category, area and tags
+  category: z.string().min(1, 'Please select a category'),
+  area: z.string().min(1, 'Please select a cuisine area'),
+  tags: z.array(z.string()).default([]),
+
+  // We will most likely get a small merge conflict here since the latest changes for imageFile is not merged into main but it's an easy fix
   imageFile: z.any().refine((file) => file instanceof File, 'An image is required'),
 });
 
