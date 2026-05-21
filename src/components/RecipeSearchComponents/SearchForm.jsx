@@ -24,9 +24,10 @@ const SearchForm = ({ onSearch }) => {
           getCachedList('areas'),
         ]);
 
+        // Not sure why but MealDB returns duplicates of the filter options causing key collisions. as a temp (or permanent?) fix I added mapping in our initial setter function so we write over the first array instead of duplicating each entry. 
         setFilterOptions({
-          categories: categories,
-          areas: areas,
+          categories: [...new Map(categories.map(c => [c.strCategory, c])).values()],
+          areas: [...new Map(areas.map(a => [a.strArea, a])).values()],
           ingredients: mainIngredients, // loaded from mainIngredients.json
         });
       } catch (error) {

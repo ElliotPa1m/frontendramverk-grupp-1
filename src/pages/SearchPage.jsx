@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import SearchFilter from '../components/RecipeSearchComponents/SearchForm';
-import { getCachedRecipes, getRandomRecipes } from '../services/recipeService';
+import { getCachedRecipes, getRandomRecipes } from '../services/api';
+import { RecipeCardList } from '../components/RecipeCardList';
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -19,14 +20,22 @@ const SearchPage = () => {
     loadInitialRecipes();
   }, []);
 
-  
-  const handleSearch = () => {
-    console.log('testing');
+  // Called when SearchFilter submits
+  const handleSearch = async ({ filter, value }) => {
+    setIsLoading(true);
+    try {
+      const data = await getCachedRecipes({ filter, value });
+      setRecipes(data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // TODO Error and loading UI-message
   return (
     <div>
       <SearchFilter onSearch={handleSearch} />
+      <RecipeCardList arr={recipes} />
     </div>
   );
 };
