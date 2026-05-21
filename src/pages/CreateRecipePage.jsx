@@ -45,7 +45,12 @@ const CreateRecipePage = () => {
     resolver: zodResolver(recipeSchema),
     defaultValues: {
       // Start the form with one empty ingredient row already showing
-      ingredients: [{ name: "", measure: "" }]
+      ingredients: [{ name: "", measure: "" }],
+      title: "",
+      instructions: "",
+      category: "", 
+      area: "",
+      tags: [], // This will prevent mapping errors befor ethe user adds their first tag
     }
   });
 
