@@ -31,6 +31,10 @@ const SearchPage = () => {
     }
   };
 
+if (isLoading) {
+    return <div >Loading…</div>;
+  }
+
   // TODO Error and loading UI-message
   return (
     <div>
