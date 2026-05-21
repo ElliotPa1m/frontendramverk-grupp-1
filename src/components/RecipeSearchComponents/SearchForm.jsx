@@ -38,8 +38,8 @@ const SearchForm = ({ onSearch }) => {
     fetchOptions();
   }, []);
 
-  //HandleSearch - meant for submit button
-  const handleSearch = (e) => {
+  //HandleSubmit - meant for submit button
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!search.filter) return;
     onSearch(search);
@@ -58,13 +58,21 @@ const SearchForm = ({ onSearch }) => {
     });
   };
 
-  return ( <form action="">
-   <select
+  return ( <form action={handleSubmit}>
+   <input
+        type="text"
+        placeholder="Search by name..."
+        value={search.filter === 'name' ? search.value : ''}
+        disabled={isDisabled('name')}
+        onChange={e => handleChange('name', e.target.value)}
+      />
+
+      <select
         value={search.filter === 'category' ? search.value : ''}
         disabled={isDisabled('category')}
         onChange={e => handleChange('category', e.target.value)}
       >
-        <option value="">Category</option>
+        <option value="">Category...</option>
         {filterOptions.categories.map(c => (
           <option key={c.strCategory} value={c.strCategory}>
             {c.strCategory}
@@ -85,6 +93,22 @@ const SearchForm = ({ onSearch }) => {
         ))}
       </select>
 
+      <select
+        value={search.filter === 'ingredient' ? search.value : ''}
+        disabled={isDisabled('ingredient')}
+        onChange={e => handleChange('ingredient', e.target.value)}
+      >
+        <option value="">Main ingredient...</option>
+        {filterOptions.ingredients.map(ingredient => (
+          <option key={ingredient} value={ingredient}>
+            {ingredient}
+          </option>
+        ))}
+      </select>
+
+      <button type="submit" >
+        Search
+      </button>
       </form>
 
   );
