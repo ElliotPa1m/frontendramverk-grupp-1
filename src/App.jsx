@@ -4,7 +4,7 @@ import Layout from "./components/Layout";
 import { CreatedFavoritePage } from "./pages/CreatedFavoritePage";
 import { AllCreatedRecipePage } from "./pages/AllCreatedRecipePage";
 import { AllFavoriteRecipePage } from "./pages/AllFavoriteRecipePage";
-import { SearchPage } from "./pages/SearchPage";
+import SearchPage from "./pages/SearchPage";
 // import RecipeDetailsPage from './pages/RecipeDetailsPage';
 import RecipeDetailsPage from './pages/RecipeDetailsPage';
 import CreateRecipePage from "./pages/CreateRecipePage";
