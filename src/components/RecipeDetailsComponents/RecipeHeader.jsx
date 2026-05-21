@@ -1,7 +1,7 @@
 // this displays the recipe title, cuisine and category
 function RecipeHeader({name, cuisine, category}) {
     return (
-        <div className="p-6">
+        <div>
             <h1 className="barlow-condensed-regular text-3xl text-text mb-4">
                 {name}
             </h1>

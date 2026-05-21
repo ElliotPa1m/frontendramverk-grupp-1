@@ -1,13 +1,15 @@
 import { Image } from "./Image";
 // import { IconWithInfo } from "./IconWithInfo";
+import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 
 export const RecipeCard = ({ recipe, rating }) => {
+  const created = false;
   return (
     <div
-      className="border border-2 border-stone-500 rounded-md 
-                    overflow-hidden bg-amber-50 
+      className="border border-2 border-pop rounded-md 
+                    overflow-hidden bg-background
                     w-full
                     h-full 
                     flex flex-col"
@@ -15,7 +17,16 @@ export const RecipeCard = ({ recipe, rating }) => {
       <div className="relative">
         <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
         <div className="absolute top-2 right-3">
-          <FavoriteButton id={recipe.idMeal} recipe={recipe} />
+          {created ? (
+            <IconButton
+              icon={"edit"}
+              actionHandler={() =>
+                console.log("go to created recipe editing screen")
+              }
+            />
+          ) : (
+            <FavoriteButton id={recipe.idMeal} recipe={recipe} />
+          )}
         </div>
 
         {/* <div className="absolute bottom-2 left-3">
@@ -26,6 +37,7 @@ export const RecipeCard = ({ recipe, rating }) => {
         </div> */}
       </div>
       <RecipeCardInfoSection
+        id={recipe.idMeal}
         recipeName={recipe.strMeal}
         country={recipe.strCountry}
         tags={recipe.strTags}
