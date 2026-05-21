@@ -1,5 +1,5 @@
 // import { useState, useEffect, useRef } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
@@ -7,7 +7,7 @@ const Layout = () => {
       <nav>
         <Link to="/">LOGO</Link>
         <Link to="/search">Sök</Link>
-        <Link to="/saved">Sparade recept</Link>
+        <Link to="/my-recipes">Sparade recept</Link>
         <Link to="/create">Skapa recept</Link>
       </nav>
 
@@ -16,7 +16,7 @@ const Layout = () => {
         <Outlet />
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default Layout;

@@ -43,7 +43,13 @@ export const FavouritesProvider = ({ children }) => {
   }, [favourites]);
 
   const addFavourite = (recipe) => {
-    setFavourites((prev) => [...prev, recipe]);
+    setFavourites((prev) => [
+      ...prev,
+      {
+        ...recipe,
+        rating: recipe.rating ?? (Math.random() * 5).toFixed(1),
+      },
+    ]);
   };
 
   const removeFavourite = (id) => {

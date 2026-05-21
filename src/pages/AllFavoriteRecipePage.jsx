@@ -1,16 +1,18 @@
 import { RecipeCardList } from "../components/RecipeCardList";
 import { useFavorites } from "../contexts/FavouritesContext";
+import { StandardPComp } from "../components/StandardPComp";
+import { HeadingComp } from "../components/HeadingComp";
 
 export const AllFavoriteRecipePage = () => {
   const favContext = useFavorites();
 
   return (
     <div className="mx-4 my-4">
-      <h2 className="barlow-condensed-regular text-2xl">Favorites</h2>
+      <HeadingComp text={"Favorites"} size={"h2"} />
       {favContext.favourites.length !== 0 ? (
         <RecipeCardList arr={favContext.favourites} />
       ) : (
-        <p>You dont have any favorites yet</p>
+        <StandardPComp text={"You dont have any favorites yet"} />
       )}
     </div>
   );
