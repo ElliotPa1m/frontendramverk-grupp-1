@@ -10,7 +10,8 @@ export const RecipeCardInfoSection = ({
   tags,
   rating,
 }) => {
-  const tagArr = tags && tags.split(",").join(" • ");
+  const tagString = tags && (typeof tags === "string" ? tags : tags.toString());
+  const tagArr = tagString?.split(",").join(" • ");
   return (
     <div className="mx-4 mt-4 mb-2 flex flex-1 flex-col gap-1">
       {(country || cat) && (
