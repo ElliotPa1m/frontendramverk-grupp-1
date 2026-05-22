@@ -65,7 +65,7 @@ const getAllRecipes = async ({ filter, value }) => {
 export const getRecipeById = async id => {
   try {
     const response = await apiClient.get(`/lookup.php?i=${id}`);
-    return response.data;
+    return response.data.meals[0];
   } catch (error) {
     throw new Error('Failed to fetch recipe ' + id + ': ' + error.message, {
       cause: error,
