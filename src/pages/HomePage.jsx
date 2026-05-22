@@ -13,7 +13,6 @@ const HomePage = () => {
   useEffect(() => {
     const fetchRandomRecipes = async () => {
       try {
-        console.log("in try", randomRecipes);
         setLoading(true);
         setError(null);
         const data = await getRandomRecipes(3);
