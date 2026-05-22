@@ -7,12 +7,12 @@ import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 export const RecipeCard = ({ recipe }) => {
   const created = recipe.createdAt ? true : false;
   const recipeToShow = {
-    id: created ? recipe.id : recipe.idMeal,
-    recipeName: created ? recipe.title : recipe.strMeal,
-    thumbnail: created ? recipe.imageUrl : recipe.strMealThumb,
-    country: created ? recipe.area : recipe.strCountry,
-    tags: created ? recipe.tags : recipe.strTags,
-    cat: created ? recipe.category : recipe.strCategory,
+    idMeal: created ? recipe.id : recipe.idMeal,
+    strMeal: created ? recipe.title : recipe.strMeal,
+    strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
+    strCountry: created ? recipe.area : recipe.strCountry,
+    strTags: created ? recipe.tags.toString() : recipe.strTags,
+    strCategory: created ? recipe.category : recipe.strCategory,
     rating: recipe.rating,
   };
 
@@ -26,8 +26,8 @@ export const RecipeCard = ({ recipe }) => {
     >
       <div className="relative">
         <Image
-          imgUrl={recipeToShow.thumbnail}
-          recipeName={recipeToShow.recipeName}
+          imgUrl={recipeToShow.strMealThumb}
+          recipeName={recipeToShow.strMeal}
         />
         <div className="absolute top-2 right-3">
           {created ? (
@@ -38,7 +38,7 @@ export const RecipeCard = ({ recipe }) => {
               }
             />
           ) : (
-            <FavoriteButton id={recipeToShow.id} recipe={recipeToShow} />
+            <FavoriteButton id={recipeToShow.idMeal} recipe={recipeToShow} />
           )}
         </div>
 
@@ -50,11 +50,11 @@ export const RecipeCard = ({ recipe }) => {
         </div> */}
       </div>
       <RecipeCardInfoSection
-        id={recipeToShow.id}
-        recipeName={recipeToShow.recipeName}
-        country={recipeToShow.country}
-        tags={recipeToShow.tags}
-        cat={recipeToShow.cat}
+        id={recipeToShow.idMeal}
+        recipeName={recipeToShow.strMeal}
+        country={recipeToShow.strCountry}
+        tags={recipeToShow.strTags}
+        cat={recipeToShow.strCategory}
         rating={recipeToShow.rating}
       />
     </div>
