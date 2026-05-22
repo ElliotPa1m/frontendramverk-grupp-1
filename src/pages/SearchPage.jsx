@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import SearchFilter from '../components/RecipeSearchComponents/SearchForm';
 import { getCachedRecipes, getRandomRecipes } from '../services/api';
 import { RecipeCardList } from '../components/RecipeCardList';
+import { RecipeCardSkeletonList } from '../components/RecipeCardSkeleton';
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -31,15 +32,15 @@ const SearchPage = () => {
     }
   };
 
-if (isLoading) {
-    return <div >Loading…</div>;
-  }
-
   // TODO Error and loading UI-message
   return (
     <div>
       <SearchFilter onSearch={handleSearch} />
-      <RecipeCardList arr={recipes} />
+      {isLoading ? (
+        <RecipeCardSkeletonList count={12} />
+      ) : (
+        <RecipeCardList arr={recipes} />
+      )}
     </div>
   );
 };
