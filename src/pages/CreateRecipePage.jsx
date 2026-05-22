@@ -1,16 +1,18 @@
-// I already created this in another branch PR so there's gonna be a tiny merge conflict; thankfulyl that other file is completely empty haha
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
-// Services
+// Services and Constants
 import { saveUserRecipe } from '../services/userRecipeService';
 import { uploadImage } from '../services/cloudinaryService';
+import { RECIPE_CATEGORIES, RECIPE_AREAS } from '../utils/constants';
 
 // Extracted UI Components
 import TextInput from '../components/RecipeCreateComponents/TextInput';
+import SelectInput from '../components/RecipeCreateComponents/SelectInput';
+import TagInput from '../components/RecipeCreateComponents/TagInput';
 import TextArea from '../components/RecipeCreateComponents/TextArea';
 import IngredientInputList from '../components/RecipeCreateComponents/IngredientInputList';
 import ImageUpload from '../components/RecipeCreateComponents/ImageUpload';
@@ -28,6 +30,11 @@ const recipeSchema = z.object({
     })
   ).min(1, 'You need to add at least one ingredient!'),
 
+  // New additions: Category, area and tags
+  category: z.string().min(1, 'Please select a category'),
+  area: z.string().min(1, 'Please select a cuisine area'),
+  tags: z.array(z.string()).default([]),
+
   // We check if it's a file AND now also that the size is under 3MB (3 * 1024 * 1024 bytes)
   imageFile: z.any()
     .refine((file) => file instanceof File, 'An image is required.')
@@ -43,7 +50,12 @@ const CreateRecipePage = () => {
     resolver: zodResolver(recipeSchema),
     defaultValues: {
       // Start the form with one empty ingredient row already showing
-      ingredients: [{ name: "", measure: "" }]
+      ingredients: [{ name: "", measure: "" }],
+      title: "",
+      instructions: "",
+      category: "", 
+      area: "",
+      tags: [], // This will prevent mapping errors befor ethe user adds their first tag
     }
   });
 
@@ -56,6 +68,9 @@ const CreateRecipePage = () => {
       const newRecipe = {
         // No crypto.randomUUID() since saveUserRecipe from the service handles that!
         title: formData.title,
+        category: formData.category,
+        area: formData.area,
+        tags: formData.tags,
         instructions: formData.instructions,
         ingredients: formData.ingredients,
         imageUrl: cdnUrl,
@@ -66,7 +81,7 @@ const CreateRecipePage = () => {
       saveUserRecipe(newRecipe);
 
       // Navigate to Own/Favorites Page (which will mount and read the new data, no global context needed)
-      navigate('/saved');
+      navigate('/my-recipes'); // Updated route
     } catch (err) {
       console.error(err);
       alert(err.message || 'Failed to save recipe.');
@@ -87,6 +102,44 @@ const CreateRecipePage = () => {
           placeholder="e.g., Nana's Famous Lasagna"
           register={register('title')}
           error={errors.title?.message}
+        />
+
+        {/* Row for Category and Area side-by-side */}
+        <div className="flex flex-col md:flex-row gap-4 mb-2">
+          <div className="flex-1">
+            <SelectInput 
+              label="Category"
+              placeholder="-- Select a Category --"
+              options={RECIPE_CATEGORIES}
+              register={register('category')}
+              error={errors.category?.message}
+            />
+          </div>
+          
+          <div className="flex-1">
+            <SelectInput 
+              label="Cuisine Area"
+              placeholder="-- Select an Area --"
+              options={RECIPE_AREAS}
+              register={register('area')}
+              error={errors.area?.message}
+            />
+          </div>
+        </div>
+
+        {/* The Dynamic Tags Component */}
+        <Controller
+          name="tags"
+          control={control}
+          render={({ field }) => (
+            <TagInput
+              label="Custom Tags (Optional)"
+              placeholder="e.g., MealPrep, Spicy, Quick"
+              value={field.value} // The current array of tags
+              onChange={(newTags) => field.onChange(newTags)} // Updates the Form Brain
+              error={errors.tags?.message}
+            />
+          )}
         />
 
         {/* Dynamic Ingredients List */}
