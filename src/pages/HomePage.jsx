@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FeatureCard from "../components/FeatureCard";
 import { ThumbnailList } from "../components/ThumbnailList";
 import { getRandomRecipes } from "../services/api";
@@ -8,10 +8,12 @@ const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const hasFetchedRandomRecipes = useRef(false);
 
   useEffect(() => {
     const fetchRandomRecipes = async () => {
       try {
+        console.log("in try", randomRecipes);
         setLoading(true);
         setError(null);
         const data = await getRandomRecipes(3);
@@ -23,7 +25,11 @@ const HomePage = () => {
         setLoading(false);
       }
     };
-    fetchRandomRecipes();
+    // keeps recipes from rendering twice on load
+    if (hasFetchedRandomRecipes.current === false) {
+      hasFetchedRandomRecipes.current = true;
+      fetchRandomRecipes();
+    }
   }, []);
 
   if (loading) {
