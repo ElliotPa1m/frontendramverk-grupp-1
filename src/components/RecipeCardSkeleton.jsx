@@ -2,7 +2,7 @@
 
 /*
 
-A skeleton card(list) to be used as placeholder while recipeCard content loads. RecipeCardSkeleton('desired number of cards').
+A skeleton card(list) to be used as placeholder while recipeCard content loads. RecipeCardSkeletonList('desired number of cards').
 
 don't really think it makes any sense to separete these two components into their own files. I'm ready to take the backlash för this decision ;) */
 
