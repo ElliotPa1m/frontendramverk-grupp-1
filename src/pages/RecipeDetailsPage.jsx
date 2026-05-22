@@ -7,6 +7,7 @@ import InstructionList from "../components/RecipeDetailsComponents/InstructionLi
 import { Image } from "../components/Image";
 import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
+import { getUserRecipeById } from "../services/userRecipeService";
 
 function RecipeDetailsPage() {
     const { id } = useParams();
@@ -29,8 +30,7 @@ function RecipeDetailsPage() {
                 setLoading(false);
             }
         }
-
-        fetchRecipe();
+            id.length === 5 ? fetchRecipe() : getUserRecipeById(id);
 
     }, [id]);
 
