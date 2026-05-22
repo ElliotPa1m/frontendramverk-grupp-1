@@ -29,7 +29,7 @@ const HomePage = () => {
       hasFetchedRandomRecipes.current = true;
       fetchRandomRecipes();
     }
-  }, []);
+  });
 
   if (loading) {
     return <div className="loading-recipe">Loading recipes...</div>;
