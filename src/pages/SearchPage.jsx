@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SearchFilter from '../components/RecipeSearchComponents/SearchForm';
 import { getCachedRecipes, getRandomRecipes } from '../services/api';
 import { RecipeCardList } from '../components/RecipeCardList';
@@ -6,6 +6,7 @@ import { RecipeCardList } from '../components/RecipeCardList';
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const hasFetchedRandomRecipes = useRef(false);
 
   // load 10 random recipes on mount
   useEffect(() => {
@@ -17,8 +18,11 @@ const SearchPage = () => {
         setIsLoading(false);
       }
     };
-    loadInitialRecipes();
-  }, []);
+    if (hasFetchedRandomRecipes.current === false) {
+      hasFetchedRandomRecipes.current = true;
+      loadInitialRecipes();
+    }
+  });
 
   // Called when SearchFilter submits
   const handleSearch = async ({ filter, value }) => {
@@ -31,15 +35,10 @@ const SearchPage = () => {
     }
   };
 
-if (isLoading) {
-    return <div >Loading…</div>;
-  }
-
-  // TODO Error and loading UI-message
   return (
     <div>
       <SearchFilter onSearch={handleSearch} />
-      <RecipeCardList arr={recipes} />
+      {isLoading ? <div>Loading…</div> : <RecipeCardList arr={recipes} />}
     </div>
   );
 };
