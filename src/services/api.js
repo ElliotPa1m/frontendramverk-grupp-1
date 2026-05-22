@@ -141,8 +141,9 @@ const getList = async listType => {
 };
 
 // same logic as the getCachedRecipe function
-export const getCachedList = async listType => {
-  if (cache[listType]) return cache[listType];
-  cache[listType] = await getList(listType);
-  return cache[listType];
+export const getCachedList = listType => {
+  if (!cache[listType]) {
+    cache[listType] = getList(listType); // store the Promise immediately
+  }
+  return cache[listType]; // all callers await the same promise
 };
