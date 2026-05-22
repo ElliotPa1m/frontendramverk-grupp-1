@@ -1,8 +1,8 @@
 import { RecipeCardList } from "../components/RecipeCardList";
 import { getUserRecipes } from "../services/userRecipeService";
-import { mockRecipeArr } from "../utils/mockData";
 import { StandardPComp } from "../components/StandardPComp";
 import { HeadingComp } from "../components/HeadingComp";
+import { createdMockRecipeArr } from "../utils/createdRecipeMockData";
 
 export const AllCreatedRecipePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
@@ -12,7 +12,7 @@ export const AllCreatedRecipePage = () => {
     devEnv === "dev"
       ? userRecipes.length !== 0
         ? userRecipes
-        : mockRecipeArr
+        : createdMockRecipeArr
       : userRecipes;
 
   return (
