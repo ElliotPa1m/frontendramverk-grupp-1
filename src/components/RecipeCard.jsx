@@ -38,7 +38,7 @@ export const RecipeCard = ({ recipe }) => {
               }
             />
           ) : (
-            <FavoriteButton id={recipeToShow.idMeal} recipe={recipeToShow} />
+            <FavoriteButton recipe={recipeToShow} />
           )}
         </div>
 
