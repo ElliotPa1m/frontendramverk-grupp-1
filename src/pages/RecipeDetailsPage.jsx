@@ -7,6 +7,7 @@ import InstructionList from "../components/RecipeDetailsComponents/InstructionLi
 import { Image } from "../components/Image";
 import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
+import { getUserRecipeById } from "../services/userRecipeService";
 
 function RecipeDetailsPage() {
     const { id } = useParams();
@@ -21,16 +22,15 @@ function RecipeDetailsPage() {
                 setLoading(true);
                 setError(null);
 
-                const data = await getRecipeById(id);
-                setRecipe(data.meals[0]);
+                const data = id.length === 5 ? await getRecipeById(id) : getUserRecipeById(id);
+                setRecipe(data);
             } catch (err) {
                 setError(err.message);
             } finally {
                 setLoading(false);
             }
         }
-
-        fetchRecipe();
+        fetchRecipe()
 
     }, [id]);
 
@@ -55,26 +55,37 @@ function RecipeDetailsPage() {
         .split("\n")
         .filter((step) => step.trim() !== "");
 
+    const created = recipe.createdAt ? true : false;
+    const recipeToShow = {
+        idMeal: created ? recipe.id : recipe.idMeal,
+        strMeal: created ? recipe.title : recipe.strMeal,
+        strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
+        strArea: created ? recipe.area : recipe.strArea,
+        strTags: created ? recipe.tags.toString() : recipe.strTags,
+        strCategory: created ? recipe.category : recipe.strCategory,
+        rating: recipe.rating,
+    };
+
     return (
         <div className="max-w-5xl ml-8 px-6 py-8">
             <RecipeHeader
-                name={recipe.strMeal}
-                cuisine={recipe.strArea}
-                category={recipe.strCategory}
+                name={recipeToShow.strMeal}
+                cuisine={recipeToShow.strArea}
+                category={recipeToShow.strCategory}
             />
             <div className="flex flex-col lg:flex-row gap-8">
                 {/* Left column - image, favorite, meta */}
                 <div className="flex flex-col">
                     <div className="w-full md:w-64 mt-4 mb-4">
-                        <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
+                        <Image imgUrl={recipeToShow.strMealThumb} recipeName={recipeToShow.strMeal} />
                     </div>
                     <div className="w-fit">
                         <FavoriteButton id={recipe.idMeal} recipe={recipe} />
                     </div>
                     <RecipeMeta
-                        category={recipe.strCategory}
-                        area={recipe.strArea}
-                        tags={recipe.strTags}
+                        category={recipeToShow.strCategory}
+                        area={recipeToShow.strArea}
+                        tags={recipeToShow.strTags}
                     />
                 </div>
                 {/* Middle column - ingredients */}
