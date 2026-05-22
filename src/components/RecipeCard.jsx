@@ -49,14 +49,7 @@ export const RecipeCard = ({ recipe }) => {
           />
         </div> */}
       </div>
-      <RecipeCardInfoSection
-        id={recipeToShow.idMeal}
-        recipeName={recipeToShow.strMeal}
-        country={recipeToShow.strCountry}
-        tags={recipeToShow.strTags}
-        cat={recipeToShow.strCategory}
-        rating={recipeToShow.rating}
-      />
+      <RecipeCardInfoSection recipe={recipe} />
     </div>
   );
 };
