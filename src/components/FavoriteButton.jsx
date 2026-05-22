@@ -2,7 +2,7 @@ import { Icon } from "./Icon";
 import { useFavorites } from "../contexts/FavouritesContext";
 
 export const FavoriteButton = ({ recipe }) => {
-  const id = recipe.id;
+  const id = recipe.idMeal;
   const favContext = useFavorites();
   const isFav = favContext.isFavourite(id);
 
