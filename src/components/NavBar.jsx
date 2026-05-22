@@ -5,9 +5,9 @@ function Navbar() {
     return (
         <nav className="flex items-center justify-between px-8 py-4 bg-white/80">
 
-            <span className="barlow-condensed-regular text-2xl text-text">
-                LOGO
-            </span>
+            <div className="flex h-20">
+                <img src="/design/logos/logga-test-2.png" className="h-full object-contain" alt="Receptboken logo"></img>
+            </div>
                 {/* the "isActive" changes to color of the button depending on what page you are on */}
             <div className="flex gap-8">
                 <NavLink
@@ -21,8 +21,8 @@ function Navbar() {
                 </NavLink>
 
                 <NavLink
-                    to="/favorites" className={({ isActive }) => `barlow-condensed-light text-text hover:text-button transition-colors ${isActive ? "text-button" : ""}`}>
-                    Saved Recipes
+                    to="/my-recipes" className={({ isActive }) => `barlow-condensed-light text-text hover:text-button transition-colors ${isActive ? "text-button" : ""}`}>
+                    My Recipes
                 </NavLink>
                 <NavLink
                     to="/create" className={({ isActive }) => `barlow-condensed-light text-text hover:text-button transition-colors ${isActive ? "text-button" : ""}`}>
