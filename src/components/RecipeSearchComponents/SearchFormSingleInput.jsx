@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { getCachedList } from '../../services/api';
 import mainIngredients from '../../data/mainIngredients.json';
 
-const SearchFormReimagined = () => {
+const SearchFormSingleInput = onSearch => {
   const [search, setSearch] = useState({ filter: null, value: '' });
   const [filterOptions, setFilterOptions] = useState({
     categories: [],
@@ -72,7 +72,8 @@ const SearchFormReimagined = () => {
       {search.filter === 'name' ? (
         <input
           type="text"
-          placeholder="Search recipe by name..."
+          placeholder="Search recipe by name"
+          disabled={isLoading}
           value={search.value}
           onChange={e => handleValueChange(e.target.value)}
         />
@@ -89,8 +90,12 @@ const SearchFormReimagined = () => {
           ))}
         </select>
       )}
+
+      <button type="submit" disabled={!search.value}>
+        Search
+      </button>
     </form>
   );
 };
 
-export default SearchFormReimagined;
+export default SearchFormSingleInput;
