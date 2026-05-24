@@ -56,7 +56,41 @@ const SearchFormReimagined = () => {
   const handleFilterChange = filter => setSearch({ filter, value: '' });
   const handleValueChange = value => setSearch(prev => ({ ...prev, value }));
 
-  return <div>SearchFormReimagined</div>;
+  return (
+    <form onSubmit={handleSubmit}>
+      <select
+        value={search.filter}
+        onChange={e => handleFilterChange(e.target.value)}
+      >
+        <option value="name">Name</option>
+        <option value="category">Category</option>
+        <option value="area">Area</option>
+        <option value="ingredient">Main ingredient</option>
+      </select>
+
+      {/* more conditional rendering! */}
+      {search.filter === 'name' ? (
+        <input
+          type="text"
+          placeholder="Search recipe by name..."
+          value={search.value}
+          onChange={e => handleValueChange(e.target.value)}
+        />
+      ) : (
+        <select
+          value={search.value}
+          onChange={e => handleValueChange(e.target.value)}
+        >
+          <option value="">Select {search.filter}</option>
+          {filterOptions[search.filter].map(option => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )}
+    </form>
+  );
 };
 
 export default SearchFormReimagined;
