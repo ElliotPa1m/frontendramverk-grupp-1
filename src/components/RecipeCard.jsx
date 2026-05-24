@@ -1,5 +1,4 @@
 import { Image } from "./Image";
-// import { IconWithInfo } from "./IconWithInfo";
 import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
@@ -41,22 +40,8 @@ export const RecipeCard = ({ recipe }) => {
             <FavoriteButton id={recipeToShow.idMeal} recipe={recipeToShow} />
           )}
         </div>
-
-        {/* <div className="absolute bottom-2 left-3">
-          <IconWithInfo
-            icon={"time"}
-            timeToCook={recipe.prep_time + recipe.cook_time}
-          />
-        </div> */}
       </div>
-      <RecipeCardInfoSection
-        id={recipeToShow.idMeal}
-        recipeName={recipeToShow.strMeal}
-        country={recipeToShow.strCountry}
-        tags={recipeToShow.strTags}
-        cat={recipeToShow.strCategory}
-        rating={recipeToShow.rating}
-      />
+      <RecipeCardInfoSection recipe={recipe} />
     </div>
   );
 };
