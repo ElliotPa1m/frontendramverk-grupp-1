@@ -8,7 +8,7 @@ export const FavoriteButton = ({ id, recipe }) => {
   return (
     <>
       <button
-        className="hover:cursor-pointer rounded-xl bg-white/80 px-2"
+        className="hover:cursor-pointer rounded-full bg-white/80 h-[35px] w-[35px]"
         onClick={() =>
           isFav
             ? favContext.removeFavourite(id)
