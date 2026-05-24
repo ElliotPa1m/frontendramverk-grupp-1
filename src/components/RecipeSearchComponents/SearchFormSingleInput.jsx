@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { getCachedList } from '../../services/api';
 import mainIngredients from '../../data/mainIngredients.json';
 
-const SearchFormSingleInput = ({ onSearch}) => {
+const SearchFormSingleInput = ({ onSearch }) => {
   const [search, setSearch] = useState({ filter: 'name', value: '' });
   const [filterOptions, setFilterOptions] = useState({
     category: [],
@@ -30,7 +30,7 @@ const SearchFormSingleInput = ({ onSearch}) => {
         setFilterOptions({
           category: categories.map(c => c.strCategory),
           area: areas.map(a => a.strArea),
-          ingredient: mainIngredients,// loaded from mainIngredients.json
+          ingredient: mainIngredients, // loaded from mainIngredients.json
         });
       } catch (error) {
         console.error('Failed to load filter options:', error);
@@ -55,18 +55,38 @@ const SearchFormSingleInput = ({ onSearch}) => {
   const handleValueChange = value => setSearch(prev => ({ ...prev, value }));
 
   return (
-    <form onSubmit={handleSubmit}>
-      <select
-        value={search.filter}
-        onChange={e => handleFilterChange(e.target.value)}
-      >
-        <option value="name">Name</option>
-        <option value="category">Category</option>
-        <option value="area">Area</option>
-        <option value="ingredient">Main ingredient</option>
-      </select>
+     <form
+    onSubmit={handleSubmit}
+    className="barlow-condensed-light
+               flex flex-col sm:flex-row gap-3 items-stretch sm:items-center
+               w-full max-w-[1250px] mx-auto mt-4"
+  >
+    {/* coupled filter + value — single bordered container */}
+    <div className="flex flex-1 border border-pop/40 rounded-lg overflow-hidden bg-white
+                shadow-sm focus-within:border-pop transition">
 
-      {/* more conditional rendering! */}
+      {/* filter type dropdown */}
+      <div className="relative shrink-0">
+        <select
+          value={search.filter}
+          onChange={e => handleFilterChange(e.target.value)}
+          className="appearance-none h-full px-4 py-3 pr-9 text-base text-text bg-white
+                     border-r border-pop/40 outline-none cursor-pointer"
+        >
+          <option value="name">Name</option>
+          <option value="category">Category</option>
+          <option value="area">Area</option>
+          <option value="ingredient">Main ingredient</option>
+        </select>
+        <svg
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+        </svg>
+      </div>
+
+      {/* value field — text input OR dropdown */}
       {search.filter === 'name' ? (
         <input
           type="text"
@@ -74,25 +94,50 @@ const SearchFormSingleInput = ({ onSearch}) => {
           disabled={isLoading}
           value={search.value}
           onChange={e => handleValueChange(e.target.value)}
+          className="flex-1 px-4 py-3 text-base text-text outline-none bg-white min-w-0
+                     placeholder:text-text/40 disabled:opacity-50"
         />
       ) : (
-        <select
-          value={search.value}
-          onChange={e => handleValueChange(e.target.value)}
-        >
-          <option value="">Select {search.filter}</option>
-          {filterOptions[search.filter].map(option => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        <div className="relative flex-1 min-w-0">
+          <select
+            value={search.value}
+            disabled={isLoading}
+            onChange={e => handleValueChange(e.target.value)}
+            className="appearance-none w-full px-4 py-3 pr-9 text-base text-text bg-white
+                       outline-none cursor-pointer disabled:opacity-50"
+          >
+            <option value="">Select {search.filter}</option>
+            {filterOptions[search.filter].map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <svg
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+          </svg>
+        </div>
       )}
+    </div>
 
-      <button type="submit" disabled={!search.value}>
-        Search
-      </button>
-    </form>
+    {/* submit button */}
+    <button
+      type="submit"
+      disabled={!search.value}
+      className="barlow-condensed-regular
+                 w-full sm:w-auto sm:shrink-0
+                 px-10 py-3 rounded-lg bg-button text-white text-lg tracking-wide uppercase
+                 shadow-sm
+                 hover:brightness-110 active:brightness-95
+                 focus:outline-none 
+                 disabled:opacity-50 disabled:cursor-not-allowed transition"
+    >
+      Search
+    </button>
+  </form>
   );
 };
 
