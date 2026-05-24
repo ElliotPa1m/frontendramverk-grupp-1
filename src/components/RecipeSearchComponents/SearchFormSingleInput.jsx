@@ -8,12 +8,12 @@ import { useState, useEffect } from 'react';
 import { getCachedList } from '../../services/api';
 import mainIngredients from '../../data/mainIngredients.json';
 
-const SearchFormSingleInput = onSearch => {
-  const [search, setSearch] = useState({ filter: null, value: '' });
+const SearchFormSingleInput = ({ onSearch}) => {
+  const [search, setSearch] = useState({ filter: 'name', value: '' });
   const [filterOptions, setFilterOptions] = useState({
-    categories: [],
-    areas: [],
-    ingredients: [],
+    category: [],
+    area: [],
+    ingredient: [],
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -28,11 +28,9 @@ const SearchFormSingleInput = onSearch => {
         ]);
 
         setFilterOptions({
-          categories: [
-            ...new Map(categories.map(c => [c.strCategory, c])).values(),
-          ],
-          areas: [...new Map(areas.map(a => [a.strArea, a])).values()],
-          ingredients: mainIngredients, // loaded from mainIngredients.json
+          category: categories.map(c => c.strCategory),
+          area: areas.map(a => a.strArea),
+          ingredient: mainIngredients,// loaded from mainIngredients.json
         });
       } catch (error) {
         console.error('Failed to load filter options:', error);
