@@ -84,7 +84,7 @@ function RecipeDetailsPage() {
             />
           </div>
           <div className="w-fit">
-            <FavoriteButton id={recipe.idMeal} recipe={recipe} />
+            <FavoriteButton recipe={recipe} />
           </div>
           <RecipeMeta
             category={recipeToShow.strCategory}
