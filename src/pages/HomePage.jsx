@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import FeatureCard from "../components/FeatureCard";
 import { getRandomRecipes } from "../services/api";
 import { RecipeCardList } from "../components/RecipeCardList";
+import ErrorParagraph from "../components/ErrorParagraph";
 
 const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
@@ -35,13 +36,9 @@ const HomePage = () => {
   }
 
   if (error) {
-    return (
-      <div className="error-loading-recipes">
-        <h2>Error loading recipes</h2>
-        <p>{error}</p>
-      </div>
-    );
-  }
+    console.error(error); // Log the real error for developers
+    return  <ErrorParagraph /> // The friendly default message is shown to the user
+  } 
 
   return (
     <div className="mx-2">
