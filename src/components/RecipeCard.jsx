@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Image } from "./Image";
 import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 
 export const RecipeCard = ({ recipe }) => {
+  const [setIsEditModalOpen, setIsEditModalOpen] = useState(false); // New Edit Modal state!
   const created = recipe.createdAt ? true : false;
 
   const recipeToShow = {
@@ -37,9 +39,7 @@ export const RecipeCard = ({ recipe }) => {
           {created ? (
             <IconButton
               icon={"edit"}
-              actionHandler={() =>
-                console.log("go to created recipe editing screen")
-              }
+              actionHandler={() => setIsEditModalOpen(true)}
             />
           ) : (
             <FavoriteButton id={recipeToShow.idMeal} recipe={recipeToShow} />
@@ -47,6 +47,15 @@ export const RecipeCard = ({ recipe }) => {
         </div>
       </div>
       <RecipeCardInfoSection recipe={recipeToShow} />
+
+      {/* The Portal Modal */}
+      {isEditModalOpen && (
+        <EditRecipeModal
+          recipe={recipe}
+          onClose={() => setIsEditModalOpen(false)}
+          onSaveSuccess={onEditSuccess} // Pass a refresh trigger up to the parent page!
+        />
+      )}
     </div>
   );
 };
