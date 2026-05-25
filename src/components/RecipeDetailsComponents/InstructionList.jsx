@@ -5,7 +5,12 @@ import { instructionCleaningFn } from "../../utils/instructionCleaningFn";
 
 function InstructionList({ instructions }) {
   const [checkedSteps, setCheckedSteps] = useState([]);
-
+  const cleanInstructions = instructions.some((i) =>
+    i.toLowerCase().includes("step"),
+  )
+    ? instructionCleaningFn(instructions)
+    : instructions;
+  console.log("clean", cleanInstructions);
   // this is the toggle done/undone
   function handleStepToggle(index) {
     setCheckedSteps((prev) =>
@@ -22,7 +27,7 @@ function InstructionList({ instructions }) {
       </h2>
 
       <ol className="flex flex-col gap-3">
-        {instructionCleaningFn(instructions).map((instruction, index) => (
+        {cleanInstructions.map((instruction, index) => (
           <li
             key={index}
             className={`flex items-start gap-3 barlow-condensed-light text-text cursor-pointer ${
