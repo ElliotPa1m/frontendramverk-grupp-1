@@ -48,7 +48,7 @@ const HomePage = () => {
         className="features 
       flex flex-col md:flex-row md:flex-wrap md:justify-center gap-3
       h-full 
-      py-4 px-2 lg:p-8"
+      py-4 lg:py-8"
       >
         <FeatureCard
           title="Search for a recipe"
