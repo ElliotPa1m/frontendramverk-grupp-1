@@ -61,6 +61,7 @@ function RecipeDetailsPage() {
         strMeal: created ? recipe.title : recipe.strMeal,
         strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
         strArea: created ? recipe.area : recipe.strArea,
+        strCountry: created ? recipe.country : recipe.strCountry,
         strTags: created ? recipe.tags.toString() : recipe.strTags,
         strCategory: created ? recipe.category : recipe.strCategory,
         rating: recipe.rating,
@@ -70,7 +71,7 @@ function RecipeDetailsPage() {
         <div className="max-w-5xl ml-8 px-6 py-8">
             <RecipeHeader
                 name={recipeToShow.strMeal}
-                cuisine={recipeToShow.strArea}
+                cuisine={recipeToShow.strCountry}
                 category={recipeToShow.strCategory}
             />
             <div className="flex flex-col lg:flex-row gap-8">
