@@ -4,10 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
-// Services and Constants
+// Services, Constants and Helper functions
 import { saveUserRecipe } from '../services/userRecipeService';
 import { uploadImage } from '../services/cloudinaryService';
 import { RECIPE_CATEGORIES, RECIPE_AREAS } from '../utils/constants';
+import { getCountryFromArea } from '../utils/getCountryFromArea';
 
 // Extracted UI Components
 import TextInput from '../components/RecipeCreateComponents/TextInput';
@@ -70,6 +71,7 @@ const CreateRecipePage = () => {
         title: formData.title,
         category: formData.category,
         area: formData.area,
+        country: getCountryFromArea(area), // Our new helper function!
         tags: formData.tags,
         instructions: formData.instructions,
         ingredients: formData.ingredients,
