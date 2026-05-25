@@ -17,8 +17,8 @@ export const RecipeCard = ({ recipe }) => {
 
   return (
     <div
-      className="border border-2 border-pop rounded-md 
-                    overflow-hidden bg-background
+      className="border border-1 border-pop rounded-md 
+                    overflow-hidden bg-card-bg
                     w-full
                     h-full 
                     flex flex-col"
