@@ -5,12 +5,11 @@ import { Rating } from "./Rating";
 export const RecipeCardInfoSection = ({ recipe }) => {
   const { idMeal, strMeal, strCountry, rating } = recipe;
   const titleToShow = (text) => {
+    if (text === undefined) return text;
     if (text.length <= 20) return text;
 
     const trimmed = text.slice(0, 20);
-
     const lastSpace = trimmed.lastIndexOf(" ");
-
     return trimmed.slice(0, lastSpace) + "...";
   };
 
