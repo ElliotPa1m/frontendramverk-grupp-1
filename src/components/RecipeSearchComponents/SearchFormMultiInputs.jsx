@@ -14,7 +14,7 @@ const SearchForm = ({ onSearch }) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetches and loads filter  drop-down options on mount.
+  // Fetches and loads filter drop-down options on mount.
   useEffect(() => {
     const fetchOptions = async () => {
       try {
