@@ -15,8 +15,8 @@ export const RecipeCardInfoSection = ({ recipe }) => {
 
   return (
     <div>
-      <div className="mx-4 my-2 flex flex-1 flex-col gap-1">
-        <h2 className="barlow-condensed-regular text-xl">
+      <div className="mx-4 my-1 flex flex-1 flex-col gap-1">
+        <h2 className="barlow-condensed-regular text-lg">
           {titleToShow(strMeal)}
         </h2>
       </div>
