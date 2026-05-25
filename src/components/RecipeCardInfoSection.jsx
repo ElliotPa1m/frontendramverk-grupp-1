@@ -20,14 +20,15 @@ export const RecipeCardInfoSection = ({ recipe }) => {
           {titleToShow(strMeal)}
         </h2>
       </div>
-      <div className="mt-auto flex justify-between items-center bg-background px-4 rounded m-1">
-        {rating ? (
+      {rating && (
+        <div className="px-4 mb-2">
           <Rating rating={rating} />
-        ) : (
-          <span className="barlow-condensed-light text-xs">
-            {strCountry && strCountry}
-          </span>
-        )}
+        </div>
+      )}
+      <div className="mt-auto flex justify-between items-center bg-card-pop px-4 rounded m-1">
+        <span className="barlow-condensed-light text-xs">
+          {strCountry && strCountry}
+        </span>
         <Link
           to={`/recipe/${idMeal}`}
           className="barlow-condenced-light text-sm text-end block my-2 ms-auto"
