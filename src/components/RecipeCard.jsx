@@ -3,6 +3,7 @@ import { Image } from "./Image";
 import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
+import { EditRecipeModal } from "./EditRecipeModal";
 
 export const RecipeCard = ({ recipe, onEditSuccess }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // New Edit Modal state!
