@@ -3,7 +3,7 @@ import { Icon } from "./Icon";
 import { Rating } from "./Rating";
 
 export const RecipeCardInfoSection = ({ recipe }) => {
-  const { idMeal, strMeal, strCountry, strCategory, rating } = recipe;
+  const { idMeal, strMeal, strCountry, rating } = recipe;
   const titleToShow = (text) => {
     if (text.length <= 20) return text;
 
@@ -26,7 +26,7 @@ export const RecipeCardInfoSection = ({ recipe }) => {
           <Rating rating={rating} />
         ) : (
           <span className="barlow-condensed-light text-xs">
-            {strCountry} {strCountry && strCategory && "| " + strCategory}
+            {strCountry && strCountry}
           </span>
         )}
         <Link
