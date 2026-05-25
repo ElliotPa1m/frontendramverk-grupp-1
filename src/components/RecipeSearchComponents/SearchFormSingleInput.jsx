@@ -29,7 +29,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
 
         setFilterOptions({
           category: categories.map(c => c.strCategory),
-          area: areas.map(a => a.strArea),
+          area: areas.map(a => a.strCountry),
           ingredient: mainIngredients, // loaded from mainIngredients.json
         });
       } catch (error) {
@@ -75,7 +75,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
         >
           <option value="name">Name</option>
           <option value="category">Category</option>
-          <option value="area">Area</option>
+          <option value="area">Country</option>
           <option value="ingredient">Main ingredient</option>
         </select>
         <svg
@@ -106,7 +106,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
             className="appearance-none w-full px-4 py-3 pr-9 text-base text-text bg-white
                        outline-none cursor-pointer disabled:opacity-50"
           >
-            <option value="">Select {search.filter}</option>
+            <option value="">Select {search.filter === 'area' ? 'country' : search.filter}</option>
             {filterOptions[search.filter].map(option => (
               <option key={option} value={option}>
                 {option}
