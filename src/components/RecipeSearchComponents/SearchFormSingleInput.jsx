@@ -60,59 +60,24 @@ const SearchFormSingleInput = ({ onSearch }) => {
       className="barlow-condensed-light
                flex flex-col sm:flex-row gap-3 items-stretch sm:items-center
                w-full max-w-[1250px] mx-auto mt-4"
-  >
-    {/* coupled filter + value — single bordered container */}
-    <div className="flex flex-1 border border-pop/40 rounded-lg overflow-hidden bg-white
-                shadow-sm focus-within:border-pop transition">
-
-      {/* filter type dropdown */}
-      <div className="relative shrink-0">
-        <select
-          value={search.filter}
-          onChange={e => handleFilterChange(e.target.value)}
-          className="appearance-none h-full px-4 py-3 pr-9 text-base text-text bg-white
-                     border-r border-pop/40 outline-none cursor-pointer"
-        >
-          <option value="name">Name</option>
-          <option value="category">Category</option>
-          <option value="area">Country</option>
-          <option value="ingredient">Main ingredient</option>
-        </select>
-        <svg
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
-          fill="none" viewBox="0 0 24 24" stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
-        </svg>
-      </div>
-
-      {/* value field — text input OR dropdown */}
-       {search.filter === 'name' ? (
-        <input
-          type="text"
-          placeholder="Search recipe by name"
-          disabled={isLoading}
-          value={search.value}
-          onChange={e => handleValueChange(e.target.value)}
-          className="flex-1 px-4 py-3 text-base text-text outline-none bg-white min-w-0
-                     placeholder:text-text/40 disabled:opacity-50"
-        />
-      ) : (
-        <div className="relative flex-1 min-w-0">
+    >
+      {/* coupled filter + value — single bordered container */}
+      <div
+        className="flex flex-1 border border-pop/40 rounded-lg overflow-hidden bg-white
+                shadow-sm focus-within:border-pop transition"
+      >
+        {/* filter type dropdown */}
+        <div className="relative shrink-0">
           <select
             value={search.filter}
             onChange={e => handleFilterChange(e.target.value)}
             className="appearance-none h-full px-4 py-3 pr-9 text-base text-text bg-white
                      border-r border-pop/40 outline-none cursor-pointer"
           >
-            <option value="">
-              Select {search.filter === 'area' ? 'country' : search.filter}
-            </option>
-            {filterOptions[search.filter].map(option => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
+            <option value="name">Name</option>
+            <option value="category">Category</option>
+            <option value="area">Country</option>
+            <option value="ingredient">Main ingredient</option>
           </select>
           <svg
             className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
@@ -149,7 +114,9 @@ const SearchFormSingleInput = ({ onSearch }) => {
               className="appearance-none w-full px-4 py-3 pr-9 text-base text-text bg-white
                        outline-none cursor-pointer disabled:opacity-50"
             >
-              <option value="">Select {search.filter}</option>
+              <option value="">
+                Select {search.filter === 'area' ? 'country' : search.filter}
+              </option>
               {filterOptions[search.filter].map(option => (
                 <option key={option} value={option}>
                   {option}
