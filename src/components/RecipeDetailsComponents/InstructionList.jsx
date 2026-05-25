@@ -6,7 +6,7 @@ import { instructionCleaningFn } from "../../utils/instructionCleaningFn";
 function InstructionList({ instructions }) {
   const [checkedSteps, setCheckedSteps] = useState([]);
   const cleanInstructions = instructions.some((i) =>
-    i.toLowerCase().includes("step"),
+    i.toLowerCase().includes("step" | "▢"),
   )
     ? instructionCleaningFn(instructions)
     : instructions;
