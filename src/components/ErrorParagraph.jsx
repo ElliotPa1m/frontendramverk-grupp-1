@@ -1,4 +1,4 @@
-const ErrorParagraph = ({ message = "An unexpected error occurred." }) => {
+const ErrorParagraph = ({ message = "An unexpected error occurred. Please try again in a moment." }) => {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center gap-3">
       {/* Alert Triangle SVG using our custom button color */}
