@@ -71,7 +71,7 @@ const CreateRecipePage = () => {
         title: formData.title,
         category: formData.category,
         area: formData.area,
-        country: getCountryFromArea(area), // Our new helper function!
+        country: getCountryFromArea(formData.area), // Our new helper function!
         tags: formData.tags,
         instructions: formData.instructions,
         ingredients: formData.ingredients,
