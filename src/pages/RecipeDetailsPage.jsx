@@ -35,7 +35,12 @@ function RecipeDetailsPage() {
     }, [id]);
 
     if (loading) return <p>Loading...</p>
-    if (error) return <p>Error: {error}</p>
+
+    if (error) {
+        console.error(error); // Log the real error for developers
+        return  <ErrorParagraph /> // The friendly default message is shown to the user
+    } 
+
     if (!recipe) return null;
 
     // Adapter for ingredients: Check if it's a custom recipe (already an array), otherwise run the already-in-place API mapping
