@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Image } from "./Image";
 
 export const ThumbnailCard = ({ recipe }) => {
@@ -9,12 +10,11 @@ export const ThumbnailCard = ({ recipe }) => {
                     h-full 
                     flex flex-col"
     >
-      <div className="relative">
-        <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
-        <h2 className="barlow-condensed-regular text-sm mx-1">
-          {recipe.strMeal}
-        </h2>
-      </div>
+      <Link to={`/recipe/${recipe.idMeal}`}>
+        <div className="relative">
+          <Image imgUrl={recipe.strMealThumb} recipeName={recipe.strMeal} />
+        </div>
+      </Link>
     </div>
   );
 };

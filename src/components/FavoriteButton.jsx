@@ -1,22 +1,19 @@
-import { Icon } from "./Icon";
+import { IconButton } from "./IconButton";
 import { useFavorites } from "../contexts/FavouritesContext";
 
 export const FavoriteButton = ({ id, recipe }) => {
   const favContext = useFavorites();
   const isFav = favContext.isFavourite(id);
-
   return (
     <>
-      <button
-        className="hover:cursor-pointer rounded-xl bg-white/80 px-2"
-        onClick={() =>
+      <IconButton
+        icon={isFav ? "favorite" : "notFavorite"}
+        actionHandler={() =>
           isFav
             ? favContext.removeFavourite(id)
             : favContext.addFavourite(recipe)
         }
-      >
-        <Icon icon={isFav ? "favorite" : "notFavorite"} />
-      </button>
+      />
     </>
   );
 };

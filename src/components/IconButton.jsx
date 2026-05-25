@@ -4,7 +4,7 @@ export const IconButton = ({ icon, actionHandler }) => {
   return (
     <>
       <button
-        className="hover:cursor-pointer rounded-xl bg-white/80 px-2 py-1 text-sm"
+        className="hover:cursor-pointer rounded-full bg-white/80 text-sm h-[35px] w-[35px]"
         onClick={actionHandler}
       >
         <Icon icon={icon} />
