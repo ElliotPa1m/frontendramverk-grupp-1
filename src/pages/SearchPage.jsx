@@ -13,7 +13,7 @@ const SearchPage = () => {
   useEffect(() => {
     const loadInitialRecipes = async () => {
       try {
-        const data = await getRandomRecipes(10);
+        const data = await getRandomRecipes(12);
         setRecipes(data);
       } finally {
         setIsLoading(false);
