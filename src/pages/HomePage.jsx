@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import FeatureCard from "../components/FeatureCard";
-import { ThumbnailList } from "../components/ThumbnailList";
 import { getRandomRecipes } from "../services/api";
 import { RecipeCardList } from "../components/RecipeCardList";
 
@@ -46,18 +45,13 @@ const HomePage = () => {
 
   return (
     <div className="mx-2">
-      <div className="block sm:hidden">
-        <ThumbnailList arr={randomRecipes} />
-      </div>
-      <div className="hidden sm:block">
-        <RecipeCardList arr={randomRecipes} />
-      </div>
+      <RecipeCardList arr={randomRecipes} />
 
       <div
         className="features 
-      flex flex-col md:flex-row md:flex-wrap md:justify-center gap-4 lg:gap-8 
+      flex flex-col md:flex-row md:flex-wrap md:justify-center gap-3
       h-full 
-      py-4 px-2 lg:p-8"
+      py-4 lg:py-8"
       >
         <FeatureCard
           title="Search for a recipe"

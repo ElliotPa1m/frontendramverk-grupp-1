@@ -2,28 +2,35 @@ import { Link } from "react-router-dom";
 import { Icon } from "./Icon";
 import { Rating } from "./Rating";
 
-export const RecipeCardInfoSection = ({
-  id,
-  recipeName,
-  country,
-  cat,
-  tags,
-  rating,
-}) => {
-  const tagArr = tags && tags.split(",").join(" • ");
+export const RecipeCardInfoSection = ({ recipe }) => {
+  const { idMeal, strMeal, strCountry, rating } = recipe;
+  const titleToShow = (text) => {
+    if (text === undefined) return text;
+    if (text.length <= 20) return text;
+
+    const trimmed = text.slice(0, 20);
+    const lastSpace = trimmed.lastIndexOf(" ");
+    return trimmed.slice(0, lastSpace) + "...";
+  };
+
   return (
-    <div className="mx-4 mt-4 mb-2 flex flex-1 flex-col gap-1">
-      {(country || cat) && (
-        <h3 className="barlow-condensed-regular text-sm">
-          {country} {country && cat && "| " + cat}
-        </h3>
+    <>
+      <div className="mx-4 my-1 flex flex-1 flex-col gap-1">
+        <h2 className="barlow-condensed-regular text-lg">
+          {titleToShow(strMeal)}
+        </h2>
+      </div>
+      {rating && (
+        <div className="px-4 mb-2 hidden sm:inline-block">
+          <Rating rating={rating} />
+        </div>
       )}
-      {tagArr && <h3 className="barlow-condensed-regular text-sm">{tagArr}</h3>}
-      <h2 className="barlow-condensed-regular text-xl">{recipeName}</h2>
-      <div className="mt-auto flex justify-between">
-        {rating && <Rating rating={rating} />}
+      <div className="mt-auto flex justify-between items-center bg-card-pop px-2 sm:px-4 rounded m-1">
+        <span className="barlow-condensed-light text-xs hidden sm:inline-block">
+          {strCountry && strCountry}
+        </span>
         <Link
-          to={`/recipe/${id}`}
+          to={`/recipe/${idMeal}`}
           className="barlow-condenced-light text-sm text-end block my-2 ms-auto"
         >
           <span className="barlow-condensed-light text-xs">
@@ -31,6 +38,6 @@ export const RecipeCardInfoSection = ({
           </span>
         </Link>
       </div>
-    </div>
+    </>
   );
 };

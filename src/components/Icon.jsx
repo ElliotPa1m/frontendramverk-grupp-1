@@ -2,9 +2,9 @@ export const Icon = ({ icon }) => {
   let iconToShow = (i) => {
     switch (i) {
       case "favorite":
-        return <i className="fa-solid fa-heart"></i>;
+        return <i className="fa-solid fa-heart text-button"></i>;
       case "notFavorite":
-        return <i className="fa-regular fa-heart"></i>;
+        return <i className="fa-regular fa-heart text-button"></i>;
       case "time":
         return <i className="fa-regular fa-clock"></i>;
       case "filledStar":

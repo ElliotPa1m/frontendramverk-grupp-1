@@ -65,7 +65,7 @@ const getAllRecipes = async ({ filter, value }) => {
 export const getRecipeById = async id => {
   try {
     const response = await apiClient.get(`/lookup.php?i=${id}`);
-    return response.data;
+    return response.data.meals[0];
   } catch (error) {
     throw new Error('Failed to fetch recipe ' + id + ': ' + error.message, {
       cause: error,
@@ -141,8 +141,9 @@ const getList = async listType => {
 };
 
 // same logic as the getCachedRecipe function
-export const getCachedList = async listType => {
-  if (cache[listType]) return cache[listType];
-  cache[listType] = await getList(listType);
-  return cache[listType];
+export const getCachedList = listType => {
+  if (!cache[listType]) {
+    cache[listType] = getList(listType); // store the Promise immediately
+  }
+  return cache[listType]; // all callers await the same promise
 };

@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
-import SearchFilter from '../components/RecipeSearchComponents/SearchForm';
+import { useState, useEffect, useRef } from 'react';
+import SearchFormSingleInput from '../components/RecipeSearchComponents/SearchFormSingleInput';
 import { getCachedRecipes, getRandomRecipes } from '../services/api';
 import { RecipeCardList } from '../components/RecipeCardList';
+import { RecipeCardSkeletonList } from '../components/RecipeCardSkeleton';
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const hasFetchedRandomRecipes = useRef(false);
 
   // load 10 random recipes on mount
   useEffect(() => {
@@ -17,8 +19,11 @@ const SearchPage = () => {
         setIsLoading(false);
       }
     };
-    loadInitialRecipes();
-  }, []);
+    if (hasFetchedRandomRecipes.current === false) {
+      hasFetchedRandomRecipes.current = true;
+      loadInitialRecipes();
+    }
+  });
 
   // Called when SearchFilter submits
   const handleSearch = async ({ filter, value }) => {
@@ -31,15 +36,15 @@ const SearchPage = () => {
     }
   };
 
-if (isLoading) {
-    return <div >Loading…</div>;
-  }
-
   // TODO Error and loading UI-message
   return (
-    <div>
-      <SearchFilter onSearch={handleSearch} />
-      <RecipeCardList arr={recipes} />
+    <div className="mt-4">
+      <SearchFormSingleInput onSearch={handleSearch} />
+      {isLoading ? (
+        <RecipeCardSkeletonList count={12} />
+      ) : (
+        <RecipeCardList arr={recipes} />
+      )}
     </div>
   );
 };
