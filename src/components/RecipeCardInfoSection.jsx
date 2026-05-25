@@ -9,7 +9,7 @@ export const RecipeCardInfoSection = ({ recipe }) => {
   const titleToShow = (text) => {
     const trimSize =
       window.innerWidth <= 600
-        ? 15
+        ? 17
         : window.innerWidth > 1000 && page === "/"
           ? 40
           : 26;
@@ -23,7 +23,7 @@ export const RecipeCardInfoSection = ({ recipe }) => {
 
   return (
     <>
-      <div className="mx-4 my-1 flex flex-1 flex-col gap-1">
+      <div className="mx-2 sm:mx-4 my-1 flex flex-1 flex-col gap-1">
         <h2 className="barlow-condensed-regular text-md sm:text-lg">
           {titleToShow(strMeal)}
         </h2>
