@@ -12,7 +12,7 @@ function RecipeMeta({category, area, tags}) {
             </div>
 
             <div className="flex flex-col">
-                <span className="barlow-condensed-regular text-text text-lg">Area</span>
+                <span className="barlow-condensed-regular text-text text-lg">Cuisine</span>
                 <span className="barlow-condensed-light text-text">{area}</span>
             </div>
 
