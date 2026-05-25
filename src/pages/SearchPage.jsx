@@ -7,6 +7,7 @@ import { RecipeCardSkeletonList } from '../components/RecipeCardSkeleton';
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const hasFetchedRandomRecipes = useRef(false);
 
   // load 10 random recipes on mount
@@ -36,7 +37,12 @@ const SearchPage = () => {
     }
   };
 
-  // TODO Error and loading UI-message
+  if (error) {
+    console.error(error); // Log the real error for developers
+    return  <ErrorParagraph /> // The friendly default message is shown to the user
+  } 
+
+  // TODO Loading UI-message
   return (
     <div>
       <SearchFormSingleInput onSearch={handleSearch} />
