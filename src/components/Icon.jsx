@@ -17,6 +17,8 @@ export const Icon = ({ icon }) => {
         return <i className="fa-solid fa-arrow-right"></i>;
       case "edit":
         return <i className="fa-solid fa-pen"></i>;
+      case "delete":
+        return <i className="fa-solid fa-trash-can"></i>
       default:
         return <i className="fa-regular fa-circle"></i>;
     }
