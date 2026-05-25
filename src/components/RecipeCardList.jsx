@@ -8,9 +8,10 @@ export const RecipeCardList = ({ arr }) => {
     <div
       className={`mt-4 mx-auto justify-center gap-3 ${
         page === "/"
-          ? `flex flex-wrap items-stretchw-full}`
+          ? `flex flex-wrap items-stretch w-full}`
           : `grid max-w-[1250px]
-            grid-cols-[repeat(auto-fit,260px)]`
+            grid-cols-[repeat(auto-fit,minmax(47%,1fr))]
+            sm:grid-cols-[repeat(auto-fit,260px)]`
       } `}
     >
       {arr.map((r) => {
@@ -18,8 +19,12 @@ export const RecipeCardList = ({ arr }) => {
         return (
           <div
             key={id}
-            className={`flex 
-            ${page === "/" ? `w-[30%]` : `w-[260px]`}`}
+            className={`flex
+            ${
+              page === "/"
+                ? `basis-w-[300px] grow max-w-[30%] lg:max-w-[400px]`
+                : `w-full sm:w-[260px]`
+            }`}
           >
             {page === "/" ? (
               <>

@@ -1,5 +1,3 @@
-
-
 /*
 
 A skeleton card(list) to be used as placeholder while recipeCard content loads. RecipeCardSkeletonList('desired number of cards').
@@ -18,10 +16,10 @@ export const RecipeCardSkeleton = () => {
       <div className="w-full aspect-square bg-gray-300" />
 
       {/* info section placeholder */}
-      <div className="mx-4 mt-4 mb-4 flex flex-1 flex-col gap-3 min-h-20">
+      <div className="mx-4 mt-4 mb-4 flex flex-1 flex-col gap-3 min-h-12">
         <div className="h-3 w-3/4 rounded bg-gray-300" />
         <div className="h-3 w-full rounded bg-gray-300" />
-        <div className="h-3 w-2/3 rounded bg-gray-300" />
+        {/* <div className="h-3 w-2/3 rounded bg-gray-300" /> */}
       </div>
     </div>
   );
@@ -31,15 +29,12 @@ export const RecipeCardSkeleton = () => {
 export const RecipeCardSkeletonList = ({ count = 10 }) => {
   return (
     <div
-      className="mt-4 mx-auto
-                flex flex-wrap gap-3 items-stretch justify-center
-                w-full max-w-[1250px]"
+      className="mt-4 mx-auto justify-center gap-3
+                grid max-w-[1250px]
+                grid-cols-[repeat(auto-fit,260px)]"
     >
       {Array.from({ length: count }, (_, i) => (
-        <div
-          key={i}
-          className="flex basis-[250px] grow max-w-[300px] lg:max-w-[400px]"
-        >
+        <div key={i} className="flex w-[260px]">
           <RecipeCardSkeleton />
         </div>
       ))}
