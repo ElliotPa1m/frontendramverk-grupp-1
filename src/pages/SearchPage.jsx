@@ -38,7 +38,7 @@ const SearchPage = () => {
 
   // TODO Error and loading UI-message
   return (
-    <div>
+    <div className="mt-4">
       <SearchFormSingleInput onSearch={handleSearch} />
       {isLoading ? (
         <RecipeCardSkeletonList count={12} />
