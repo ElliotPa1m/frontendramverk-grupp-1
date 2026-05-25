@@ -34,7 +34,7 @@ export const RecipeCardInfoSection = ({ recipe }) => {
           className="barlow-condenced-light text-sm text-end block my-2 ms-auto"
         >
           <span className="barlow-condensed-light text-xs">
-            READ MORE <Icon icon={"arrowRight"} />
+            RECIPE <Icon icon={"arrowRight"} />
           </span>
         </Link>
       </div>
