@@ -12,9 +12,8 @@ const Layout = () => {
         {/* The child page that we are currently looking at (Search, Saved, Create, Detailed Recipe View or any other page that is added) will get injected here */}
         <Outlet />
       </main>
-      <footer>
-        <Footer />
-      </footer>
+
+      <Footer />
     </div>
   );
 };
