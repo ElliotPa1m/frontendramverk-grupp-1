@@ -5,12 +5,17 @@ import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 
 export const RecipeCard = ({ recipe }) => {
   const created = recipe.createdAt ? true : false;
+
   const recipeToShow = {
     idMeal: created ? recipe.id : recipe.idMeal,
     strMeal: created ? recipe.title : recipe.strMeal,
     strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
     strCountry: created ? recipe.area : recipe.strCountry,
-    strTags: created ? recipe.tags.toString() : recipe.strTags,
+    strTags: created
+      ? recipe.tags?.length
+        ? recipe.tags.toString()
+        : ""
+      : recipe.strTags,
     strCategory: created ? recipe.category : recipe.strCategory,
     rating: recipe.rating,
   };
@@ -41,7 +46,7 @@ export const RecipeCard = ({ recipe }) => {
           )}
         </div>
       </div>
-      <RecipeCardInfoSection recipe={recipe} />
+      <RecipeCardInfoSection recipe={recipeToShow} />
     </div>
   );
 };
