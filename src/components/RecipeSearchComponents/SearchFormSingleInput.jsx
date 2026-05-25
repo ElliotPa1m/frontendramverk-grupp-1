@@ -87,7 +87,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
       </div>
 
       {/* value field — text input OR dropdown */}
-      {search.filter === 'name' ? (
+       {search.filter === 'name' ? (
         <input
           type="text"
           placeholder="Search recipe by name"
@@ -106,7 +106,9 @@ const SearchFormSingleInput = ({ onSearch }) => {
             className="appearance-none w-full px-4 py-3 pr-9 text-base text-text bg-white
                        outline-none cursor-pointer disabled:opacity-50"
           >
-            <option value="">Select {search.filter === 'area' ? 'country' : search.filter}</option>
+            <option value="">
+              Select {search.filter === 'area' ? 'country' : search.filter}
+            </option>
             {filterOptions[search.filter].map(option => (
               <option key={option} value={option}>
                 {option}
@@ -115,9 +117,16 @@ const SearchFormSingleInput = ({ onSearch }) => {
           </select>
           <svg
             className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
-            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="m19 9-7 7-7-7"
+            />
           </svg>
         </div>
       )}
