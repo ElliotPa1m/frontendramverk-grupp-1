@@ -3,6 +3,7 @@ import SearchFormSingleInput from '../components/RecipeSearchComponents/SearchFo
 import { getCachedRecipes, getRandomRecipes } from '../services/api';
 import { RecipeCardList } from '../components/RecipeCardList';
 import { RecipeCardSkeletonList } from '../components/RecipeCardSkeleton';
+import ErrorParagraph from '../components/ErrorParagraph';
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -14,8 +15,12 @@ const SearchPage = () => {
   useEffect(() => {
     const loadInitialRecipes = async () => {
       try {
+        setError(null);
         const data = await getRandomRecipes(10);
         setRecipes(data);
+      } catch (error) {
+        console.log(error.message);
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }

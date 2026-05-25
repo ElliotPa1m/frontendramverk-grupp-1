@@ -8,6 +8,7 @@ import { Image } from "../components/Image";
 import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
 import { getUserRecipeById } from "../services/userRecipeService";
+import ErrorParagraph from "../components/ErrorParagraph";
 
 function RecipeDetailsPage() {
   const { id } = useParams();
