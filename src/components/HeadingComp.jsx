@@ -13,6 +13,10 @@ export const HeadingComp = ({ text, size }) => {
             {text}
           </h2>
         );
+      case "h3":
+        return (
+          <h2 className="barlow-condensed-regular text-xl text-text">{text}</h2>
+        );
 
       default:
         <h1 className="barlow-condensed-regular text-3xl text-text mb-4">
