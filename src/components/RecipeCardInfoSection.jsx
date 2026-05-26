@@ -23,23 +23,23 @@ export const RecipeCardInfoSection = ({ recipe }) => {
 
   return (
     <>
-      <div className="mx-2 sm:mx-4 my-1 flex flex-1 flex-col gap-1">
+      <div className="m-2 flex flex-col gap-1">
         <h2 className="barlow-condensed-regular text-md sm:text-lg">
           {titleToShow(strMeal)}
         </h2>
       </div>
       {rating && (
-        <div className="px-4 mb-2 hidden sm:inline-block">
+        <div className="px-2 mb-2 hidden sm:inline-block">
           <Rating rating={rating} />
         </div>
       )}
-      <div className="mt-auto flex justify-between items-center bg-card-pop px-2 sm:px-4 rounded m-1">
+      <div className="mt-auto flex justify-between items-center bg-card-pop px-2 sm:px-2 rounded m-1">
         <span className="barlow-condensed-light text-xs hidden sm:inline-block">
           {strCountry && strCountry}
         </span>
         <Link
           to={`/recipe/${idMeal}`}
-          className="barlow-condenced-light text-sm text-end block my-2 ms-auto"
+          className="barlow-condenced-light text-sm text-end block my-1 ms-auto"
         >
           <span className="barlow-condensed-light text-xs">
             RECIPE <Icon icon={"arrowRight"} />
