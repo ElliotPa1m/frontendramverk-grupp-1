@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
-import { getUserRecipes, saveUserRecipe, deleteUserRecipe } from "../services/userRecipeService";
+import { getUserRecipes, saveUserRecipe, deleteUserRecipe, updateUserRecipe } from "../services/userRecipeService";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -76,6 +76,12 @@ export const RecipesProvider = ({ children }) => {
   const removeCreated = (id) => {
     deleteUserRecipe(id);             // 1. Delete it from the hard drive using our service
     setUserRecipes(getUserRecipes()); // 2. Pull the fresh, filtered array back into React state
+  };
+
+  // Uses the exact same predictable pattern
+  const updateCreated = (updatedRecipe) => {
+    updateUserRecipe(updatedRecipe);
+    setUserRecipes(getUserRecipes());
   };
 
   // useMemo maps and caches a set of recipe IDs for faster 'isFavourite'-look up. the set is only recalculated when [favourites] change.
