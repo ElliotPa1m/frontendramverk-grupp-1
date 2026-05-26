@@ -59,7 +59,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
       onSubmit={handleSubmit}
       className="barlow-condensed-light
                flex flex-col sm:flex-row gap-3 items-stretch sm:items-center
-               w-full max-w-[1250px] mx-auto mt-4"
+               w-full max-w-[1076px] mx-auto"
     >
       {/* coupled filter + value — single bordered container */}
       <div
