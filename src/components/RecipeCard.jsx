@@ -4,10 +4,9 @@ import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 import { deleteUserRecipe } from "../services/userRecipeService";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
+import {isCreated } from "../contexts/RecipesContext";
 
 export const RecipeCard = ({ recipe }) => {
-  const created = recipe.createdAt ? true : false;
-
   const recipeToShow = recipeReconstructor(recipe);
 
   return (
@@ -24,7 +23,7 @@ export const RecipeCard = ({ recipe }) => {
           recipeName={recipeToShow.strMeal}
         />
         <div className="absolute top-2 right-3">
-          {created ? (
+          {isCreated(recipe) ? (
             <div className="flex gap-2">
               <IconButton
                 icon={"edit"}
