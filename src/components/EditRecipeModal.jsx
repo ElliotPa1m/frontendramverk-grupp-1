@@ -4,11 +4,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-// Services & Components
-import { updateUserRecipe } from '../services/userRecipeService';
+// Context, Services & Constants
+import { useRecipes } from '../contexts/RecipesContext';
 import { uploadImage } from '../services/cloudinaryService';
 import { RECIPE_CATEGORIES, RECIPE_AREAS } from '../utils/constants';
 
+// Extracted UI Components
 import TextInput from './RecipeCreateComponents/TextInput';
 import TextArea from './RecipeCreateComponents/TextArea';
 import SelectInput from './RecipeCreateComponents/SelectInput';
@@ -39,8 +40,10 @@ const editRecipeSchema = z.object({
     )
 });
 
-export const EditRecipeModal = ({ recipe, onClose, onSaveSuccess }) => {
+// Prop drilling with onSaveSuccess is not needed anymore thanks to the new RecipesContext!
+export const EditRecipeModal = ({ recipe, onClose }) => {
   const [isUploading, setIsUploading] = useState(false);
+  const { updateCreated } = useRecipes(); 
 
   // 2. Pre-fill the form with the existing recipe data
   const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -78,9 +81,7 @@ export const EditRecipeModal = ({ recipe, onClose, onSaveSuccess }) => {
         imageUrl: finalImageUrl,
       };
 
-      updateUserRecipe(updatedRecipe); // Save to LocalStorage
-      
-      if (onSaveSuccess) onSaveSuccess(); // Tell the parent page to re-render!
+      updateCreated(updatedRecipe); // The Context gatekeeper handles the save AND the global re-render
       onClose(); // Close the modal
       
     } catch (err) {
