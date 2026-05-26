@@ -89,8 +89,13 @@ export const RecipesProvider = ({ children }) => {
     () => new Set(favourites.map((recipe) => recipe.idMeal)),
     [favourites],
   );
-  const isFavourite = (id) => {
-    return favouriteIds.has(id);
+  // Adding a defensive check to both isFavourite and isCreated to make them fully key-agnostic and immune to ID mismatches!
+  const isFavourite = (recipeOrId) => {
+    if (typeof recipeOrId === "object" && recipeOrId !== null) {
+      const id = recipeOrId.id || recipeOrId.idMeal;
+      return favouriteIds.has(id);
+    }
+    return favouriteIds.has(recipeOrId);
   };
 
   // Reused for userRecipes for faster 'isCreated', it's a brilliant solution
@@ -98,8 +103,13 @@ export const RecipesProvider = ({ children }) => {
     () => new Set(userRecipes.map((recipe) => recipe.id)),
     [userRecipes],
   );
-  const isCreated = (id) => {
-    return createdIds.has(id);
+  // Same defensive check here
+  const isCreated = (recipeOrId) => {
+    if (typeof recipeOrId === "object" && recipeOrId !== null) {
+      const id = recipeOrId.id || recipeOrId.idMeal;
+      return createdIds.has(id);
+    }
+    return createdIds.has(recipeOrId);
   };
 
   const value = {
