@@ -1,13 +1,24 @@
+import { useState } from "react";
 import { Image } from "./Image";
 import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
-import { deleteUserRecipe } from "../services/userRecipeService";
+import { EditRecipeModal } from "./EditRecipeModal";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
+import { useRecipes } from '../contexts/RecipesContext';
+import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 
+// Prop drilling with onEditSuccess is not needed anymore thanks to the new RecipesContext!
 export const RecipeCard = ({ recipe }) => {
-  const created = recipe.createdAt ? true : false;
+  // The single source of truth for modal visibility "" | "EDIT" | "DELETE"
+  const [currentlyOpenModal, setCurrentlyOpenModal] = useState("");
+  
+  const created = recipe.createdAt ? true : false; // Intentionally uses the clean boolean check instead of the scrapped isCreated context function
   const recipeToShow = recipeReconstructor(recipe);
+  const { removeCreated } = useRecipes();
+
+  // Helper to keep the JSX clean
+  const closeModal = () => setCurrentlyOpenModal("");
 
   return (
     <div
@@ -28,12 +39,14 @@ export const RecipeCard = ({ recipe }) => {
               <IconButton
                 icon={"edit"}
                 actionHandler={() =>
-                  console.log("go to created recipe editing screen")
+                  setCurrentlyOpenModal("EDIT")
                 }
               />
               <IconButton
                 icon={"delete"}
-                actionHandler={() => deleteUserRecipe(recipe.id)}
+                actionHandler={() => 
+                  setCurrentlyOpenModal("DELETE") // Open the ConfirmDeletion modal instead of Thanos snapping it haha
+                }
               />
             </div>
           ) : (
@@ -42,6 +55,23 @@ export const RecipeCard = ({ recipe }) => {
         </div>
       </div>
       <RecipeCardInfoSection recipe={recipeToShow} />
+
+      {/* The Portal Modals, now strictly mutually exclusive */}
+      {currentlyOpenModal === "EDIT" && (
+        <EditRecipeModal
+          recipe={recipe}
+          onClose={closeModal} // Use our new helper function!
+          // onSaveSuccess={onEditSuccess} // "Pass a refresh trigger up to the parent page!" Not needed anymore!
+        />
+      )}
+
+      {currentlyOpenModal === "DELETE" && (
+        <ConfirmDeletionModal
+          recipeName={recipeToShow.strMeal}
+          onClose={closeModal}
+          onConfirm={() => removeCreated(recipe.id)} // Pass the context action as a prop
+        />
+      )}
     </div>
   );
 };
