@@ -6,10 +6,13 @@ import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 import { EditRecipeModal } from "./EditRecipeModal";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
 import { useRecipes } from '../contexts/RecipesContext';
+import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 
 // Prop drilling with onEditSuccess is not needed anymore thanks to the new RecipesContext!
 export const RecipeCard = ({ recipe }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // New Edit Modal state!
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  
   const created = recipe.createdAt ? true : false; // Intentionally uses the clean boolean check instead of the scrapped isCreated context function
   const recipeToShow = recipeReconstructor(recipe);
   const { removeCreated } = useRecipes();
@@ -39,7 +42,7 @@ export const RecipeCard = ({ recipe }) => {
               <IconButton
                 icon={"delete"}
                 actionHandler={() => 
-                  removeCreated(recipe.id)
+                  setIsDeleteModalOpen(true) // Open the ConfirmDeletion modal instead of Thanos snapping it haha
                 }
               />
             </div>
@@ -50,12 +53,21 @@ export const RecipeCard = ({ recipe }) => {
       </div>
       <RecipeCardInfoSection recipe={recipeToShow} />
 
-      {/* The Portal Modal */}
+      {/* The Portal Modals */}
       {isEditModalOpen && (
         <EditRecipeModal
           recipe={recipe}
           onClose={() => setIsEditModalOpen(false)}
           // onSaveSuccess={onEditSuccess} // "Pass a refresh trigger up to the parent page!" Not needed anymore!
+        />
+      )}
+
+      {/* The new Delete Modal */}
+      {isDeleteModalOpen && (
+        <ConfirmDeletionModal
+          recipeName={recipeToShow.strMeal}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={() => removeCreated(recipe.id)} // Pass the context action as a prop
         />
       )}
     </div>
