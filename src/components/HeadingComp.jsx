@@ -9,9 +9,13 @@ export const HeadingComp = ({ text, size }) => {
         );
       case "h2":
         return (
-          <h2 className="barlow-condensed-regular text-2xl text-text">
+          <h2 className="barlow-condensed-regular text-2xl text-text mb-4">
             {text}
           </h2>
+        );
+      case "h3":
+        return (
+          <h2 className="barlow-condensed-regular text-xl text-text">{text}</h2>
         );
 
       default:

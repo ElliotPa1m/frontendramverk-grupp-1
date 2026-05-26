@@ -1,17 +1,18 @@
 import { IconButton } from "./IconButton";
-import { useFavorites } from "../contexts/FavouritesContext";
+import { useRecipes } from "../contexts/RecipesContext";
 
-export const FavoriteButton = ({ id, recipe }) => {
-  const favContext = useFavorites();
-  const isFav = favContext.isFavourite(id);
+export const FavoriteButton = ({ recipe }) => {
+  const id = recipe.idMeal;
+  const recipeContext = useRecipes();
+  const isFav = recipeContext.isFavourite(id);
   return (
     <>
       <IconButton
         icon={isFav ? "favorite" : "notFavorite"}
         actionHandler={() =>
           isFav
-            ? favContext.removeFavourite(id)
-            : favContext.addFavourite(recipe)
+            ? recipeContext.removeFavourite(id)
+            : recipeContext.addFavourite(recipe)
         }
       />
     </>

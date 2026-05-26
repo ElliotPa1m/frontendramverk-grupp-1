@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Icon } from "./Icon";
+import { HeadingComp } from "./HeadingComp";
+import { ParagraphComp } from "./ParagraphComp";
 
 const FeatureCard = ({ title, description, to, linkText }) => {
   return (
@@ -14,8 +16,8 @@ const FeatureCard = ({ title, description, to, linkText }) => {
     transition-all duration-300 
     hover:-translate-y-1 hover:shadow-lg"
     >
-      <h2 className="barlow-condensed-regular text-xl text-text">{title}</h2>
-      <p className="barlow-condensed-light text-text">{description}</p>
+      <HeadingComp text={title} size={"h3"} />
+      <ParagraphComp text={description} />
       <Link
         to={to}
         className="barlow-condensed-light bg-button text-white px-6 py-2 mt-auto rounded-full"

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { instructionCleaningFn } from "../../utils/instructionCleaningFn";
+import { HeadingComp } from "../HeadingComp";
 
 // this displays the recipe instructions with checkboxes to tick off after completion
 
@@ -10,7 +11,7 @@ function InstructionList({ instructions }) {
   )
     ? instructionCleaningFn(instructions)
     : instructions;
-  console.log("clean", cleanInstructions);
+
   // this is the toggle done/undone
   function handleStepToggle(index) {
     setCheckedSteps((prev) =>
@@ -22,9 +23,7 @@ function InstructionList({ instructions }) {
 
   return (
     <div className="p-6">
-      <h2 className="barlow-condensed-regular text-2xl text-text mb-4">
-        Instructions
-      </h2>
+      <HeadingComp text={"Instructions"} size={"h2"} />
 
       <ol className="flex flex-col gap-3">
         {cleanInstructions.map((instruction, index) => (

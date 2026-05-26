@@ -1,17 +1,17 @@
 import { RecipeCardList } from "../components/RecipeCardList";
-import { useFavorites } from "../contexts/FavouritesContext";
+import { useRecipes } from "../contexts/RecipesContext";
 import { getUserRecipes } from "../services/userRecipeService";
 import { LinkTextComp } from "../components/LinkTextComp";
 import { SeeAllLinkComp } from "../components/SeeAllLinkComp";
-import { StandardPComp } from "../components/StandardPComp";
+import { ParagraphComp } from "../components/ParagraphComp";
 import { HeadingComp } from "../components/HeadingComp";
-import { createdMockRecipeArr } from "../utils/createdRecipeMockData";
+import { createdMockRecipeArr } from "../data/mockData/createdRecipeMockData";
 
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
 
-  const favContext = useFavorites();
-  const favArr = favContext.favourites;
+  const recipeContext = useRecipes();
+  const favArr = recipeContext.favourites;
   const userRecipes = getUserRecipes();
   const createdRecipes =
     devEnv === "dev"
@@ -53,7 +53,7 @@ export const CreatedFavoritePage = () => {
           <SeeAllLinkComp route={"/favorites"} />
         </>
       ) : (
-        <StandardPComp text={"You dont have any favorites yet"} />
+        <ParagraphComp text={"You dont have any favorites yet"} />
       )}
     </div>
   );
