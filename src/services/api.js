@@ -73,7 +73,22 @@ export const getRecipeById = async id => {
   }
 };
 
-//TEMP COMMENT: WE might have to adjust the rate-limiter for this function. also uncertain if the API will allow 10 consecutive calls, We shall see...
+// Helper function that makes sure we get no recipe duplicates
+const dedupeRecipes = async (recipes, fetcher ) => {
+  const targetNumber = recipes.length;
+  let uniqueRecipes = new Map(recipes.map(r => [r.idMeal, r]));
+
+  while (targetNumber < uniqueRecipes.size) {
+    console.log('deduping...')
+    const neededRecipes = targetNumber - uniqueRecipes.size;
+    const newRecipes = await fetcher(neededRecipes);
+    newRecipes.forEach(r => uniqueRecipes.set(r.idMeal, r));
+  }
+
+  return[...uniqueRecipes.values()];
+
+}
+
 
 /**
  * Fetches a number of random recipes.
@@ -92,9 +107,9 @@ export const getRandomRecipes = async (count = 10) => {
     // Promise all makes sure the requests are fired in paralell, meaning we can recieve 10 recipes almost as fast as 1.
     const responses = await Promise.all(requests);
 
-    //since each random recipe response comes wrapped in a meals array (see here: https://www.themealdb.com/api/json/v1/1/random.php) we have to map out the recipe part.
+    const recipes = responses.map(response => response.data.meals[0]);
 
-    return responses.map(response => response.data.meals[0]);
+    return dedupeRecipes(recipes, getRandomRecipes)
   } catch (error) {
     throw new Error('Failed to fetch random recipes: ' + error.message, {
       cause: error,
