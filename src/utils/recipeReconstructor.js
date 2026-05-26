@@ -1,8 +1,5 @@
-import { useRecipes } from '../contexts/RecipesContext';
-
 export const recipeReconstructor = (recipe) => {
-  const { isCreated } = useRecipes();
-  const created = isCreated(recipe);
+  const created = recipe.createdAt ? true : false;
 
   const recipeObj = {
     idMeal: created ? recipe.id : recipe.idMeal,

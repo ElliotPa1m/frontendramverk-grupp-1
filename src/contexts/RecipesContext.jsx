@@ -18,7 +18,7 @@ to use this context in a component:
 import { useRecipes } from '../contexts/RecipesContext';
 
 function RecipeCard({ recipe }) {
-  const { addFavourite, removeFavourite, addCreated, updateCreated, removeCreated, isFavourite, isCreated } = useRecipes();
+  const { addFavourite, removeFavourite, addCreated, updateCreated, removeCreated, isFavourite } = useRecipes();
 
 */
 
@@ -89,7 +89,7 @@ export const RecipesProvider = ({ children }) => {
     () => new Set(favourites.map((recipe) => recipe.idMeal)),
     [favourites],
   );
-  // Adding a defensive check to both isFavourite and isCreated to make them fully key-agnostic and immune to ID mismatches!
+  // Adding a defensive check to to make it fully key-agnostic and immune to ID mismatches!
   const isFavourite = (recipeOrId) => {
     if (typeof recipeOrId === "object" && recipeOrId !== null) {
       const id = recipeOrId.id || recipeOrId.idMeal;
@@ -98,19 +98,21 @@ export const RecipesProvider = ({ children }) => {
     return favouriteIds.has(recipeOrId);
   };
 
-  // Reused for userRecipes for faster 'isCreated', it's a brilliant solution
-  const createdIds = useMemo(
-    () => new Set(userRecipes.map((recipe) => recipe.id)),
-    [userRecipes],
-  );
-  // Same defensive check here
-  const isCreated = (recipeOrId) => {
-    if (typeof recipeOrId === "object" && recipeOrId !== null) {
-      const id = recipeOrId.id || recipeOrId.idMeal;
-      return createdIds.has(id);
-    }
-    return createdIds.has(recipeOrId);
-  };
+  // 
+  // // Reused for userRecipes for faster 'isCreated', it's a brilliant solution
+  // const createdIds = useMemo(
+  //   () => new Set(userRecipes.map((recipe) => recipe.id)),
+  //   [userRecipes],
+  // );
+  // // Same defensive check here
+  // const isCreated = (recipeOrId) => {
+  //   if (typeof recipeOrId === "object" && recipeOrId !== null) {
+  //     const id = recipeOrId.id || recipeOrId.idMeal;
+  //     return createdIds.has(id);
+  //   }
+  //   return createdIds.has(recipeOrId);
+  // };
+
 
   const value = {
     favourites,
@@ -120,8 +122,7 @@ export const RecipesProvider = ({ children }) => {
     userRecipes,
     addCreated,
     removeCreated,
-    updateCreated,
-    isCreated
+    updateCreated
   };
 
   return (

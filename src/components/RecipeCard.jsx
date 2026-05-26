@@ -4,10 +4,9 @@ import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 import { deleteUserRecipe } from "../services/userRecipeService";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
-import { useRecipes } from '../contexts/RecipesContext';
 
 export const RecipeCard = ({ recipe }) => {
-  const { isCreated } = useRecipes();
+  const created = recipe.createdAt ? true : false;
   const recipeToShow = recipeReconstructor(recipe);
 
   return (
