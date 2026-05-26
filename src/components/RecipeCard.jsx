@@ -4,13 +4,15 @@ import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 import { EditRecipeModal } from "./EditRecipeModal";
-import { deleteUserRecipe } from "../services/userRecipeService";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
+import { useRecipes } from '../contexts/RecipesContext';
 
-export const RecipeCard = ({ recipe, onEditSuccess }) => {
+// Prop drilling with onEditSuccess is not needed anymore thanks to the new RecipesContext!
+export const RecipeCard = ({ recipe }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // New Edit Modal state!
-  const created = recipe.createdAt ? true : false;
+  const created = recipe.createdAt ? true : false; // Intentionally uses the clean boolean check instead of the scrapped isCreated context function
   const recipeToShow = recipeReconstructor(recipe);
+  const { removeCreated } = useRecipes();
 
   return (
     <div
@@ -31,12 +33,14 @@ export const RecipeCard = ({ recipe, onEditSuccess }) => {
               <IconButton
                 icon={"edit"}
                 actionHandler={() =>
-                  console.log("go to created recipe editing screen")
+                  setIsEditModalOpen(true)
                 }
               />
               <IconButton
                 icon={"delete"}
-                actionHandler={() => deleteUserRecipe(recipe.id)}
+                actionHandler={() => 
+                  removeCreated(recipe.id)
+                }
               />
             </div>
           ) : (
@@ -51,7 +55,7 @@ export const RecipeCard = ({ recipe, onEditSuccess }) => {
         <EditRecipeModal
           recipe={recipe}
           onClose={() => setIsEditModalOpen(false)}
-          onSaveSuccess={onEditSuccess} // Pass a refresh trigger up to the parent page!
+          // onSaveSuccess={onEditSuccess} // "Pass a refresh trigger up to the parent page!" Not needed anymore!
         />
       )}
     </div>
