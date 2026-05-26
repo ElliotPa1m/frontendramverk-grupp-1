@@ -10,8 +10,8 @@ import { createdMockRecipeArr } from "../utils/createdRecipeMockData";
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
 
-  const favContext = useFavorites();
-  const favArr = favContext.favourites;
+  const recipeContext = useRecipes();
+  const favArr = recipeContext.favourites;
   const userRecipes = getUserRecipes();
   const createdRecipes =
     devEnv === "dev"
