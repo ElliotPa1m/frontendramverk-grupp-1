@@ -7,7 +7,7 @@ function Navbar() {
       <NavLink to="/">
         <div className="flex h-20 max-w-[150px]">
           <img
-            src="/logos/logga-test-2.png"
+            src="/logos/new-logo.png"
             className="h-full object-contain"
             alt="Receptboken logo"
           />
