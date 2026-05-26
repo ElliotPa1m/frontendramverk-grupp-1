@@ -10,7 +10,7 @@ function InstructionList({ instructions }) {
   )
     ? instructionCleaningFn(instructions)
     : instructions;
-  console.log("clean", cleanInstructions);
+
   // this is the toggle done/undone
   function handleStepToggle(index) {
     setCheckedSteps((prev) =>
