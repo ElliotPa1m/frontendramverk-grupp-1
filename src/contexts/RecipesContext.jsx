@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
-import { getUserRecipes, saveUserRecipe } from "../services/userRecipeService";
+import { getUserRecipes, saveUserRecipe, deleteUserRecipe } from "../services/userRecipeService";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -41,7 +41,6 @@ export const RecipesProvider = ({ children }) => {
     const stored = getDataFromLS("favouriteRecipes");
     return stored ? JSON.parse(stored) : [];
   });
-
   const [userRecipes, setUserRecipes] = useState(() => getUserRecipes());
 
   // syncs changes to favourties with local storage
@@ -70,6 +69,13 @@ export const RecipesProvider = ({ children }) => {
 
   const removeFavourite = (id) => {
     setFavourites((prev) => prev.filter((recipe) => recipe.idMeal !== id));
+  };
+
+  // Once again, the implementation needs to be different for revmoveCreated since we're not relying on the useEffect and instead using the service functions
+  // It follows the same pattern:
+  const removeCreated = (id) => {
+    deleteUserRecipe(id);             // 1. Delete it from the hard drive using our service
+    setUserRecipes(getUserRecipes()); // 2. Pull the fresh, filtered array back into React state
   };
 
   // useMemo maps and caches a set of recipe IDs for faster 'isFavourite'-look up. the set is only recalculated when [favourites] change.
