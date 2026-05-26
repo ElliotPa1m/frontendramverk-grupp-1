@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { RecipeCard } from "./RecipeCard";
 import { ThumbnailCard } from "./ThumbnailCard";
 
-export const RecipeCardList = ({ arr, onEditSuccess }) => {
+export const RecipeCardList = ({ arr }) => {
   const page = useLocation().pathname;
   return (
     <div
@@ -32,14 +32,11 @@ export const RecipeCardList = ({ arr, onEditSuccess }) => {
                   <ThumbnailCard recipe={r} />
                 </div>
                 <div className="hidden sm:block">
-                  <RecipeCard recipe={r} onEditSuccess={onEditSuccess} />
+                  <RecipeCard recipe={r} />
                 </div>
               </>
             ) : (
-              <RecipeCard 
-                recipe={r}
-                onEditSuccess={onEditSuccess} 
-              />
+              <RecipeCard recipe={r} />
             )}
           </div>
         );
