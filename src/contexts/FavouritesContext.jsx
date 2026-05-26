@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
+import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -33,13 +34,13 @@ export const useFavorites = () => {
 export const FavouritesProvider = ({ children }) => {
   // Initialises 'favourites' state from local storage if existing, otherwise starts as [].
   const [favourites, setFavourites] = useState(() => {
-    const stored = localStorage.getItem("favouriteRecipes");
+    const stored = getDataFromLS("favouriteRecipes");
     return stored ? JSON.parse(stored) : [];
   });
 
   // syncs changes to favourties with local storage
   useEffect(() => {
-    localStorage.setItem("favouriteRecipes", JSON.stringify(favourites));
+    saveDataToLS("favouriteRecipes", JSON.stringify(favourites));
   }, [favourites]);
 
   const addFavourite = (recipe) => {

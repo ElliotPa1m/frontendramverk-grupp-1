@@ -2,23 +2,13 @@ import { Image } from "./Image";
 import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
+import { deleteUserRecipe } from "../services/userRecipeService";
+import { recipeReconstructor } from "../utils/recipeReconstructor";
 
 export const RecipeCard = ({ recipe }) => {
   const created = recipe.createdAt ? true : false;
 
-  const recipeToShow = {
-    idMeal: created ? recipe.id : recipe.idMeal,
-    strMeal: created ? recipe.title : recipe.strMeal,
-    strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
-    strCountry: created ? recipe.area : recipe.strCountry,
-    strTags: created
-      ? recipe.tags?.length
-        ? recipe.tags.toString()
-        : ""
-      : recipe.strTags,
-    strCategory: created ? recipe.category : recipe.strCategory,
-    rating: recipe.rating,
-  };
+  const recipeToShow = recipeReconstructor(recipe);
 
   return (
     <div
@@ -35,14 +25,20 @@ export const RecipeCard = ({ recipe }) => {
         />
         <div className="absolute top-2 right-3">
           {created ? (
-            <IconButton
-              icon={"edit"}
-              actionHandler={() =>
-                console.log("go to created recipe editing screen")
-              }
-            />
+            <div className="flex gap-2">
+              <IconButton
+                icon={"edit"}
+                actionHandler={() =>
+                  console.log("go to created recipe editing screen")
+                }
+              />
+              <IconButton
+                icon={"delete"}
+                actionHandler={() => deleteUserRecipe(recipe.id)}
+              />
+            </div>
           ) : (
-            <FavoriteButton id={recipeToShow.idMeal} recipe={recipeToShow} />
+            <FavoriteButton recipe={recipeToShow} />
           )}
         </div>
       </div>

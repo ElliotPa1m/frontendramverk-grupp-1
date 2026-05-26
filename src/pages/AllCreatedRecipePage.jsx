@@ -2,7 +2,7 @@ import { RecipeCardList } from "../components/RecipeCardList";
 import { getUserRecipes } from "../services/userRecipeService";
 import { StandardPComp } from "../components/StandardPComp";
 import { HeadingComp } from "../components/HeadingComp";
-import { createdMockRecipeArr } from "../utils/createdRecipeMockData";
+import { createdMockRecipeArr } from "../data/mockData/createdRecipeMockData";
 
 export const AllCreatedRecipePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
