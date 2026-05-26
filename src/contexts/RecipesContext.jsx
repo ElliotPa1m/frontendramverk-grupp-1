@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
+import { getUserRecipes } from "../services/userRecipeService";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -40,6 +41,8 @@ export const RecipesProvider = ({ children }) => {
     const stored = getDataFromLS("favouriteRecipes");
     return stored ? JSON.parse(stored) : [];
   });
+
+  const [userRecipes, setUserRecipes] = useState(() => getUserRecipes());
 
   // syncs changes to favourties with local storage
   useEffect(() => {
