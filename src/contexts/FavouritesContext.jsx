@@ -40,7 +40,7 @@ export const FavouritesProvider = ({ children }) => {
 
   // syncs changes to favourties with local storage
   useEffect(() => {
-    saveDataToLS("favouriteRecipes", JSON.stringify(favourites));
+    saveDataToLS("favouriteRecipes", favourites);
   }, [favourites]);
 
   const addFavourite = (recipe) => {
