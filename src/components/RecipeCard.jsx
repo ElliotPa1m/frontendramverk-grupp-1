@@ -10,12 +10,15 @@ import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 
 // Prop drilling with onEditSuccess is not needed anymore thanks to the new RecipesContext!
 export const RecipeCard = ({ recipe }) => {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // New Edit Modal state!
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  // The single source of truth for modal visibility "" | "EDIT" | "DELETE"
+  const [currentlyOpenModal, setCurrentlyOpenModal] = useState("");
   
   const created = recipe.createdAt ? true : false; // Intentionally uses the clean boolean check instead of the scrapped isCreated context function
   const recipeToShow = recipeReconstructor(recipe);
   const { removeCreated } = useRecipes();
+
+  // Helper to keep the JSX clean
+  const closeModal = () => setCurrentlyOpenModal("");
 
   return (
     <div
@@ -36,13 +39,13 @@ export const RecipeCard = ({ recipe }) => {
               <IconButton
                 icon={"edit"}
                 actionHandler={() =>
-                  setIsEditModalOpen(true)
+                  setCurrentlyOpenModal("EDIT")
                 }
               />
               <IconButton
                 icon={"delete"}
                 actionHandler={() => 
-                  setIsDeleteModalOpen(true) // Open the ConfirmDeletion modal instead of Thanos snapping it haha
+                  setCurrentlyOpenModal("DELETE") // Open the ConfirmDeletion modal instead of Thanos snapping it haha
                 }
               />
             </div>
@@ -53,20 +56,19 @@ export const RecipeCard = ({ recipe }) => {
       </div>
       <RecipeCardInfoSection recipe={recipeToShow} />
 
-      {/* The Portal Modals */}
-      {isEditModalOpen && (
+      {/* The Portal Modals, now strictly mutually exclusive */}
+      {currentlyOpenModal === "EDIT" && (
         <EditRecipeModal
           recipe={recipe}
-          onClose={() => setIsEditModalOpen(false)}
+          onClose={closeModal} // Use our new helper function!
           // onSaveSuccess={onEditSuccess} // "Pass a refresh trigger up to the parent page!" Not needed anymore!
         />
       )}
 
-      {/* The new Delete Modal */}
-      {isDeleteModalOpen && (
+      {currentlyOpenModal === "DELETE" && (
         <ConfirmDeletionModal
           recipeName={recipeToShow.strMeal}
-          onClose={() => setIsDeleteModalOpen(false)}
+          onClose={closeModal}
           onConfirm={() => removeCreated(recipe.id)} // Pass the context action as a prop
         />
       )}
