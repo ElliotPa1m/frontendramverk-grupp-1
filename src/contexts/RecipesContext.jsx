@@ -45,7 +45,7 @@ export const RecipesProvider = ({ children }) => {
 
   // syncs changes to favourties with local storage
   useEffect(() => {
-    saveDataToLS("favouriteRecipes", JSON.stringify(favourites));
+    saveDataToLS("favouriteRecipes", favourites);
   }, [favourites]);
   // We don't need a useEffect like above for userRecipes!
   // Favorites: Modifies React State -> useEffect saves it to localStorage
