@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 // Main navigation bar with links to all pages
 function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-2 pe-4 sm:px-8 sm:py-4 bg-white/80">
+    <nav className="flex items-center justify-between bg-white/80">
       <NavLink to="/">
-        <div className="flex h-20 max-w-[150px]">
+        <div className="flex h-20 sm:h-10 max-w-[150px] mt-1 ms-1">
           <img
             src="/logos/new-logo.png"
             className="h-full object-contain"
@@ -14,7 +14,7 @@ function Navbar() {
         </div>
       </NavLink>
       {/* the "isActive" changes to color of the button depending on what page you are on */}
-      <div className="flex flex-col sm:flex-row sm:gap-8">
+      <div className="flex flex-col sm:flex-row sm:gap-8 p-2 pe-4 sm:px-4 sm:py-2 ">
         <NavLink
           to="/search"
           className={({ isActive }) =>
