@@ -9,6 +9,7 @@ import { FavoriteButton } from "../components/FavoriteButton";
 import { getRecipeById } from "../services/api";
 import { getUserRecipeById } from "../services/userRecipeService";
 import ErrorParagraph from "../components/ErrorParagraph";
+import { recipeReconstructor } from "../utils/recipeReconstructor";
 
 function RecipeDetailsPage() {
   const { id } = useParams();
@@ -61,17 +62,7 @@ function RecipeDetailsPage() {
     .split("\n")
     .filter((step) => step.trim() !== "");
 
-  const created = recipe.createdAt ? true : false;
-  const recipeToShow = {
-    idMeal: created ? recipe.id : recipe.idMeal,
-    strMeal: created ? recipe.title : recipe.strMeal,
-    strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
-    strArea: created ? recipe.area : recipe.strArea,
-    strCountry: created ? recipe.country : recipe.strCountry,
-    strTags: created ? recipe.tags.toString() : recipe.strTags,
-    strCategory: created ? recipe.category : recipe.strCategory,
-    rating: recipe.rating,
-  };
+  const recipeToShow = recipeReconstructor(recipe);
 
   return (
     <div className="max-w-5xl ml-8 px-6 py-8">
