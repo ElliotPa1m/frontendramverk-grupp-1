@@ -107,6 +107,11 @@ export const RecipesProvider = ({ children }) => {
     addFavourite,
     removeFavourite,
     isFavourite,
+    userRecipes,
+    addCreated,
+    removeCreated,
+    updateCreated,
+    isCreated
   };
 
   return (
