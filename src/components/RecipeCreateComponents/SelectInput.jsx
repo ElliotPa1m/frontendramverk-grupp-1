@@ -1,3 +1,5 @@
+import { InlineFormError } from "./InlineFormError";
+
 const SelectInput = ({ label, options, register, error, placeholder }) => {
   return (
     <div className="flex flex-col gap-1">

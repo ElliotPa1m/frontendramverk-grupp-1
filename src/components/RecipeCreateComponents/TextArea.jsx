@@ -1,4 +1,4 @@
-// To be used to capture Instructions steps. Will have an optional `helperText` prop that in this case will be 'Please press "Enter" to put each step on a new line.'
+import { InlineFormError } from "./InlineFormError";
 
 const TextArea = ({ label, placeholder, register, error, rows = 4, helperText }) => {
   return (

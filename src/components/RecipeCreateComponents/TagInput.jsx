@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { InlineFormError } from "./InlineFormError";
 
 const TagInput = ({ label, value = [], onChange, error, placeholder }) => {
   // This state only handles the current word being typed in the box
