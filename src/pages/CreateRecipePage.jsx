@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
-// Services, Constants and Helper functions
-import { saveUserRecipe } from '../services/userRecipeService';
+// Context, services, Constants and Helper functions
+import { useRecipes } from '../contexts/RecipesContext';
 import { uploadImage } from '../services/cloudinaryService';
 import { RECIPE_CATEGORIES, RECIPE_AREAS } from '../utils/constants';
 import { getCountryFromArea } from '../utils/getCountryFromArea';
@@ -45,6 +45,7 @@ const recipeSchema = z.object({
 const CreateRecipePage = () => {
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
+  const { addCreated } = useRecipes();
 
   // React Hook Form initialization
   const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -79,10 +80,10 @@ const CreateRecipePage = () => {
         createdAt: new Date().toISOString(),
       };
 
-      // Save to localStorage using service module
-      saveUserRecipe(newRecipe);
+      // Updated to use the context function addCreated instead of talking directly to localStorage via the service
+      addCreated(newRecipe);
 
-      // Navigate to Own/Favorites Page (which will mount and read the new data, no global context needed)
+      // Navigate to Own/Favorites Page (which will mount and read the new data, no global context needed) Update: "no global context needed" for this page maybe but it's *not* true for the entire app anymore haha!
       navigate('/my-recipes'); // Updated route
     } catch (err) {
       console.error(err);
