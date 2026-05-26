@@ -25,7 +25,7 @@ const TagInput = ({ label, value = [], onChange, error, placeholder }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-1">
       <label className="font-semibold text-gray-700">{label}</label>
 
       <input
@@ -34,7 +34,7 @@ const TagInput = ({ label, value = [], onChange, error, placeholder }) => {
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        className={`border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+        className={`w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-pop transition-colors ${
           error ? 'border-red-500' : 'border-gray-300'
         }`}
       />
@@ -50,13 +50,13 @@ const TagInput = ({ label, value = [], onChange, error, placeholder }) => {
           {value.map((tag) => (
             <span 
               key={tag} 
-              className="flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium border border-blue-200 shadow-sm"
+              className="flex items-center gap-1 bg-card-pop text-pop px-3 py-1 rounded-full text-sm font-medium border border-pop/20 shadow-sm"
             >
               {tag}
               <button
                 type="button"
                 onClick={() => removeTag(tag)}
-                className="text-blue-500 hover:text-blue-900 font-bold ml-1 focus:outline-none transition-colors"
+                className="text-pop hover:brightness-75 font-bold ml-1 focus:outline-none transition-colors"
                 title={`Remove ${tag}`}
               >
                 ✕
@@ -67,7 +67,7 @@ const TagInput = ({ label, value = [], onChange, error, placeholder }) => {
       )}
 
       {/* Hard validation error from Zod */}
-      {error && <p>{error}</p>}
+      {error && <InlineFormError message={error} />}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 const SelectInput = ({ label, options, register, error, placeholder }) => {
   return (
-    <div>
+    <div className="flex flex-col gap-1">
       <label className="font-semibold text-gray-700">{label}</label>
 
       <select
         {...register}
-        className={`border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors bg-white ${
+        className={`w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-pop transition-colors bg-white ${
           error ? 'border-red-500' : 'border-gray-300'
         }`}
       >
@@ -23,7 +23,7 @@ const SelectInput = ({ label, options, register, error, placeholder }) => {
       </select>
 
       {/* Hard validation error from Zod */}
-      {error && <p>{error}</p>}
+      {error && <InlineFormError message={error} />}
     </div>
   );
 };
