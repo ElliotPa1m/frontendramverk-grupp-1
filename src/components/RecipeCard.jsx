@@ -22,8 +22,8 @@ export const RecipeCard = ({ recipe }) => {
           imgUrl={recipeToShow.strMealThumb}
           recipeName={recipeToShow.strMeal}
         />
-        <div className="absolute top-2 right-3">
-          {isCreated(recipe) ? (
+        <div className="absolute top-2 right-2">
+          {created ? (
             <div className="flex gap-2">
               <IconButton
                 icon={"edit"}
