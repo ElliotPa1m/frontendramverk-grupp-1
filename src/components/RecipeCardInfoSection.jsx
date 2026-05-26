@@ -11,8 +11,10 @@ export const RecipeCardInfoSection = ({ recipe }) => {
       window.innerWidth <= 600
         ? 17
         : window.innerWidth > 1000 && page === "/"
-          ? 40
-          : 26;
+          ? 35
+          : window.innerWidth > 1500 && page === "/"
+            ? 40
+            : 26;
     if (text === undefined) return text;
     if (text.length <= trimSize) return text;
 
@@ -27,12 +29,12 @@ export const RecipeCardInfoSection = ({ recipe }) => {
         <h2 className="barlow-condensed-regular text-md sm:text-lg">
           {titleToShow(strMeal)}
         </h2>
+        {rating && (
+          <div className="mb-1 hidden sm:inline-block">
+            <Rating rating={rating} />
+          </div>
+        )}
       </div>
-      {rating && (
-        <div className="px-2 mb-2 hidden sm:inline-block">
-          <Rating rating={rating} />
-        </div>
-      )}
       <div className="mt-auto flex justify-between items-center bg-card-pop px-2 sm:px-2 rounded m-1">
         <span className="barlow-condensed-light text-xs hidden sm:inline-block">
           {strCountry && strCountry}
