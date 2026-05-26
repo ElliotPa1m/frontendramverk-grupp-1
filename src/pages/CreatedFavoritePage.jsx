@@ -28,7 +28,9 @@ export const CreatedFavoritePage = () => {
       {createdRecipes.length !== 0 ? (
         <>
           <RecipeCardList arr={createdRecipes.slice(0, amountOfCardsToShow)} />
-          <SeeAllLinkComp route={"/created"} />
+          {createdRecipes.length > amountOfCardsToShow && (
+            <SeeAllLinkComp route={"/created"} />
+          )}
         </>
       ) : (
         <p className="barlow-condensed-light text-text">
@@ -42,7 +44,9 @@ export const CreatedFavoritePage = () => {
         <>
           <RecipeCardList arr={favArr.slice(0, amountOfCardsToShow)} />
 
-          <SeeAllLinkComp route={"/favorites"} />
+          {favArr.length > amountOfCardsToShow && (
+            <SeeAllLinkComp route={"/favorites"} />
+          )}
         </>
       ) : (
         <ParagraphComp text={"You dont have any favorites yet"} />
