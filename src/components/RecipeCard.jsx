@@ -7,7 +7,6 @@ import { recipeReconstructor } from "../utils/recipeReconstructor";
 
 export const RecipeCard = ({ recipe }) => {
   const created = recipe.createdAt ? true : false;
-
   const recipeToShow = recipeReconstructor(recipe);
 
   return (
