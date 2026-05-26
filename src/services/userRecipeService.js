@@ -29,7 +29,7 @@ export const saveUserRecipe = (recipe) => {
     ...recipe,
     id: crypto.randomUUID(), // generates a cryptographically secure random number, built in/supported by all moders browsers and node.js
   };
-  saveDataToLS(STORAGE_KEY, JSON.stringify([...storedRecipes, newRecipe]));
+  saveDataToLS(STORAGE_KEY, [...storedRecipes, newRecipe]);
 };
 
 export const updateUserRecipe = (updatedRecipe) => {
@@ -37,11 +37,11 @@ export const updateUserRecipe = (updatedRecipe) => {
   const updatedRecipes = storedRecipes.map((recipe) =>
     recipe.id === updatedRecipe.id ? updatedRecipe : recipe,
   );
-  saveDataToLS(STORAGE_KEY, JSON.stringify(updatedRecipes));
+  saveDataToLS(STORAGE_KEY, updatedRecipes);
 };
 
 export const deleteUserRecipe = (id) => {
   const storedRecipes = getUserRecipes();
   const filteredRecipes = storedRecipes.filter((recipe) => recipe.id !== id);
-  saveDataToLS(STORAGE_KEY, JSON.stringify(filteredRecipes));
+  saveDataToLS(STORAGE_KEY, filteredRecipes);
 };
