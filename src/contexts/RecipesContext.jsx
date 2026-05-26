@@ -87,6 +87,15 @@ export const RecipesProvider = ({ children }) => {
     return favouriteIds.has(id);
   };
 
+  // Reused for userRecipes for faster 'isCreated', it's a brilliant solution
+  const createdIds = useMemo(
+    () => new Set(userRecipes.map((recipe) => recipe.id)),
+    [userRecipes],
+  );
+  const isCreated = (id) => {
+    return createdIds.has(id);
+  };
+
   const value = {
     favourites,
     addFavourite,
