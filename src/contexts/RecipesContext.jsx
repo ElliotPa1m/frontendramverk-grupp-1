@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
-import { getUserRecipes } from "../services/userRecipeService";
+import { getUserRecipes, saveUserRecipe } from "../services/userRecipeService";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -48,6 +48,10 @@ export const RecipesProvider = ({ children }) => {
   useEffect(() => {
     saveDataToLS("favouriteRecipes", JSON.stringify(favourites));
   }, [favourites]);
+  // We don't need a useEffect like above for userRecipes!
+  // Favorites: Modifies React State -> useEffect saves it to localStorage
+  // User Recipes: Service saves it to localStorage via saveUserRecipe -> Modifies React State
+  // See further comments in addCreated down below
 
   const addFavourite = (recipe) => {
     setFavourites((prev) => [
@@ -57,6 +61,11 @@ export const RecipesProvider = ({ children }) => {
         rating: recipe.rating ?? (Math.random() * 5).toFixed(1),
       },
     ]);
+  };
+
+  const addCreated = (recipe) => {
+    saveUserRecipe(recipe);           // The service layer writes directly to localStorage
+    setUserRecipes(getUserRecipes()); // React state is updated by reading that fresh data!
   };
 
   const removeFavourite = (id) => {
