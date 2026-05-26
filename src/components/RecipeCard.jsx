@@ -2,6 +2,7 @@ import { Image } from "./Image";
 import { IconButton } from "./IconButton";
 import { FavoriteButton } from "./FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
+import { deleteUserRecipe } from "../services/userRecipeService";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
 
 export const RecipeCard = ({ recipe }) => {
@@ -24,12 +25,18 @@ export const RecipeCard = ({ recipe }) => {
         />
         <div className="absolute top-2 right-3">
           {created ? (
-            <IconButton
-              icon={"edit"}
-              actionHandler={() =>
-                console.log("go to created recipe editing screen")
-              }
-            />
+            <div className="flex gap-2">
+              <IconButton
+                icon={"edit"}
+                actionHandler={() =>
+                  console.log("go to created recipe editing screen")
+                }
+              />
+              <IconButton
+                icon={"delete"}
+                actionHandler={() => deleteUserRecipe(recipe.id)}
+              />
+            </div>
           ) : (
             <FavoriteButton recipe={recipeToShow} />
           )}
