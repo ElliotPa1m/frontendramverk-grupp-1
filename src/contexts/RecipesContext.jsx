@@ -1,6 +1,11 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
-import { getUserRecipes, saveUserRecipe, deleteUserRecipe, updateUserRecipe } from "../services/userRecipeService";
+import {
+  getUserRecipes,
+  saveUserRecipe,
+  deleteUserRecipe,
+  updateUserRecipe,
+} from "../services/userRecipeService";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -57,13 +62,13 @@ export const RecipesProvider = ({ children }) => {
       ...prev,
       {
         ...recipe,
-        rating: recipe.rating ?? (Math.random() * 5).toFixed(1),
+        rating: recipe.rating ?? (Math.random() * (5 - 3.5) + 3.5).toFixed(1),
       },
     ]);
   };
 
   const addCreated = (recipe) => {
-    saveUserRecipe(recipe);           // The service layer writes directly to localStorage
+    saveUserRecipe(recipe); // The service layer writes directly to localStorage
     setUserRecipes(getUserRecipes()); // React state is updated by reading that fresh data!
   };
 
@@ -74,7 +79,7 @@ export const RecipesProvider = ({ children }) => {
   // Once again, the implementation needs to be different for revmoveCreated since we're not relying on the useEffect and instead using the service functions
   // It follows the same pattern:
   const removeCreated = (id) => {
-    deleteUserRecipe(id);             // 1. Delete it from the hard drive using our service
+    deleteUserRecipe(id); // 1. Delete it from the hard drive using our service
     setUserRecipes(getUserRecipes()); // 2. Pull the fresh, filtered array back into React state
   };
 
@@ -98,7 +103,7 @@ export const RecipesProvider = ({ children }) => {
     return favouriteIds.has(recipeOrId);
   };
 
-  // 
+  //
   // // Reused for userRecipes for faster 'isCreated', it's a brilliant solution
   // const createdIds = useMemo(
   //   () => new Set(userRecipes.map((recipe) => recipe.id)),
@@ -113,7 +118,6 @@ export const RecipesProvider = ({ children }) => {
   //   return createdIds.has(recipeOrId);
   // };
 
-
   const value = {
     favourites,
     addFavourite,
@@ -122,12 +126,10 @@ export const RecipesProvider = ({ children }) => {
     userRecipes,
     addCreated,
     removeCreated,
-    updateCreated
+    updateCreated,
   };
 
   return (
-    <RecipesContext.Provider value={value}>
-      {children}
-    </RecipesContext.Provider>
+    <RecipesContext.Provider value={value}>{children}</RecipesContext.Provider>
   );
 };

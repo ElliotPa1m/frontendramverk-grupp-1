@@ -6,13 +6,24 @@ function Navbar() {
     <header className="w-100vw bg-white/80">
       <nav className="max-w-[1500px] mx-auto flex items-center justify-between p-2 pe-4 sm:px-8 sm:py-4">
         <NavLink to="/">
-          <div className="flex h-20 max-w-[150px]">
-            <img
-              src="/logos/new-logo.png"
-              className="h-full object-contain"
-              alt="Receptboken logo"
-            />
-          </div>
+        <div className="flex h-20 sm:h-10 max-w-[150px] mt-1 ms-1">
+          <img
+            src="/logos/new-logo.png"
+            className="h-full object-contain"
+            alt="Receptboken logo"
+          />
+        </div>
+      </NavLink>
+      {/* the "isActive" changes to color of the button depending on what page you are on */}
+      <div className="flex flex-col sm:flex-row sm:gap-8 p-2 pe-4 sm:px-4 sm:py-2 ">
+        <NavLink
+          to="/search"
+          className={({ isActive }) =>
+            `barlow-condensed-light hover:text-button transition-colors ${isActive ? "text-button" : "text-text"}`
+          }
+        >
+          Search
+
         </NavLink>
         {/* the "isActive" changes to color of the button depending on what page you are on */}
         <div className="flex flex-col sm:flex-row sm:gap-8">
