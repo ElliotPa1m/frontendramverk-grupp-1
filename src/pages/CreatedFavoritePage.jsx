@@ -19,18 +19,15 @@ export const CreatedFavoritePage = () => {
         ? userRecipes
         : createdMockRecipeArr
       : userRecipes;
+  const amountOfCardsToShow =
+    window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4;
 
   return (
     <div className="mx-4 my-4">
       <HeadingComp text={"Created recepies"} size={"h2"} />
       {createdRecipes.length !== 0 ? (
         <>
-          <RecipeCardList
-            arr={createdRecipes.slice(
-              0,
-              window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4,
-            )}
-          />
+          <RecipeCardList arr={createdRecipes.slice(0, amountOfCardsToShow)} />
           <SeeAllLinkComp route={"/created"} />
         </>
       ) : (
@@ -43,12 +40,7 @@ export const CreatedFavoritePage = () => {
       <HeadingComp text={"Favorites"} size={"h2"} />
       {favArr.length !== 0 ? (
         <>
-          <RecipeCardList
-            arr={favArr.slice(
-              0,
-              window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4,
-            )}
-          />
+          <RecipeCardList arr={favArr.slice(0, amountOfCardsToShow)} />
 
           <SeeAllLinkComp route={"/favorites"} />
         </>
