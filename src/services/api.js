@@ -75,7 +75,7 @@ export const getRecipeById = async id => {
 
 // Helper function that makes sure we get no recipe duplicates
 const dedupeRecipes = async (recipes, fetcher ) => {
-  const targetNumber = recipes.lengt;
+  const targetNumber = recipes.length;
   let uniqueRecipes = new Map(recipes.map(r => [r.idMeal, r]));
 
   while (targetNumber < uniqueRecipes.size) {
