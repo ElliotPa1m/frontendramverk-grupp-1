@@ -1,4 +1,4 @@
-import apiClient from './axiosConfig';
+import apiClient from "./axiosConfig";
 
 /*----------------------------------------------/ 
 /                                               /
@@ -15,16 +15,16 @@ const cache = {
 
 //used for getAllRecipes()
 const recipeEndpoints = {
-  name: 'search.php?s=',
-  category: 'filter.php?c=',
-  area: 'filter.php?a=',
-  ingredient: 'filter.php?i=',
+  name: "search.php?s=",
+  category: "filter.php?c=",
+  area: "filter.php?a=",
+  ingredient: "filter.php?i=",
 };
 
 //used for getList
 const listEndpoints = {
-  categories: 'list.php?c=list',
-  areas: 'list.php?a=list',
+  categories: "list.php?c=list",
+  areas: "list.php?a=list",
 };
 
 /**
@@ -50,7 +50,7 @@ const getAllRecipes = async ({ filter, value }) => {
     );
     return response.data.meals || []; // Because API returns null instead of [] when no matches
   } catch (error) {
-    throw new Error('Failed to fetch recipes: ' + error.message, {
+    throw new Error("Failed to fetch recipes: " + error.message, {
       cause: error,
     });
   }
@@ -62,33 +62,31 @@ const getAllRecipes = async ({ filter, value }) => {
  * @param {string} id*
  * @returns {Promise<Object>} Single recipe object
  */
-export const getRecipeById = async id => {
+export const getRecipeById = async (id) => {
   try {
     const response = await apiClient.get(`/lookup.php?i=${id}`);
     return response.data.meals[0];
   } catch (error) {
-    throw new Error('Failed to fetch recipe ' + id + ': ' + error.message, {
+    throw new Error("Failed to fetch recipe " + id + ": " + error.message, {
       cause: error,
     });
   }
 };
 
 // Helper function that makes sure we get no recipe duplicates
-const dedupeRecipes = async (recipes, fetcher ) => {
+const dedupeRecipes = async (recipes, fetcher) => {
   const targetNumber = recipes.length;
-  let uniqueRecipes = new Map(recipes.map(r => [r.idMeal, r]));
+  let uniqueRecipes = new Map(recipes.map((r) => [r.idMeal, r]));
 
   while (targetNumber < uniqueRecipes.size) {
-    console.log('deduping...')
+    console.log("deduping...");
     const neededRecipes = targetNumber - uniqueRecipes.size;
     const newRecipes = await fetcher(neededRecipes);
-    newRecipes.forEach(r => uniqueRecipes.set(r.idMeal, r));
+    newRecipes.forEach((r) => uniqueRecipes.set(r.idMeal, r));
   }
 
-  return[...uniqueRecipes.values()];
-
-}
-
+  return [...uniqueRecipes.values()];
+};
 
 /**
  * Fetches a number of random recipes.
@@ -101,17 +99,24 @@ export const getRandomRecipes = async (count = 10) => {
   try {
     // from makes /gives our array _count_ number of indexes and for each index it requests a random recipe from the api.
     const requests = Array.from({ length: count }, () =>
-      apiClient.get('random.php'),
+      apiClient.get("random.php"),
     );
 
     // Promise all makes sure the requests are fired in paralell, meaning we can recieve 10 recipes almost as fast as 1.
     const responses = await Promise.all(requests);
 
-    const recipes = responses.map(response => response.data.meals[0]);
+    const recipes = responses.map((response) => {
+      const recipe = response.data.meals[0];
 
-    return dedupeRecipes(recipes, getRandomRecipes)
+      return {
+        ...recipe,
+        rating: recipe.rating ?? (Math.random() * 5).toFixed(1),
+      };
+    });
+
+    return dedupeRecipes(recipes, getRandomRecipes);
   } catch (error) {
-    throw new Error('Failed to fetch random recipes: ' + error.message, {
+    throw new Error("Failed to fetch random recipes: " + error.message, {
       cause: error,
     });
   }
@@ -130,8 +135,13 @@ export const getCachedRecipes = async ({ filter, value }) => {
   }
 
   const data = await getAllRecipes({ filter, value });
-  cache.recipes[cacheKey] = data;
-  return data;
+
+  cache.recipes[cacheKey] = data.map((recipe) => ({
+    ...recipe,
+    rating: recipe.rating ?? (Math.random() * (5 - 3.5) + 3.5).toFixed(1),
+  }));
+
+  return cache.recipes[cacheKey];
 };
 
 /**
@@ -141,7 +151,7 @@ export const getCachedRecipes = async ({ filter, value }) => {
  * @returns {Promise<Object[]>} Array of recipe objects (empty if no matches)
  *
  */
-const getList = async listType => {
+const getList = async (listType) => {
   const endpoint = listEndpoints[listType];
   if (!endpoint) throw new Error(`Unknown list type: ${listType}`);
 
@@ -156,7 +166,7 @@ const getList = async listType => {
 };
 
 // same logic as the getCachedRecipe function
-export const getCachedList = listType => {
+export const getCachedList = (listType) => {
   if (!cache[listType]) {
     cache[listType] = getList(listType); // store the Promise immediately
   }
