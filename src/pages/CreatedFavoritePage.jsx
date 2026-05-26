@@ -1,5 +1,5 @@
 import { RecipeCardList } from "../components/RecipeCardList";
-import { useFavorites } from "../contexts/FavouritesContext";
+import { useRecipes } from "../contexts/RecipesContext";
 import { getUserRecipes } from "../services/userRecipeService";
 import { LinkTextComp } from "../components/LinkTextComp";
 import { SeeAllLinkComp } from "../components/SeeAllLinkComp";

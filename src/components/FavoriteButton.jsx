@@ -1,5 +1,5 @@
 import { IconButton } from "./IconButton";
-import { useFavorites } from "../contexts/FavouritesContext";
+import { useRecipes } from "../contexts/RecipesContext";
 
 export const FavoriteButton = ({ recipe }) => {
   const id = recipe.idMeal;

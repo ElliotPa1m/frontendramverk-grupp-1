@@ -1,5 +1,5 @@
 import { RecipeCardList } from "../components/RecipeCardList";
-import { useFavorites } from "../contexts/FavouritesContext";
+import { useRecipes } from "../contexts/RecipesContext";
 import { StandardPComp } from "../components/StandardPComp";
 import { HeadingComp } from "../components/HeadingComp";
 

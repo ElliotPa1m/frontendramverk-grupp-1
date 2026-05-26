@@ -3,35 +3,38 @@ import { getDataFromLS, saveDataToLS } from "../utils/localStorageFns";
 
 /*----------------------------------------------/ 
 /                                               /
-/           FavouritesContext (draft)           /     
+/           RecipesContext                      /     
 /                                               /
 /----------------------------------------------*/
+
+// Re-written from FavouritesContext to RecipesContext
+// Now handles the Favorite recipes array *and* the User created recipes array
 
 /*
 
 to use this context in a component:
 
-import { useFavorites } from '../contexts/FavouritesContext';
+import { useRecipes } from '../contexts/RecipesContext';
 
 function RecipeCard({ recipe }) {
-  const { addFavourite, removeFavourite, isFavourite } = useFavorites();
+  const { addFavourite, removeFavourite, addCreated, updateCreated, removeCreated, isFavourite, isCreated } = useRecipes();
 
 */
 
-const FavouritesContext = createContext();
+const RecipesContext = createContext();
 
 // Keeps this hook grouped with its context instead of moving it to a separate file; ignoring the lint-warning and  using a one-line-lint-disable will not affect production behavior.
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useFavorites = () => {
-  const context = useContext(FavouritesContext);
+export const useRecipes = () => {
+  const context = useContext(RecipesContext);
   if (!context) {
-    throw new Error("useFavorites must be used within a FavouritesProvider");
+    throw new Error("useRecipes must be used within a RecipesProvider");
   }
   return context;
 };
 
-export const FavouritesProvider = ({ children }) => {
+export const RecipesProvider = ({ children }) => {
   // Initialises 'favourites' state from local storage if existing, otherwise starts as [].
   const [favourites, setFavourites] = useState(() => {
     const stored = getDataFromLS("favouriteRecipes");
@@ -74,8 +77,8 @@ export const FavouritesProvider = ({ children }) => {
   };
 
   return (
-    <FavouritesContext.Provider value={value}>
+    <RecipesContext.Provider value={value}>
       {children}
-    </FavouritesContext.Provider>
+    </RecipesContext.Provider>
   );
 };
