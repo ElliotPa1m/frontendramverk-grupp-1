@@ -1,5 +1,5 @@
-import { IconButton } from "./IconButton";
-import { useRecipes } from "../contexts/RecipesContext";
+import { IconButton } from './IconButton';
+import { useRecipes } from '../contexts/RecipesContext';
 
 export const FavoriteButton = ({ recipe }) => {
   const id = recipe.idMeal;
@@ -8,7 +8,8 @@ export const FavoriteButton = ({ recipe }) => {
   return (
     <>
       <IconButton
-        icon={isFav ? "favorite" : "notFavorite"}
+        icon={isFav ? 'favorite' : 'notFavorite'}
+        buttonClassName="transition-transform duration-100 active:scale-125"
         actionHandler={() =>
           isFav
             ? recipeContext.removeFavourite(id)
