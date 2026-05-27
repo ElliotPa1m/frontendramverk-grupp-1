@@ -1,24 +1,30 @@
 export function sanitizeInstructions(instructionString) {
   if (!instructionString) return [];
 
-  return instructionString
-    // 1. Normalize carriage returns to standard newlines
+  // Phase 1: Normalize, split, scrub, capitalize, and remove pure garbage
+  const cleanedSteps = instructionString
     .replace(/\r\n/g, "\n")
-    // 2. Split by newline
+    .replace(/(?<=[.!?])\s*(?=[A-Z])/g, "\n")
     .split("\n")
-    // 3. Scrub leading numbers, "Step X", and punctuation
     .map(step => {
-      return step
-        .replace(/^(?:\s*(?:step\s*\d+|[0-9]+)[.:)-]?\s*)+/gi, "")
+      let cleaned = step
+        // THE UPDATE: Added negative lookahead to protect time-based numbers
+        .replace(/^(?:\s*(?:step\s*\d+|\d+(?!\d)(?!\s*min(?:ute)?s?\b))[.:)-]?\s*)+/gi, "")
         .trim();
-    })
-    // 4. The Final Filter: Drop empty strings OR strings that are ONLY numbers
-    .filter(step => {
-      // ^ asserts position at start of string
-      // \d+ matches one or more digits (0-9, 10-99, etc.)
-      // $ asserts position at the end of the string
-      const isOnlyNumbers = /^\d+$/.test(step);
+        
+      if (cleaned.length > 0) {
+        cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+      }
       
-      return step.length > 0 && !isOnlyNumbers;
-    });
+      return cleaned;
+    })
+    .filter(step => step.length > 0 && !/^\d+$/.test(step));
+
+  // Phase 2: The Single-Word Gatekeeper
+  return cleanedSteps.filter((step, index) => {
+    const isSingleWord = step.trim().split(/\s+/).length === 1;
+    const isLastStep = index === cleanedSteps.length - 1;
+    
+    return !isSingleWord || isLastStep;
+  });
 }
