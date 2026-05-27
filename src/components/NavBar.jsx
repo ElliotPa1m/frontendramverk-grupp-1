@@ -42,7 +42,6 @@ function Navbar() {
             Create Recipe
           </NavLink>
         </div>
-        {/* </div> */}
       </nav>
     </header>
   );
