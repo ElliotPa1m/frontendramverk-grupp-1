@@ -25,10 +25,75 @@
 }
 
 body {
-  background: #ffff;
+}
+
+.rainbow {
+  position: relative;
+  overflow: hidden;
+
   background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(163, 206, 241, 1) 100%
+    to bottom right,
+    rgba(255, 0, 0, 0.5),
+    rgba(255, 166, 0, 0.5),
+    rgba(255, 255, 0, 0.5),
+    rgba(0, 128, 0, 0.5),
+    rgba(0, 0, 255, 0.5),
+    rgba(76, 0, 130, 0.5),
+    rgba(238, 130, 238, 0.5)
   );
+}
+
+.rainbow::before,
+.rainbow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.rainbow::before {
+  background-image:
+    radial-gradient(circle at 5% 10%, white 0 2px, transparent 4px),
+    radial-gradient(circle at 20% 35%, #fff 0 1.5px, transparent 3px),
+    radial-gradient(circle at 35% 20%, white 0 2px, transparent 4px),
+    radial-gradient(circle at 50% 60%, #fff 0 1.5px, transparent 3px),
+    radial-gradient(circle at 65% 25%, white 0 2px, transparent 4px),
+    radial-gradient(circle at 80% 70%, #fff 0 1.5px, transparent 3px);
+
+  animation: sparkleA 2.4s ease-in-out infinite;
+}
+
+.rainbow::after {
+  background-image:
+    radial-gradient(circle at 10% 75%, #fff 0 2px, transparent 4px),
+    radial-gradient(circle at 25% 15%, white 0 1.5px, transparent 3px),
+    radial-gradient(circle at 40% 80%, #fff 0 2px, transparent 4px),
+    radial-gradient(circle at 55% 30%, white 0 1.5px, transparent 3px),
+    radial-gradient(circle at 70% 55%, #fff 0 2px, transparent 4px),
+    radial-gradient(circle at 90% 40%, white 0 1.5px, transparent 3px);
+
+  animation: sparkleB 1.8s ease-in-out infinite;
+}
+
+@keyframes sparkleA {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes sparkleB {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
