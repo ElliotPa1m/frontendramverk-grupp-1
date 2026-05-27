@@ -15,7 +15,7 @@ function Navbar() {
           </div>
         </NavLink>
         {/* the "isActive" changes to color of the button depending on what page you are on */}
-        <div className="flex flex-col sm:flex-row sm:gap-8 p-2 pe-4 sm:px-4 sm:py-2 ">
+        <div className="flex flex-col sm:flex-row sm:gap-8 p-2 pe-4 sm:px-4 sm:py-2 me-1 sm:me-0 text-right">
           <NavLink
             to="/search"
             className={({ isActive }) =>
