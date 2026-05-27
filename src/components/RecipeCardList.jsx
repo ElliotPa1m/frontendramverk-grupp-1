@@ -6,10 +6,10 @@ export const RecipeCardList = ({ arr }) => {
   const page = useLocation().pathname;
   return (
     <div
-      className={`mt-4 mx-auto gap-3 ${
+      className={`mt-4 mx-auto gap-3 justify-center ${
         page === "/"
-          ? `flex flex-wrap items-stretch w-full justify-center`
-          : `grid max-w-[1250px] justify-items-start
+          ? `flex flex-wrap items-stretch w-full`
+          : `grid max-w-screen lg:max-w-[1250px]justify-items-start
             grid-cols-[repeat(auto-fit,minmax(47%,47%))]
             sm:grid-cols-[repeat(auto-fit,260px)]`
       } `}

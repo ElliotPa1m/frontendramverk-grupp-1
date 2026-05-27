@@ -15,7 +15,7 @@ function Navbar() {
           </div>
         </NavLink>
         {/* the "isActive" changes to color of the button depending on what page you are on */}
-        <div className="flex flex-col sm:flex-row sm:gap-8 p-2 pe-4 sm:px-4 sm:py-2 ">
+        <div className="flex flex-col sm:flex-row sm:gap-8 p-2 pe-4 sm:px-4 sm:py-2 me-1 sm:me-0 text-right">
           <NavLink
             to="/search"
             className={({ isActive }) =>
@@ -24,34 +24,23 @@ function Navbar() {
           >
             Search
           </NavLink>
-          {/* the "isActive" changes to color of the button depending on what page you are on */}
-          <div className="flex flex-col sm:flex-row sm:gap-8">
-            <NavLink
-              to="/search"
-              className={({ isActive }) =>
-                `barlow-condensed-light hover:text-button transition-colors ${isActive ? "text-button" : "text-text"}`
-              }
-            >
-              Search
-            </NavLink>
 
-            <NavLink
-              to="/my-recipes"
-              className={({ isActive }) =>
-                `barlow-condensed-light hover:text-button transition-colors ${isActive ? "text-button" : "text-text"}`
-              }
-            >
-              My Recipes
-            </NavLink>
-            <NavLink
-              to="/create"
-              className={({ isActive }) =>
-                `barlow-condensed-light hover:text-button transition-colors ${isActive ? "text-button" : "text-text"}`
-              }
-            >
-              Create Recipe
-            </NavLink>
-          </div>
+          <NavLink
+            to="/my-recipes"
+            className={({ isActive }) =>
+              `barlow-condensed-light hover:text-button transition-colors ${isActive ? "text-button" : "text-text"}`
+            }
+          >
+            My Recipes
+          </NavLink>
+          <NavLink
+            to="/create"
+            className={({ isActive }) =>
+              `barlow-condensed-light hover:text-button transition-colors ${isActive ? "text-button" : "text-text"}`
+            }
+          >
+            Create Recipe
+          </NavLink>
         </div>
       </nav>
     </header>

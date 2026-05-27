@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+
 /*
 
 A skeleton card(list) to be used as placeholder while recipeCard content loads. RecipeCardSkeletonList('desired number of cards').
@@ -42,11 +44,16 @@ export const ThumbnailCardSkeleton = () => {
 
 // Use this list as a placeholder while RecipeCardList loads.
 export const RecipeCardSkeletonList = ({ count = 10 }) => {
+  const page = useLocation().pathname;
   return (
     <div
-      className="mt-4 mx-auto justify-center gap-3
-                grid max-w-[1250px]
-                grid-cols-[repeat(auto-fit,260px)]"
+      className={`mt-4 mx-auto gap-3 justify-center ${
+        page === "/"
+          ? `flex flex-wrap items-stretch w-full`
+          : `grid max-w-screen lg:max-w-[1250px]justify-items-start
+            grid-cols-[repeat(auto-fit,minmax(47%,47%))]
+            sm:grid-cols-[repeat(auto-fit,260px)]`
+      } `}
     >
       {Array.from({ length: count }, (_, i) => (
         <div key={i} className="flex w-[260px]">
