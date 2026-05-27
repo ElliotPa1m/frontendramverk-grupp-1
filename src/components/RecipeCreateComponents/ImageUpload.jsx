@@ -39,9 +39,8 @@ const ImageUpload = ({ onFileSelect, error }) => {
   }, [previewURL]);
 
   return (
-    // Will be styled with Tailwind later to feel cohesive with the rest of the site. The only styled tags for now are the input and the img
-    <div className="image-upload-field">
-      <label htmlFor="recipe-image">Recipe Photo</label>
+    <div className="flex flex-col gap-2">
+      <label htmlFor="recipe-image" className="font-semibold text-gray-700">Recipe Photo</label>
 
       {/* We use a normal input here in the child component to keep it "dumb". The parent will use React Hook Form's <Controller> component to bridge the gap. */}
       {/* Also, the `accept=` here is purely UX! The frontend security code a few blocks up is the actual "gatekeeper" */}
@@ -50,13 +49,13 @@ const ImageUpload = ({ onFileSelect, error }) => {
         type="file" 
         accept="image/jpeg, image/png, image/webp" 
         onChange={handleFileChange} 
-        className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+        className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-card-pop file:text-pop hover:file:brightness-95 cursor-pointer w-full"
       />
-      {error && <p className="error-text">{error}</p>}
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
 
       {previewURL && (
         <div className="image-preview-box">
-          <img src={previewURL} alt="Recipe preview" className="w-48 rounded-lg mt-3 shadow-md object-cover" />
+          <img src={previewURL} alt="Recipe preview" className="w-48 h-48 rounded-lg mt-2 shadow-sm object-cover border border-pop/20" />
         </div>
       )}
     </div>

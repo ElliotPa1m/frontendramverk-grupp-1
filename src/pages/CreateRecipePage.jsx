@@ -18,12 +18,12 @@ import TextArea from "../components/RecipeCreateComponents/TextArea";
 import IngredientInputList from "../components/RecipeCreateComponents/IngredientInputList";
 import ImageUpload from "../components/RecipeCreateComponents/ImageUpload";
 import { HeadingComp } from "../components/HeadingComp";
+import { ParagraphComp } from "../components/ParagraphComp"; // <-- 1. Imported your ParagraphComp!
 
 // Zod Validation Schema
 const recipeSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters long"),
   instructions: z.string().min(10, "Please write out some instructions"),
-  // This is the exact array shape the implemented controller in RecipeDetailsPage expects
   ingredients: z
     .array(
       z.object({
@@ -32,13 +32,9 @@ const recipeSchema = z.object({
       }),
     )
     .min(1, "You need to add at least one ingredient!"),
-
-  // New additions: Category, area and tags
   category: z.string().min(1, "Please select a category"),
   area: z.string().min(1, "Please select a cuisine area"),
   tags: z.array(z.string()).default([]),
-
-  // We check if it's a file AND now also that the size is under 3MB (3 * 1024 * 1024 bytes)
   imageFile: z
     .any()
     .refine((file) => file instanceof File, "An image is required.")
@@ -62,13 +58,12 @@ const CreateRecipePage = () => {
   } = useForm({
     resolver: zodResolver(recipeSchema),
     defaultValues: {
-      // Start the form with one empty ingredient row already showing
       ingredients: [{ name: "", measure: "" }],
       title: "",
       instructions: "",
       category: "",
       area: "",
-      tags: [], // This will prevent mapping errors befor ethe user adds their first tag
+      tags: [], 
     },
   });
 
@@ -79,11 +74,10 @@ const CreateRecipePage = () => {
       const cdnUrl = await uploadImage(formData.imageFile);
 
       const newRecipe = {
-        // No crypto.randomUUID() since saveUserRecipe from the service handles that!
         title: formData.title,
         category: formData.category,
         area: formData.area,
-        country: getCountryFromArea(formData.area), // Our new helper function!
+        country: getCountryFromArea(formData.area), 
         tags: formData.tags,
         instructions: formData.instructions,
         ingredients: formData.ingredients,
@@ -91,11 +85,8 @@ const CreateRecipePage = () => {
         createdAt: new Date().toISOString(),
       };
 
-      // Updated to use the context function addCreated instead of talking directly to localStorage via the service
       addCreated(newRecipe);
-
-      // Navigate to Own/Favorites Page (which will mount and read the new data, no global context needed) Update: "no global context needed" for this page maybe but it's *not* true for the entire app anymore haha!
-      navigate('/my-recipes'); // Updated route
+      navigate('/my-recipes'); 
     } catch (err) {
       console.error(err);
       alert(err.message || "Failed to save recipe.");
@@ -105,12 +96,20 @@ const CreateRecipePage = () => {
   };
 
   return (
-    // Once again; divs, headers and error paragraphs are to be styled with Tailwind with cohesive classNames
-    <div>
-      <HeadingComp text={"Create Custom Recipe"} size={"h2"} />
+    // 2. The main page container limits width and centers the content
+    <div className="w-full max-w-3xl mx-auto px-4 py-8">
+      
+      {/* 3. Page Header using your custom components */}
+      <div className="mb-8 text-center sm:text-left">
+        <HeadingComp text={"Create Custom Recipe"} size={"h1"} />
+        <ParagraphComp text={"Fill out the details below to add your own culinary masterpiece to your recipe book!"} />
+      </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Title Field */}
+      {/* 4. Form Container: A sleek card using your global bg-card-bg variable */}
+      <form 
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-6 bg-card-bg p-6 sm:p-8 rounded-xl shadow-sm border border-pop/20"
+      >
         <TextInput
           label="Recipe Title"
           placeholder="e.g., Nana's Famous Lasagna"
@@ -118,8 +117,7 @@ const CreateRecipePage = () => {
           error={errors.title?.message}
         />
 
-        {/* Row for Category and Area side-by-side */}
-        <div className="flex flex-col md:flex-row gap-4 mb-2">
+        <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <SelectInput
               label="Category"
@@ -141,7 +139,6 @@ const CreateRecipePage = () => {
           </div>
         </div>
 
-        {/* The Dynamic Tags Component */}
         <Controller
           name="tags"
           control={control}
@@ -149,21 +146,22 @@ const CreateRecipePage = () => {
             <TagInput
               label="Custom Tags (Optional)"
               placeholder="e.g., MealPrep, Spicy, Quick"
-              value={field.value} // The current array of tags
-              onChange={(newTags) => field.onChange(newTags)} // Updates the Form Brain
+              value={field.value}
+              onChange={(newTags) => field.onChange(newTags)} 
               error={errors.tags?.message}
             />
           )}
         />
 
-        {/* Dynamic Ingredients List */}
+        {/* Subtle divider to separate the big text fields */}
+        <hr className="border-t border-pop/20 my-2" />
+
         <IngredientInputList
           control={control}
           register={register}
           errors={errors}
         />
 
-        {/* Instructions */}
         <TextArea
           label="Instructions"
           placeholder="Step 1: Boil the pasta...&#10;Step 2: Chop the onions..."
@@ -173,15 +171,11 @@ const CreateRecipePage = () => {
           helperText='Please press "Enter" to put each step on a new line.'
         />
 
-        {/* Image Upload */}
-        <div>
-          {/* The Controller is the translator between the "dumb" ImageUpload component and the "smart" Form Brain (React Hook Form) */}
+        <div className="mt-2">
           <Controller
             name="imageFile"
             control={control}
-            render={(
-              { field }, // "Render whatever UI you want right here, and I'll give you the tools to update the form state." The `field` object contains standard form functions like onChange, onBlur, and value.
-            ) => (
+            render={({ field }) => (
               <ImageUpload
                 onFileSelect={(file) => field.onChange(file)}
                 error={errors.imageFile?.message}
@@ -190,15 +184,11 @@ const CreateRecipePage = () => {
           />
         </div>
 
-        {/* Submit Button */}
+        {/* 5. Submit Button styled exactly like your Search button */}
         <button
           type="submit"
           disabled={isUploading}
-          className={`w-full py-3 px-4 rounded-lg font-bold text-white transition-all ${
-            isUploading
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700 active:transform active:scale-95"
-          }`}
+          className="barlow-condensed-regular w-full mt-4 px-10 py-4 rounded-lg bg-button text-white text-xl tracking-wide uppercase shadow-sm hover:brightness-110 active:brightness-95 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
           {isUploading ? "Uploading & Saving..." : "Save Recipe"}
         </button>

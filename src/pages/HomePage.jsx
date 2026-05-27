@@ -39,12 +39,20 @@ const HomePage = () => {
 
   return (
     <div className="mx-2">
+      <div className="my-4 md:my-12 lg:my-20">
+        <p className="text-center text-xl md:text-2xl lg:text-3xl barlow-condensed-regular">
+          Discover delicious recipes from every corner of the world...
+        </p>
+        <p className="text-center mt-2 text-lg md:text-xl lg:text-2xl barlow-condensed-regular">
+          And share your signature dishes with everyone!
+        </p>
+      </div>
+
       {isLoading ? (
         <RecipeCardSkeletonList count={3} />
       ) : (
         <RecipeCardList arr={randomRecipes} />
       )}
-
       <div
         className="features 
       flex flex-col md:flex-row md:flex-wrap md:justify-center gap-3
