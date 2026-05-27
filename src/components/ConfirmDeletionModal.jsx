@@ -4,25 +4,26 @@ export const ConfirmDeletionModal = ({ recipeName, onConfirm, onClose }) => {
   const modalContent = (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm transition-opacity">
       
-      {/* Centered, smaller card for the warning */}
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 text-center transform transition-all">
+      {/* Centered card using your global theme variables */}
+      <div className="bg-card-bg rounded-xl shadow-2xl w-full max-w-sm p-6 text-center transform transition-all border border-pop/20">
         
-        {/* Warning Icon (Using a simple emoji, or you can swap for your Icon component!) */}
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        {/* Warning Icon */}
+        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-red-200">
           <span className="text-red-500 text-3xl">⚠️</span>
         </div>
         
-        <h3 className="text-xl font-bold text-gray-800 mb-2">Delete Recipe?</h3>
+        {/* Themed Header */}
+        <h3 className="barlow-condensed-regular text-3xl text-text mb-2">Delete Recipe?</h3>
         
         <p className="text-gray-600 mb-6">
-          Are you sure you want to delete <span className="font-semibold text-gray-900">"{recipeName}"</span>? This action cannot be undone.
+          Are you sure you want to delete <span className="font-semibold text-pop">"{recipeName}"</span>? This action cannot be undone.
         </p>
         
-        {/* Action Buttons */}
+        {/* Action Buttons styled to match your global form buttons */}
         <div className="flex gap-3 justify-center">
           <button
             onClick={onClose}
-            className="flex-1 py-2 px-4 rounded-lg font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="barlow-condensed-regular flex-1 py-3 px-4 rounded-lg bg-card-pop text-pop border border-pop/20 text-xl tracking-wide uppercase shadow-sm hover:brightness-95 active:scale-95 transition-all"
           >
             Cancel
           </button>
@@ -31,7 +32,7 @@ export const ConfirmDeletionModal = ({ recipeName, onConfirm, onClose }) => {
               onConfirm(); // Trigger the deletion
               onClose();   // Close the modal
             }}
-            className="flex-1 py-2 px-4 rounded-lg font-bold text-white bg-red-600 hover:bg-red-700 active:scale-95 transition-all"
+            className="barlow-condensed-regular flex-1 py-3 px-4 rounded-lg bg-red-600 text-white text-xl tracking-wide uppercase shadow-sm hover:bg-red-700 active:scale-95 transition-all"
           >
             Delete
           </button>

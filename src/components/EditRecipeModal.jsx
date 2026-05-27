@@ -96,29 +96,27 @@ export const EditRecipeModal = ({ recipe, onClose }) => {
   const modalContent = (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm transition-opacity">
       
-      {/* The actual modal box (scrollable if the form gets too long) */}
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
+      {/* The actual modal box using bg-card-bg to match the rest of the app */}
+      <div className="bg-card-bg rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative border border-pop/20">
         
         {/* Sticky Header with Close Button */}
-        <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center z-10">
-          <h2 className="text-2xl font-bold text-gray-800">Edit Recipe</h2>
+        <div className="sticky top-0 bg-card-bg border-b border-pop/20 px-6 py-4 flex justify-between items-center z-10">
+          <h2 className="barlow-condensed-regular text-3xl text-text">Edit Recipe</h2>
           <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-red-500 transition-colors bg-gray-100 hover:bg-red-50 rounded-full p-2"
+            className="text-gray-400 hover:text-button transition-colors bg-white hover:bg-card-pop rounded-full w-8 h-8 flex items-center justify-center shadow-sm border border-gray-200"
           >
             ✕
           </button>
         </div>
 
-        {/* The Form Body (Reusing all your amazing components) */}
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6">
+        {/* The Form Body (Reusing all of our components) */}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 p-6 sm:p-8">
           <TextInput 
             label="Recipe Title"
             register={register('title')}
             error={errors.title?.message}
-          />
-
-          <div className="flex flex-col md:flex-row gap-4 mb-2">
+          /><div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <SelectInput 
                 label="Category"
@@ -150,6 +148,8 @@ export const EditRecipeModal = ({ recipe, onClose }) => {
             )}
           />
 
+          <hr className="border-t border-pop/20 my-2" />
+
           <IngredientInputList control={control} register={register} errors={errors} />
 
           <TextArea 
@@ -167,7 +167,7 @@ export const EditRecipeModal = ({ recipe, onClose }) => {
                 <ImageUpload 
                   onFileSelect={(file) => field.onChange(file)} 
                   error={errors.imageFile?.message}
-                  // Optional: if your ImageUpload component can accept an existing URL to show a preview!
+                  // If our ImageUpload component can accept an existing URL to show a preview!
                   existingImage={typeof field.value === 'string' ? field.value : null} 
                 />
               )}
@@ -177,9 +177,7 @@ export const EditRecipeModal = ({ recipe, onClose }) => {
           <button 
             type="submit" 
             disabled={isUploading}
-            className={`w-full py-3 px-4 rounded-lg font-bold text-white transition-all ${
-              isUploading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+            className="barlow-condensed-regular w-full mt-4 px-10 py-4 rounded-lg bg-button text-white text-xl tracking-wide uppercase shadow-sm hover:brightness-110 active:brightness-95 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             {isUploading ? 'Saving Updates...' : 'Save Changes'}
           </button>
@@ -188,6 +186,6 @@ export const EditRecipeModal = ({ recipe, onClose }) => {
     </div>
   );
 
-  // Magic happens here! Render this HTML at the very root of the DOM
+  // The magic happens here! Render this HTML at the very root of the DOM
   return createPortal(modalContent, document.body);
 };
