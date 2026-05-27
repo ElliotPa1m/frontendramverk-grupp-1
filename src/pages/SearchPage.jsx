@@ -4,6 +4,8 @@ import { getCachedRecipes, getRandomRecipes } from '../services/api';
 import { RecipeCardList } from '../components/RecipeCardList';
 import { RecipeCardSkeletonList } from '../components/RecipeCardSkeleton';
 import ErrorParagraph from '../components/ErrorParagraph';
+import { ParagraphComp } from '../components/ParagraphComp';
+import { HeadingComp } from '../components/HeadingComp';
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -50,10 +52,17 @@ const SearchPage = () => {
   return (
     <div className="mt-4">
       <SearchFormSingleInput onSearch={handleSearch} />
+
+      {/* The new three-way conditional rendering: If loading, show skeleton, if there are results show them, else show the "empty search results" message */}
       {isLoading ? (
         <RecipeCardSkeletonList count={12} />
-      ) : (
+      ) : recipes.length > 0 ? (
         <RecipeCardList arr={recipes} />
+      ) : (
+        <div className="text-center mt-16 px-4">
+          <HeadingComp text="No recipes found" size="h2" />
+          <ParagraphComp text="We couldn't find any recipes matching your search. Try adjusting your filter or searching for a different ingredient!" />
+        </div>
       )}
     </div>
   );
