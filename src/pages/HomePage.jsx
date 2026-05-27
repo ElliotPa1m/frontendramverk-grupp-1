@@ -7,13 +7,13 @@ import ErrorParagraph from "../components/ErrorParagraph";
 const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
   const hasFetchedRandomRecipes = useRef(false);
 
   useEffect(() => {
     const fetchRandomRecipes = async () => {
       try {
-        setLoading(true);
+        setisLoading(true);
         setError(null);
         const data = await getRandomRecipes(3);
         setRandomRecipes(data);
@@ -21,7 +21,7 @@ const HomePage = () => {
         console.log(error.message);
         setError(error.message);
       } finally {
-        setLoading(false);
+        setisLoading(false);
       }
     };
     // keeps recipes from rendering twice on load
@@ -31,14 +31,14 @@ const HomePage = () => {
     }
   });
 
-  if (loading) {
+  if (isLoading) {
     return <div className="loading-recipe">Loading recipes...</div>;
   }
 
   if (error) {
     console.error(error); // Log the real error for developers
-    return  <ErrorParagraph /> // The friendly default message is shown to the user
-  } 
+    return <ErrorParagraph />; // The friendly default message is shown to the user
+  }
 
   return (
     <div className="mx-2">
