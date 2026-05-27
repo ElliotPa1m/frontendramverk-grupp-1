@@ -29,16 +29,7 @@ export const RecipeCardSkeleton = () => {
 
 export const ThumbnailCardSkeleton = () => {
   return (
-    <div
-      className="border border-2 border-pop rounded-md 
-                    overflow-hidden bg-white
-                    w-full
-                    h-full 
-                    flex flex-col animate-pulse"
-    >
-      {/* image placeholder */}
-      <div className="w-full aspect-square bg-gray-300" />
-    </div>
+    <div className="w-full aspect-square rounded-md bg-gray-300 animate-pulse"></div>
   );
 };
 
@@ -56,8 +47,27 @@ export const RecipeCardSkeletonList = ({ count = 10 }) => {
       } `}
     >
       {Array.from({ length: count }, (_, i) => (
-        <div key={i} className="flex w-[260px]">
-          <RecipeCardSkeleton />
+        <div
+          key={i}
+          className={`flex
+            ${
+              page === "/"
+                ? `w-full max-w-[30%] lg:max-w-[400px]`
+                : `w-full sm:w-[260px]`
+            }`}
+        >
+          {page === "/" ? (
+            <>
+              <div className="flex w-full sm:hidden">
+                <ThumbnailCardSkeleton />
+              </div>
+              <div className="hidden sm:block">
+                <RecipeCardSkeleton />
+              </div>
+            </>
+          ) : (
+            <RecipeCardSkeleton />
+          )}
         </div>
       ))}
     </div>
