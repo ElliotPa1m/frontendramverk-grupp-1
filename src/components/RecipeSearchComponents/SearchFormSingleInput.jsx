@@ -59,11 +59,11 @@ const SearchFormSingleInput = ({ onSearch }) => {
       onSubmit={handleSubmit}
       className="barlow-condensed-light
                flex flex-col sm:flex-row gap-3 items-stretch sm:items-center
-               w-full max-w-[1076px] mx-auto"
+               w-full max-w-[1348px] mx-auto"
     >
       {/* coupled filter + value — single bordered container */}
       <div
-        className="flex flex-1 border border-pop/40 rounded-lg overflow-hidden bg-white
+        className="flex flex-1 border border-pop/40 rounded-none sm:rounded-lg overflow-hidden bg-white
                 shadow-sm focus-within:border-pop transition"
       >
         {/* filter type dropdown */}
@@ -146,7 +146,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
         disabled={!search.value}
         className="barlow-condensed-regular
                  w-full sm:w-auto sm:shrink-0
-                 px-10 py-3 rounded-lg bg-button text-white text-lg tracking-wide uppercase
+                 px-10 py-3 rounded-none sm:rounded-lg bg-button text-white text-lg tracking-wide uppercase
                  shadow-sm
                  hover:brightness-110 active:brightness-95
                  focus:outline-none 
