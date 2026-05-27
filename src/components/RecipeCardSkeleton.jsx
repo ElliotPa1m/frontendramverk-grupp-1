@@ -39,7 +39,7 @@ export const RecipeCardSkeletonList = ({ count = 10 }) => {
   return (
     <div
       className={`mt-4 mx-auto gap-3 justify-center ${
-        page === "/"
+        page === "/" && window.innerWidth <= 768
           ? `flex flex-wrap items-stretch w-full`
           : `grid max-w-screen lg:max-w-[1250px]justify-items-start
             grid-cols-[repeat(auto-fit,minmax(47%,47%))]
@@ -52,19 +52,16 @@ export const RecipeCardSkeletonList = ({ count = 10 }) => {
           className={`flex
             ${
               page === "/"
-                ? `w-full max-w-[30%] lg:max-w-[400px]`
+                ? `w-[30%] sm:w-full lg:max-w-[400px]`
                 : `w-full sm:w-[260px]`
             }`}
         >
           {page === "/" ? (
-            <>
-              <div className="flex w-full sm:hidden">
-                <ThumbnailCardSkeleton />
-              </div>
-              <div className="hidden sm:block">
-                <RecipeCardSkeleton />
-              </div>
-            </>
+            window.innerWidth <= 768 ? (
+              <ThumbnailCardSkeleton />
+            ) : (
+              <RecipeCardSkeleton />
+            )
           ) : (
             <RecipeCardSkeleton />
           )}
