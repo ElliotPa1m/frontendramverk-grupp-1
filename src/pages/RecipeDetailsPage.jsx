@@ -68,7 +68,7 @@ function RecipeDetailsPage() {
     <div className="max-w-5xl ml-8 px-6 py-8">
       <RecipeHeader
         name={recipeToShow.strMeal}
-        cuisine={recipeToShow.strCountry}
+        cuisine={recipeToShow.strArea}
         category={recipeToShow.strCategory}
       />
       <div className="flex flex-col lg:flex-row gap-8">

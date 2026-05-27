@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 export const RecipeCardInfoSection = ({ recipe }) => {
   const page = useLocation().pathname;
-  const { idMeal, strMeal, strCountry, rating } = recipe;
+  const { idMeal, strMeal, strArea, rating } = recipe;
   const titleToShow = (text) => {
     const trimSize =
       window.innerWidth <= 600
@@ -37,7 +37,7 @@ export const RecipeCardInfoSection = ({ recipe }) => {
       </div>
       <div className="mt-auto flex justify-between items-center bg-card-pop px-2 sm:px-2 rounded m-1">
         <span className="barlow-condensed-light text-xs hidden sm:inline-block">
-          {strCountry && strCountry}
+          {strArea && strArea}
         </span>
         <Link
           to={`/recipe/${idMeal}`}

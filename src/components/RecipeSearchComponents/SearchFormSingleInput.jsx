@@ -29,7 +29,7 @@ const SearchFormSingleInput = ({ onSearch }) => {
 
         setFilterOptions({
           category: categories.map(c => c.strCategory),
-          area: areas.map(a => a.strCountry),
+          area: areas.map(a => a.strArea),
           ingredient: mainIngredients, // loaded from mainIngredients.json
         });
       } catch (error) {

@@ -5,7 +5,7 @@ export const recipeReconstructor = (recipe) => {
     idMeal: created ? recipe.id : recipe.idMeal,
     strMeal: created ? recipe.title : recipe.strMeal,
     strMealThumb: created ? recipe.imageUrl : recipe.strMealThumb,
-    strCountry: created ? recipe.area : recipe.strCountry,
+    strArea: created ? recipe.area : recipe.strArea,
     strTags: created
       ? recipe.tags?.length
         ? recipe.tags.toString()
