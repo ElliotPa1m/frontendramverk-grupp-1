@@ -3,6 +3,7 @@ import FeatureCard from "../components/FeatureCard";
 import { getRandomRecipes } from "../services/api";
 import { RecipeCardList } from "../components/RecipeCardList";
 import ErrorParagraph from "../components/ErrorParagraph";
+import { RecipeCardSkeletonList } from "../components/RecipeCardSkeleton";
 
 const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
@@ -31,10 +32,6 @@ const HomePage = () => {
     }
   });
 
-  if (isLoading) {
-    return <div className="loading-recipe">Loading recipes...</div>;
-  }
-
   if (error) {
     console.error(error); // Log the real error for developers
     return <ErrorParagraph />; // The friendly default message is shown to the user
@@ -42,7 +39,11 @@ const HomePage = () => {
 
   return (
     <div className="mx-2">
-      <RecipeCardList arr={randomRecipes} />
+      {isLoading ? (
+        <RecipeCardSkeletonList count={3} />
+      ) : (
+        <RecipeCardList arr={randomRecipes} />
+      )}
 
       <div
         className="features 
