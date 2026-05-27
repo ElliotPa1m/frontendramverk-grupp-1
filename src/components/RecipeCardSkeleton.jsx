@@ -25,6 +25,21 @@ export const RecipeCardSkeleton = () => {
   );
 };
 
+export const ThumbnailCardSkeleton = () => {
+  return (
+    <div
+      className="border border-2 border-pop rounded-md 
+                    overflow-hidden bg-white
+                    w-full
+                    h-full 
+                    flex flex-col animate-pulse"
+    >
+      {/* image placeholder */}
+      <div className="w-full aspect-square bg-gray-300" />
+    </div>
+  );
+};
+
 // Use this list as a placeholder while RecipeCardList loads.
 export const RecipeCardSkeletonList = ({ count = 10 }) => {
   return (
