@@ -10,6 +10,7 @@ import { getRecipeById } from "../services/api";
 import { getUserRecipeById } from "../services/userRecipeService";
 import ErrorParagraph from "../components/ErrorParagraph";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
+import { sanitizeInstructions } from "../utils/sanitizeInstruction";
 
 function RecipeDetailsPage() {
   const { id } = useParams();
@@ -57,10 +58,9 @@ function RecipeDetailsPage() {
 
   // Adapter for instructions: Grab the custom string OR the API string, then split it exactly like before
   const instructionString = recipe.instructions || recipe.strInstructions || "";
-  // this splits the instructions string into an array of steps by newline
-  const instructions = instructionString
-    .split("\n")
-    .filter((step) => step.trim() !== "");
+  
+  // No more code here trying to catch every single edge case that our stupid API might throw at us, run the ultimate sanitizer on the instructionString instead haha!
+  const instructions = sanitizeInstructions(instructionString);
 
   const recipeToShow = recipeReconstructor(recipe);
 
