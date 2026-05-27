@@ -1,16 +1,10 @@
 import { useState } from "react";
-import { instructionCleaningFn } from "../../utils/instructionCleaningFn";
 import { HeadingComp } from "../HeadingComp";
 
 // this displays the recipe instructions with checkboxes to tick off after completion
 
 function InstructionList({ instructions }) {
   const [checkedSteps, setCheckedSteps] = useState([]);
-  const cleanInstructions = instructions.some((i) =>
-    i.toLowerCase().includes("step" | "▢"),
-  )
-    ? instructionCleaningFn(instructions)
-    : instructions;
 
   // this is the toggle done/undone
   function handleStepToggle(index) {
@@ -26,7 +20,7 @@ function InstructionList({ instructions }) {
       <HeadingComp text={"Instructions"} size={"h2"} />
 
       <ol className="flex flex-col gap-3">
-        {cleanInstructions.map((instruction, index) => (
+        {instructions.map((instruction, index) => (
           <li
             key={index}
             className={`flex items-start gap-3 barlow-condensed-light text-text cursor-pointer ${
