@@ -3,17 +3,18 @@ import FeatureCard from "../components/FeatureCard";
 import { getRandomRecipes } from "../services/api";
 import { RecipeCardList } from "../components/RecipeCardList";
 import ErrorParagraph from "../components/ErrorParagraph";
+import { RecipeCardSkeletonList } from "../components/RecipeCardSkeleton";
 
 const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
   const hasFetchedRandomRecipes = useRef(false);
 
   useEffect(() => {
     const fetchRandomRecipes = async () => {
       try {
-        setLoading(true);
+        setisLoading(true);
         setError(null);
         const data = await getRandomRecipes(3);
         setRandomRecipes(data);
@@ -21,7 +22,7 @@ const HomePage = () => {
         console.log(error.message);
         setError(error.message);
       } finally {
-        setLoading(false);
+        setisLoading(false);
       }
     };
     // keeps recipes from rendering twice on load
@@ -31,30 +32,27 @@ const HomePage = () => {
     }
   });
 
-  if (loading) {
-    return <div className="loading-recipe">Loading recipes...</div>;
-  }
-
   if (error) {
     console.error(error); // Log the real error for developers
-    return  <ErrorParagraph /> // The friendly default message is shown to the user
-  } 
+    return <ErrorParagraph />; // The friendly default message is shown to the user
+  }
 
   return (
-
-  
-
     <div className="mx-2">
-
       <div className="my-4 md:my-12 lg:my-20">
-        <p className="text-center text-xl md:text-2xl lg:text-3xl barlow-condensed-regular">Discover delicious  recipes from every corner of the world...</p>
-        <p className="text-center mt-2 text-lg md:text-xl lg:text-2xl barlow-condensed-regular">And share your signature dishes with everyone!</p>
+        <p className="text-center text-xl md:text-2xl lg:text-3xl barlow-condensed-regular">
+          Discover delicious recipes from every corner of the world...
+        </p>
+        <p className="text-center mt-2 text-lg md:text-xl lg:text-2xl barlow-condensed-regular">
+          And share your signature dishes with everyone!
+        </p>
       </div>
 
-
-
-      <RecipeCardList arr={randomRecipes} />
-
+      {isLoading ? (
+        <RecipeCardSkeletonList count={3} />
+      ) : (
+        <RecipeCardList arr={randomRecipes} />
+      )}
       <div
         className="features 
       flex flex-col md:flex-row md:flex-wrap md:justify-center gap-3

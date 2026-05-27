@@ -27,13 +27,19 @@ export const RecipeCardSkeleton = () => {
   );
 };
 
+export const ThumbnailCardSkeleton = () => {
+  return (
+    <div className="w-full aspect-square rounded-md bg-gray-300 animate-pulse"></div>
+  );
+};
+
 // Use this list as a placeholder while RecipeCardList loads.
 export const RecipeCardSkeletonList = ({ count = 10 }) => {
   const page = useLocation().pathname;
   return (
     <div
       className={`mt-4 mx-auto gap-3 justify-center ${
-        page === "/"
+        page === "/" && window.innerWidth <= 768
           ? `flex flex-wrap items-stretch w-full`
           : `grid max-w-screen lg:max-w-[1250px]justify-items-start
             grid-cols-[repeat(auto-fit,minmax(47%,47%))]
@@ -41,8 +47,24 @@ export const RecipeCardSkeletonList = ({ count = 10 }) => {
       } `}
     >
       {Array.from({ length: count }, (_, i) => (
-        <div key={i} className="flex w-[260px]">
-          <RecipeCardSkeleton />
+        <div
+          key={i}
+          className={`flex
+            ${
+              page === "/"
+                ? `w-[30%] sm:w-full lg:max-w-[400px]`
+                : `w-full sm:w-[260px]`
+            }`}
+        >
+          {page === "/" ? (
+            window.innerWidth <= 768 ? (
+              <ThumbnailCardSkeleton />
+            ) : (
+              <RecipeCardSkeleton />
+            )
+          ) : (
+            <RecipeCardSkeleton />
+          )}
         </div>
       ))}
     </div>
