@@ -55,7 +55,7 @@ const SearchPage = () => {
 
       {/* The new three-way conditional rendering: If loading, show skeleton, if there are results show them, else show the "empty search results" message */}
       {isLoading ? (
-        <RecipeCardSkeletonList count={12} />
+        <RecipeCardSkeletonList count={10} />
       ) : recipes.length > 0 ? (
         <RecipeCardList arr={recipes} />
       ) : (
