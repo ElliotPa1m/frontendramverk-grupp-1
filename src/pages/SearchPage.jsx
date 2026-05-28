@@ -12,12 +12,16 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const hasFetchedRandomRecipes = useRef(false);
+  const amountOfCardsToShow =
+    Math.floor(
+      ((window.innerWidth > 1250 ? 1250 : window.innerWidth) - 15) / 275,
+    ) * 3;
 
   // load 10 random recipes on mount
   useEffect(() => {
     const loadInitialRecipes = async () => {
       try {
-        const data = await getRandomRecipes(12);
+        const data = await getRandomRecipes(amountOfCardsToShow);
         setRecipes(data);
       } catch (error) {
         console.log(error.message);
@@ -55,7 +59,7 @@ const SearchPage = () => {
 
       {/* The new three-way conditional rendering: If loading, show skeleton, if there are results show them, else show the "empty search results" message */}
       {isLoading ? (
-        <RecipeCardSkeletonList count={12} />
+        <RecipeCardSkeletonList count={amountOfCardsToShow} />
       ) : recipes.length > 0 ? (
         <RecipeCardList arr={recipes} />
       ) : (
