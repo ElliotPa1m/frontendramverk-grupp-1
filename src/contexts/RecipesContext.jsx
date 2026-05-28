@@ -62,7 +62,10 @@ export const RecipesProvider = ({ children }) => {
       ...prev,
       {
         ...recipe,
-        rating: recipe.rating ?? (Math.random() * (5 - 3.5) + 3.5).toFixed(1),
+        rating:
+          recipe.rating >= 3.5
+            ? recipe.rating
+            : (Math.random() * (5 - 3.5) + 3.5).toFixed(1),
       },
     ]);
   };
