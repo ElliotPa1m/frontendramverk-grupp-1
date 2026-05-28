@@ -23,13 +23,15 @@
   --color-card-bg: #fbfcfd;
   --color-card-pop: #a3cef18a;
 }
-
-body {
+main,
+section,
+div {
+  z-index: 1;
 }
 
-.rainbow {
+body.rainbow {
   position: relative;
-
+  z-index: -1;
   background: linear-gradient(
     to bottom right,
     rgba(255, 0, 0, 0.5),
