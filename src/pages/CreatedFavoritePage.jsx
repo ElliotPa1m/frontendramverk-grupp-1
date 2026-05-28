@@ -6,9 +6,12 @@ import { SeeAllLinkComp } from "../components/SeeAllLinkComp";
 import { ParagraphComp } from "../components/ParagraphComp";
 import { HeadingComp } from "../components/HeadingComp";
 import { createdMockRecipeArr } from "../data/mockData/createdRecipeMockData";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export const CreatedFavoritePage = () => {
   const devEnv = import.meta.env.VITE_APP_ENV ?? "prod";
+  const parentRef = useRef(null | 0);
+  const [parentWidth, setParentWidth] = useState(0);
 
   const recipeContext = useRecipes();
   const favArr = recipeContext.favourites;
@@ -19,8 +22,14 @@ export const CreatedFavoritePage = () => {
         ? userRecipes
         : createdMockRecipeArr
       : userRecipes;
+
+  useLayoutEffect(() => {
+    if (parentRef.current) {
+      setParentWidth(parentRef.current.offsetWidth);
+    }
+  }, []);
   const amountOfCardsToShow = Math.floor(
-    ((window.innerWidth > 1250 ? 1250 : window.innerWidth) - 15) / 275,
+    ((parentWidth > 1250 ? 1250 : parentWidth) - 15) / 275,
   );
 
   return (
@@ -28,7 +37,7 @@ export const CreatedFavoritePage = () => {
       <HeadingComp text={"Created recepies"} size={"h2"} />
       {createdRecipes.length !== 0 ? (
         <>
-          <RecipeCardList arr={createdRecipes} />
+          <RecipeCardList arr={createdRecipes} ref={parentRef} />
           {createdRecipes.length > amountOfCardsToShow && (
             <SeeAllLinkComp route={"/created"} />
           )}
