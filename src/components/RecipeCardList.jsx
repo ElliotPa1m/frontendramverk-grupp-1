@@ -9,7 +9,7 @@ export const RecipeCardList = ({ arr }) => {
       className={`mt-4 mx-auto gap-3 ${
         page === "/"
           ? `flex flex-wrap items-stretch w-full justify-center`
-          : `grid max-w-screen lg:max-w-[1250px] justify-items-between
+          : `grid max-w-full lg:max-w-[1250px] justify-items-between
             grid-cols-[repeat(auto-fit,minmax(47%,47%))]
             sm:grid-cols-[repeat(auto-fit,minmax(250px,24%))]`
       } `}
