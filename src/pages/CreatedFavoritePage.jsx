@@ -19,11 +19,12 @@ export const CreatedFavoritePage = () => {
         ? userRecipes
         : createdMockRecipeArr
       : userRecipes;
-  const amountOfCardsToShow =
-    window.innerWidth <= 768 ? 2 : window.innerWidth <= 1024 ? 3 : 4;
+  const amountOfCardsToShow = Math.floor(
+    ((window.innerWidth > 1250 ? 1250 : window.innerWidth) - 15) / 275,
+  );
 
   return (
-    <div className="mx-4 my-4 min-w-[90vw] max-w-[1250px]">
+    <div className="m-4 px-4 min-w-[90%] max-w-[1250px] mx-auto">
       <HeadingComp text={"Created recepies"} size={"h2"} />
       {createdRecipes.length !== 0 ? (
         <>
