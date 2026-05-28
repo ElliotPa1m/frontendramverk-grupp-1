@@ -6,12 +6,12 @@ export const RecipeCardList = ({ arr }) => {
   const page = useLocation().pathname;
   return (
     <div
-      className={`mt-4 mx-auto gap-3 justify-center ${
+      className={`mt-4 mx-auto gap-3 ${
         page === "/"
-          ? `flex flex-wrap items-stretch w-full`
-          : `grid max-w-screen lg:max-w-[1250px]justify-items-start
+          ? `flex flex-wrap items-stretch w-full justify-center`
+          : `grid max-w-screen lg:max-w-[1250px] justify-items-between
             grid-cols-[repeat(auto-fit,minmax(47%,47%))]
-            sm:grid-cols-[repeat(auto-fit,260px)]`
+            sm:grid-cols-[repeat(auto-fit,minmax(250px,24%))]`
       } `}
     >
       {arr.map((r) => {
@@ -23,7 +23,7 @@ export const RecipeCardList = ({ arr }) => {
             ${
               page === "/"
                 ? `basis-w-[300px] grow max-w-[30%] lg:max-w-[400px]`
-                : `w-full sm:w-[260px]`
+                : `w-full`
             }`}
           >
             {page === "/" ? (
