@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchFormSingleInput from "../components/RecipeSearchComponents/SearchFormSingleInput";
 import { getCachedRecipes, getRandomRecipes } from "../services/api";
 import { RecipeCardList } from "../components/RecipeCardList";
@@ -12,18 +12,10 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const hasFetchedRandomRecipes = useRef(false);
-
-  const parentRef = useRef(null | 0);
-  const [parentWidth, setParentWidth] = useState(0);
-
-  useLayoutEffect(() => {
-    if (parentRef.current) {
-      setParentWidth(parentRef.current.offsetWidth);
-    }
-  }, []);
-  const amountOfCardsToShow = Math.floor(
-    ((parentWidth > 1250 ? 1250 : parentWidth) - 15) / 275,
-  );
+  const amountOfCardsToShow =
+    Math.floor(
+      ((window.innerWidth > 1250 ? 1250 : window.innerWidth) - 15) / 275,
+    ) * 3;
 
   // load 10 random recipes on mount
   useEffect(() => {
