@@ -24,7 +24,7 @@ export const CreatedFavoritePage = () => {
   );
 
   return (
-    <div className="m-4 px-4 min-w-[90%] max-w-[1250px] mx-auto">
+    <div className="m-4 px-4 w-[90%] max-w-[1250px] mx-auto">
       <HeadingComp text={"Created recepies"} size={"h2"} />
       {createdRecipes.length !== 0 ? (
         <>
