@@ -28,7 +28,7 @@ export const CreatedFavoritePage = () => {
       <HeadingComp text={"Created recepies"} size={"h2"} />
       {createdRecipes.length !== 0 ? (
         <>
-          <RecipeCardList arr={createdRecipes.slice(0, amountOfCardsToShow)} />
+          <RecipeCardList arr={createdRecipes} />
           {createdRecipes.length > amountOfCardsToShow && (
             <SeeAllLinkComp route={"/created"} />
           )}
@@ -43,7 +43,7 @@ export const CreatedFavoritePage = () => {
       <HeadingComp text={"Favorites"} size={"h2"} />
       {favArr.length !== 0 ? (
         <>
-          <RecipeCardList arr={favArr.slice(0, amountOfCardsToShow)} />
+          <RecipeCardList arr={favArr} />
 
           {favArr.length > amountOfCardsToShow && (
             <SeeAllLinkComp route={"/favorites"} />
