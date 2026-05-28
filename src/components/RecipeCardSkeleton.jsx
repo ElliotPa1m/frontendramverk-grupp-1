@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 /*
@@ -35,15 +36,27 @@ export const ThumbnailCardSkeleton = () => {
 
 // Use this list as a placeholder while RecipeCardList loads.
 export const RecipeCardSkeletonList = ({ count = 10 }) => {
+  const parentRef = useRef(null | 0);
+  const [parentWidth, setParentWidth] = useState(0);
   const page = useLocation().pathname;
+
+  useLayoutEffect(() => {
+    if (parentRef.current) {
+      setParentWidth(parentRef.current.offsetWidth);
+    }
+  }, []);
+  const amountOfCardsToShow = Math.floor(
+    ((parentWidth > 1250 ? 1250 : parentWidth) - 15) / 275,
+  );
   return (
     <div
-      className={`mt-4 mx-auto gap-3 justify-center ${
-        page === "/" && window.innerWidth <= 768
-          ? `flex flex-wrap items-stretch w-full`
-          : `grid max-w-screen lg:max-w-[1250px]justify-items-start
+      ref={parentRef}
+      className={`mt-4 mx-auto gap-3 ${
+        page === "/"
+          ? `flex flex-wrap items-stretch w-full justify-center`
+          : `grid max-w-full lg:max-w-[1250px] justify-items-between ${count >= amountOfCardsToShow ? "justify-center" : ""}
             grid-cols-[repeat(auto-fit,minmax(47%,47%))]
-            sm:grid-cols-[repeat(auto-fit,260px)]`
+            sm:grid-cols-[repeat(auto-fit,minmax(250px,24%))]`
       } `}
     >
       {Array.from({ length: count }, (_, i) => (
@@ -52,8 +65,8 @@ export const RecipeCardSkeletonList = ({ count = 10 }) => {
           className={`flex
             ${
               page === "/"
-                ? `w-[30%] sm:w-full lg:max-w-[400px]`
-                : `w-full sm:w-[260px]`
+                ? `basis-w-[300px] grow max-w-[30%] lg:max-w-[400px]`
+                : `w-full`
             }`}
         >
           {page === "/" ? (
