@@ -30,7 +30,7 @@ const SearchForm = ({ onSearch }) => {
           categories: [
             ...new Map(categories.map(c => [c.strCategory, c])).values(),
           ],
-          areas: [...new Map(areas.map(a => [a.strArea, a])).values()],
+          areas: [...new Map(areas.map(a => [a.strCountry, a])).values()],
           ingredients: mainIngredients, // loaded from mainIngredients.json
         });
       } catch (error) {
@@ -94,8 +94,8 @@ const SearchForm = ({ onSearch }) => {
       >
         <option value="">Area...</option>
         {filterOptions.areas.map(a => (
-          <option key={a.strArea} value={a.strArea}>
-            {a.strArea}
+          <option key={a.strCountry} value={a.strCountry}>
+            {a.strCountry}
           </option>
         ))}
       </select>
