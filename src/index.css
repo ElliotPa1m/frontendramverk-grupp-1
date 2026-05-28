@@ -29,7 +29,6 @@ body {
 
 .rainbow {
   position: relative;
-  overflow: hidden;
 
   background: linear-gradient(
     to bottom right,
