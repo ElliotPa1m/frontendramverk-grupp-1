@@ -38,13 +38,14 @@ export const RecipeCardSkeletonList = ({ count = 10 }) => {
   const page = useLocation().pathname;
   return (
     <div
-      className={`mt-4 mx-auto gap-3 justify-center ${
-        page === "/" && window.innerWidth <= 768
-          ? `flex flex-wrap items-stretch w-full`
-          : `grid max-w-screen lg:max-w-[1250px]justify-items-start
-            grid-cols-[repeat(auto-fit,minmax(47%,47%))]
-            sm:grid-cols-[repeat(auto-fit,260px)]`
-      } `}
+      className={`mt-4 mx-auto gap-3
+  ${
+    page === "/"
+      ? `flex flex-wrap items-stretch justify-center w-full`
+      : `grid max-w-screen lg:max-w-[1360px] justify-items-start
+         grid-cols-[repeat(auto-fit,minmax(47%,47%))]
+         sm:grid-cols-[repeat(auto-fit,260px)]`
+  }`}
     >
       {Array.from({ length: count }, (_, i) => (
         <div
