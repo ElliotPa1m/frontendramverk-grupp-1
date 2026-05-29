@@ -3,10 +3,10 @@ import { Image } from "../General/Image";
 import { IconButton } from "../General/IconButton";
 import { FavoriteButton } from "../General/FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
-import { EditRecipeModal } from "../EditRecipeModal";
+import { EditRecipeModal } from "../Modals/EditRecipeModal";
 import { recipeReconstructor } from "../../utils/recipeReconstructor";
 import { useRecipes } from "../../contexts/RecipesContext";
-import { ConfirmDeletionModal } from "../ConfirmDeletionModal";
+import { ConfirmDeletionModal } from "../Modals/ConfirmDeletionModal";
 
 // Prop drilling with onEditSuccess is not needed anymore thanks to the new RecipesContext!
 export const RecipeCard = ({ recipe }) => {
