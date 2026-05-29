@@ -8,8 +8,8 @@ export const RecipeCardList = ({ arr }) => {
     <div
       className={`mt-4 mx-auto gap-3
   ${
-    page === "/" && window.innerWidth <= 768
-      ? `flex flex-wrap items-stretch justify-start w-full`
+    page === "/"
+      ? `flex flex-wrap items-stretch justify-center w-full`
       : `grid max-w-screen lg:max-w-[1360px] justify-items-start
          grid-cols-[repeat(auto-fit,minmax(47%,47%))]
          sm:grid-cols-[repeat(auto-fit,260px)]`
