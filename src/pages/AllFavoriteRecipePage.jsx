@@ -7,7 +7,7 @@ export const AllFavoriteRecipePage = () => {
   const recipeContext = useRecipes();
 
   return (
-    <div className="mx-4 my-4">
+    <div className="m-4 px-4 w-[100vw] max-w-[1250px] mx-auto">
       <HeadingComp text={"Favorites"} size={"h2"} />
       {recipeContext.favourites.length !== 0 ? (
         <RecipeCardList arr={recipeContext.favourites} />

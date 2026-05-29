@@ -16,7 +16,7 @@ export const AllCreatedRecipePage = () => {
       : userRecipes;
 
   return (
-    <div className="mx-4 my-4">
+    <div className="m-4 px-4 w-[100vw] max-w-[1250px] mx-auto">
       <HeadingComp text={"My Created Recipes"} size={"h2"} />
       {recipeArr.length !== 0 ? (
         <RecipeCardList arr={recipeArr} />
