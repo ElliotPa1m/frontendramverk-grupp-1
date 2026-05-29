@@ -9,7 +9,7 @@ Start the project: npm run dev
 Open your browser and go to: http://localhost:5173
 
 ## Limitations
-The API has its limitations, it creates the instructions as one single string but they are not written the same, some of them has blank spaces, the words "step 1" written or just "1" written in the middle of the instructions and the code breaks the string apart at periods (.) to seperate the instructions in to smaller steps (in an array) but since the instructions isn't written equally the code can't really be fixed. 
+The API has its limitations, it creates the instructions as one single string but they are not written the same, some of them has blank spaces, the words "step 1" written or just "1" written in the middle of the instructions and the code breaks the string apart at periods (.) to seperate the instructions in to smaller steps (in an array) but since the instructions isn't written equally the code can't really be fixed more than we managed but we were able to overcome these limitations to the best of our abilities.
 
 ## Tech Stack
 JavaScript
