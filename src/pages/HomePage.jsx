@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import FeatureCard from "../components/FeatureCard";
 import { getRandomRecipes } from "../services/api";
 import { RecipeCardList } from "../components/RecipeCardList";
-import ErrorParagraph from "../components/ErrorParagraph";
+import ErrorParagraph from "../components/General/ErrorParagraph";
 import { RecipeCardSkeletonList } from "../components/RecipeCardSkeleton";
 
 const HomePage = () => {

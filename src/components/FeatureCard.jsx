@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Icon } from "./Icon";
-import { HeadingComp } from "./HeadingComp";
-import { ParagraphComp } from "./ParagraphComp";
+import { Icon } from "./General/Icon";
+import { HeadingComp } from "./General/HeadingComp";
+import { ParagraphComp } from "./General/ParagraphComp";
 
 const FeatureCard = ({ title, description, to, linkText }) => {
   return (

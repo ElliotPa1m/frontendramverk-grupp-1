@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Icon } from "./Icon";
+import { Icon } from "./General/Icon";
 import { Rating } from "./Rating";
 import { useLocation } from "react-router-dom";
 

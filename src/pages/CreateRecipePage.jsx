@@ -5,10 +5,10 @@ import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 
 // Context, services, Constants and Helper functions
-import { useRecipes } from '../contexts/RecipesContext';
-import { uploadImage } from '../services/cloudinaryService';
-import { RECIPE_CATEGORIES, RECIPE_AREAS } from '../utils/constants';
-import { getCountryFromArea } from '../utils/getCountryFromArea';
+import { useRecipes } from "../contexts/RecipesContext";
+import { uploadImage } from "../services/cloudinaryService";
+import { RECIPE_CATEGORIES, RECIPE_AREAS } from "../utils/constants";
+import { getCountryFromArea } from "../utils/getCountryFromArea";
 
 // Extracted UI Components
 import TextInput from "../components/RecipeCreateComponents/TextInput";
@@ -17,8 +17,8 @@ import TagInput from "../components/RecipeCreateComponents/TagInput";
 import TextArea from "../components/RecipeCreateComponents/TextArea";
 import IngredientInputList from "../components/RecipeCreateComponents/IngredientInputList";
 import ImageUpload from "../components/RecipeCreateComponents/ImageUpload";
-import { HeadingComp } from "../components/HeadingComp";
-import { ParagraphComp } from "../components/ParagraphComp"; // <-- 1. Imported your ParagraphComp!
+import { HeadingComp } from "../components/General/HeadingComp";
+import { ParagraphComp } from "../components/General/ParagraphComp"; // <-- 1. Imported your ParagraphComp!
 
 // Zod Validation Schema
 const recipeSchema = z.object({
@@ -63,7 +63,7 @@ const CreateRecipePage = () => {
       instructions: "",
       category: "",
       area: "",
-      tags: [], 
+      tags: [],
     },
   });
 
@@ -77,7 +77,7 @@ const CreateRecipePage = () => {
         title: formData.title,
         category: formData.category,
         area: formData.area,
-        country: getCountryFromArea(formData.area), 
+        country: getCountryFromArea(formData.area),
         tags: formData.tags,
         instructions: formData.instructions,
         ingredients: formData.ingredients,
@@ -86,7 +86,7 @@ const CreateRecipePage = () => {
       };
 
       addCreated(newRecipe);
-      navigate('/my-recipes'); 
+      navigate("/my-recipes");
     } catch (err) {
       console.error(err);
       alert(err.message || "Failed to save recipe.");
@@ -98,15 +98,18 @@ const CreateRecipePage = () => {
   return (
     // 2. The main page container limits width and centers the content
     <div className="w-full max-w-3xl mx-auto px-4 py-8">
-      
       {/* 3. Page Header using your custom components */}
       <div className="mb-8 text-center sm:text-left">
         <HeadingComp text={"Create Custom Recipe"} size={"h1"} />
-        <ParagraphComp text={"Fill out the details below to add your own culinary masterpiece to your recipe book!"} />
+        <ParagraphComp
+          text={
+            "Fill out the details below to add your own culinary masterpiece to your recipe book!"
+          }
+        />
       </div>
 
       {/* 4. Form Container: A sleek card using your global bg-card-bg variable */}
-      <form 
+      <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 bg-card-bg p-6 sm:p-8 rounded-xl shadow-sm border border-pop/20"
       >
@@ -147,7 +150,7 @@ const CreateRecipePage = () => {
               label="Custom Tags (Optional)"
               placeholder="e.g., MealPrep, Spicy, Quick"
               value={field.value}
-              onChange={(newTags) => field.onChange(newTags)} 
+              onChange={(newTags) => field.onChange(newTags)}
               error={errors.tags?.message}
             />
           )}

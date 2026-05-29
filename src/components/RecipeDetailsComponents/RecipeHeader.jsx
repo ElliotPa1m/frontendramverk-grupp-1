@@ -1,4 +1,4 @@
-import { HeadingComp } from "../HeadingComp";
+import { HeadingComp } from "../General/HeadingComp";
 
 // this displays the recipe title, cuisine and category
 function RecipeHeader({ name, cuisine, category }) {

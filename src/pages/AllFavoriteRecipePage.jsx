@@ -1,7 +1,7 @@
 import { RecipeCardList } from "../components/RecipeCardList";
 import { useRecipes } from "../contexts/RecipesContext";
-import { ParagraphComp } from "../components/ParagraphComp";
-import { HeadingComp } from "../components/HeadingComp";
+import { ParagraphComp } from "../components/General/ParagraphComp";
+import { HeadingComp } from "../components/General/HeadingComp";
 
 export const AllFavoriteRecipePage = () => {
   const recipeContext = useRecipes();

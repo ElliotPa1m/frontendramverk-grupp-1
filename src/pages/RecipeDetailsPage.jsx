@@ -4,11 +4,11 @@ import RecipeHeader from "../components/RecipeDetailsComponents/RecipeHeader";
 import RecipeMeta from "../components/RecipeDetailsComponents/RecipeMeta";
 import IngredientList from "../components/RecipeDetailsComponents/IngredientList";
 import InstructionList from "../components/RecipeDetailsComponents/InstructionList";
-import { Image } from "../components/Image";
-import { FavoriteButton } from "../components/FavoriteButton";
+import { Image } from "../components/General/Image";
+import { FavoriteButton } from "../components/General/FavoriteButton";
 import { getRecipeById } from "../services/api";
 import { getUserRecipeById } from "../services/userRecipeService";
-import ErrorParagraph from "../components/ErrorParagraph";
+import ErrorParagraph from "../components/General/ErrorParagraph";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
 import { sanitizeInstructions } from "../utils/sanitizeInstruction";
 
@@ -37,15 +37,15 @@ function RecipeDetailsPage() {
     fetchRecipe();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p>Loading...</p>;
 
   if (error) {
-      console.error(error); // Log the real error for developers
-      return  <ErrorParagraph /> // The friendly default message is shown to the user
-  } 
+    console.error(error); // Log the real error for developers
+    return <ErrorParagraph />; // The friendly default message is shown to the user
+  }
 
   if (!recipe) return null;
-      
+
   // Adapter for ingredients: Check if it's a custom recipe (already an array), otherwise run the already-in-place API mapping
   const ingredients = recipe.ingredients
     ? recipe.ingredients
@@ -58,7 +58,7 @@ function RecipeDetailsPage() {
 
   // Adapter for instructions: Grab the custom string OR the API string, then split it exactly like before
   const instructionString = recipe.instructions || recipe.strInstructions || "";
-  
+
   // No more code here trying to catch every single edge case that our stupid API might throw at us, run the ultimate sanitizer on the instructionString instead haha!
   const instructions = sanitizeInstructions(instructionString);
 

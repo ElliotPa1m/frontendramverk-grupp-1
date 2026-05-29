@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Image } from "./Image";
+import { Image } from "./General/Image";
 
 export const ThumbnailCard = ({ recipe }) => {
   return (

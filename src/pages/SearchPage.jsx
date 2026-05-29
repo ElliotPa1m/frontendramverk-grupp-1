@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
-import SearchFormSingleInput from '../components/RecipeSearchComponents/SearchFormSingleInput';
-import { getCachedRecipes, getRandomRecipes } from '../services/api';
-import { RecipeCardList } from '../components/RecipeCardList';
-import { RecipeCardSkeletonList } from '../components/RecipeCardSkeleton';
-import ErrorParagraph from '../components/ErrorParagraph';
-import { ParagraphComp } from '../components/ParagraphComp';
-import { HeadingComp } from '../components/HeadingComp';
+import { useState, useEffect, useRef } from "react";
+import SearchFormSingleInput from "../components/RecipeSearchComponents/SearchFormSingleInput";
+import { getCachedRecipes, getRandomRecipes } from "../services/api";
+import { RecipeCardList } from "../components/RecipeCardList";
+import { RecipeCardSkeletonList } from "../components/RecipeCardSkeleton";
+import ErrorParagraph from "../components/General/ErrorParagraph";
+import { ParagraphComp } from "../components/General/ParagraphComp";
+import { HeadingComp } from "../components/General/HeadingComp";
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -45,8 +45,8 @@ const SearchPage = () => {
 
   if (error) {
     console.error(error); // Log the real error for developers
-    return  <ErrorParagraph /> // The friendly default message is shown to the user
-  } 
+    return <ErrorParagraph />; // The friendly default message is shown to the user
+  }
 
   // TODO Loading UI-message
   return (

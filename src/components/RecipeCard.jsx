@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { Image } from "./Image";
-import { IconButton } from "./IconButton";
-import { FavoriteButton } from "./FavoriteButton";
+import { Image } from "./General/Image";
+import { IconButton } from "./General/IconButton";
+import { FavoriteButton } from "./General/FavoriteButton";
 import { RecipeCardInfoSection } from "./RecipeCardInfoSection";
 import { EditRecipeModal } from "./EditRecipeModal";
 import { recipeReconstructor } from "../utils/recipeReconstructor";
-import { useRecipes } from '../contexts/RecipesContext';
+import { useRecipes } from "../contexts/RecipesContext";
 import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 
 // Prop drilling with onEditSuccess is not needed anymore thanks to the new RecipesContext!
 export const RecipeCard = ({ recipe }) => {
   // The single source of truth for modal visibility "" | "EDIT" | "DELETE"
   const [currentlyOpenModal, setCurrentlyOpenModal] = useState("");
-  
+
   const created = recipe.createdAt ? true : false; // Intentionally uses the clean boolean check instead of the scrapped isCreated context function
   const recipeToShow = recipeReconstructor(recipe);
   const { removeCreated } = useRecipes();
@@ -38,14 +38,12 @@ export const RecipeCard = ({ recipe }) => {
             <div className="flex gap-2">
               <IconButton
                 icon={"edit"}
-                actionHandler={() =>
-                  setCurrentlyOpenModal("EDIT")
-                }
+                actionHandler={() => setCurrentlyOpenModal("EDIT")}
               />
               <IconButton
                 icon={"delete"}
-                actionHandler={() => 
-                  setCurrentlyOpenModal("DELETE") // Open the ConfirmDeletion modal instead of Thanos snapping it haha
+                actionHandler={
+                  () => setCurrentlyOpenModal("DELETE") // Open the ConfirmDeletion modal instead of Thanos snapping it haha
                 }
               />
             </div>

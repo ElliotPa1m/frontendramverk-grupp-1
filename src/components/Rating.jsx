@@ -1,4 +1,4 @@
-import { Icon } from "./Icon";
+import { Icon } from "./General/Icon";
 
 export const Rating = ({ rating }) => {
   const rounded = Math.round(rating * 2) / 2;
