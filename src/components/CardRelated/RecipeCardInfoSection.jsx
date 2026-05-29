@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { Icon } from "./General/Icon";
-import { Rating } from "./Rating";
+import { Icon } from "../General/Icon";
+import { Rating } from "../General/Rating";
 import { useLocation } from "react-router-dom";
 
 export const RecipeCardInfoSection = ({ recipe }) => {

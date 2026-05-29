@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import SearchFormSingleInput from "../components/RecipeSearchComponents/SearchFormSingleInput";
 import { getCachedRecipes, getRandomRecipes } from "../services/api";
-import { RecipeCardList } from "../components/RecipeCardList";
-import { RecipeCardSkeletonList } from "../components/RecipeCardSkeleton";
+import { RecipeCardList } from "../components/CardRelated/RecipeCardList";
+import { RecipeCardSkeletonList } from "../components/CardRelated/RecipeCardSkeleton";
 import ErrorParagraph from "../components/General/ErrorParagraph";
 import { ParagraphComp } from "../components/General/ParagraphComp";
 import { HeadingComp } from "../components/General/HeadingComp";

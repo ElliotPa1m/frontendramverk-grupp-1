@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import FeatureCard from "../components/FeatureCard";
+import FeatureCard from "../components/CardRelated/FeatureCard";
 import { getRandomRecipes } from "../services/api";
-import { RecipeCardList } from "../components/RecipeCardList";
+import { RecipeCardList } from "../components/CardRelated/RecipeCardList";
 import ErrorParagraph from "../components/General/ErrorParagraph";
-import { RecipeCardSkeletonList } from "../components/RecipeCardSkeleton";
+import { RecipeCardSkeletonList } from "../components/CardRelated/RecipeCardSkeleton";
 
 const HomePage = () => {
   const [randomRecipes, setRandomRecipes] = useState([]);

@@ -1,4 +1,4 @@
-import { RecipeCardList } from "../components/RecipeCardList";
+import { RecipeCardList } from "../components/CardRelated/RecipeCardList";
 import { useRecipes } from "../contexts/RecipesContext";
 import { ParagraphComp } from "../components/General/ParagraphComp";
 import { HeadingComp } from "../components/General/HeadingComp";
