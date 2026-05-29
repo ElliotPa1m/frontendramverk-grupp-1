@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { RecipeCard } from "./RecipeCard";
-import { ThumbnailCard } from "./ThumbnailCard";
+import { ThumbnailCard } from "../CardRelated/ThumbnailCard";
 
 export const RecipeCardList = ({ arr }) => {
   const page = useLocation().pathname;

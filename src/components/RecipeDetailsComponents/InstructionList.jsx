@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HeadingComp } from "../HeadingComp";
+import { HeadingComp } from "../General/HeadingComp";
 
 // this displays the recipe instructions with checkboxes to tick off after completion
 

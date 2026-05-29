@@ -1,4 +1,4 @@
-import { HeadingComp } from "../HeadingComp";
+import { HeadingComp } from "../General/HeadingComp";
 
 // this displays ingredients from the recipe
 function IngredientList({ ingredients }) {

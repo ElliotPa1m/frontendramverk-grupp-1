@@ -1,10 +1,10 @@
-import { RecipeCardList } from "../components/RecipeCardList";
+import { RecipeCardList } from "../components/CardRelated/RecipeCardList";
 import { useRecipes } from "../contexts/RecipesContext";
 import { getUserRecipes } from "../services/userRecipeService";
-import { LinkTextComp } from "../components/LinkTextComp";
-import { SeeAllLinkComp } from "../components/SeeAllLinkComp";
-import { ParagraphComp } from "../components/ParagraphComp";
-import { HeadingComp } from "../components/HeadingComp";
+import { LinkTextComp } from "../components/General/LinkTextComp";
+import { SeeAllLinkComp } from "../components/General/SeeAllLinkComp";
+import { ParagraphComp } from "../components/General/ParagraphComp";
+import { HeadingComp } from "../components/General/HeadingComp";
 import { createdMockRecipeArr } from "../data/mockData/createdRecipeMockData";
 
 export const CreatedFavoritePage = () => {

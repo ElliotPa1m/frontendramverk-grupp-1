@@ -1,7 +1,7 @@
-import { RecipeCardList } from "../components/RecipeCardList";
+import { RecipeCardList } from "../components/CardRelated/RecipeCardList";
 import { getUserRecipes } from "../services/userRecipeService";
-import { ParagraphComp } from "../components/ParagraphComp";
-import { HeadingComp } from "../components/HeadingComp";
+import { ParagraphComp } from "../components/General/ParagraphComp";
+import { HeadingComp } from "../components/General/HeadingComp";
 import { createdMockRecipeArr } from "../data/mockData/createdRecipeMockData";
 
 export const AllCreatedRecipePage = () => {
